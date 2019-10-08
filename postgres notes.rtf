@@ -1,0 +1,156 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\fswiss\fcharset0 Helvetica-Oblique;
+\f3\fswiss\fcharset0 Helvetica-Bold;\f4\fnil\fcharset0 Consolas;\f5\fnil\fcharset0 HelveticaNeue;
+\f6\fmodern\fcharset0 CourierNewPSMT;\f7\fnil\fcharset0 Monaco;\f8\fnil\fcharset0 LucidaGrande;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red67\green67\blue67;\red255\green255\blue255;
+\red38\green38\blue38;\red234\green235\blue236;\red35\green35\blue35;\red234\green234\blue234;\red154\green154\blue154;
+\red119\green223\blue71;\red246\green246\blue246;\red12\green99\blue153;\red10\green86\blue216;\red53\green69\blue93;
+\red85\green138\blue3;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\csgray\c0;\cssrgb\c33333\c33333\c33333;\cssrgb\c100000\c100000\c100000;
+\cssrgb\c20000\c20000\c20000;\cssrgb\c93333\c93725\c94118;\cssrgb\c18039\c18039\c18039;\cssrgb\c93333\c93333\c93333;\cssrgb\c66667\c66667\c66667;
+\cssrgb\c52549\c88235\c34902;\cssrgb\c97255\c97255\c97255;\cssrgb\c0\c46667\c66667;\cssrgb\c0\c43529\c87843;\cssrgb\c26667\c34510\c43922;
+\cssrgb\c40000\c60000\c0;\cssrgb\c0\c0\c0;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+psql = start postgres?\
+postgres = server connection?\
+in env, conda install postgresql\
+\
+for all purposes admin/superuser described as \'93postgres\'94 is \'93Anaavu\'94 in my case. \
+\
+mkdir postgres\
+initdb postgres   [create a cluster or data directory]\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \CocoaLigature0 pg_ctl -D /Users/Anaavu/postgres -l logfile start [[start the server!]]\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \CocoaLigature1 pga_hba.conf is now the logins config file for the db \'97 manage authentications\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \CocoaLigature0 psql -d postgres 
+\f0\fs24 \cf0 \CocoaLigature1 [get into postgres cluster, -d says next is dbcluster name, psql looks for db named as username]       OR  psql dbname username\
+anything starting with \\ or SQL code is a command after logging into postgres prompt (psql)
+\f1\fs22 \cf2 \CocoaLigature0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \CocoaLigature1 \\du = describe user [e.g. Anaavu superuser]\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \CocoaLigature0 \\password postgres [[ FacultyValues40() ]]\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \CocoaLigature1 To create a new db: \
+	
+\f1\fs29\fsmilli14720 \cf3 \cb4 \expnd0\expndtw0\kerning0
+createdb -OAnaavu -Eutf8 dbname 
+\f0\fs24 [[-O stands for owner is db owner]]
+\f1\fs29\fsmilli14720 \
+	
+\f2\i\fs36 \cf5 CREATE DATABASE testdb;
+\f0\i0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+To create a new user:\
+	
+\f1\fs29\fsmilli14720 \cf3 \cb4 \expnd0\expndtw0\kerning0
+createuser --pwprompt username  [[user, user4Postgres@]]\
+	
+\f2\i\fs36 \cf5 CREATE USER username;
+\f0\i0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\sl420\partightenfactor0
+
+\f2\i\fs36 \cf5 \cb4 \expnd0\expndtw0\kerning0
+GRANT ALL PRIVILEGES ON DATABASE testdb TO user;
+\f0\i0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \\l or \\list to see list of databases\
+\\c connect to specific database in server\
+\\dt describe tables in that db\
+\\h for help\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \\q to quit\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i \cf0 what is pg_upgrade?
+\f0\i0 \
+\
+psycopg2 is a commonly used python library for interfacing with postgres\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc\partightenfactor0
+
+\f3\b \cf0 \ul \ulc0 Now for PostGIS Extension
+\f0\b0 \ulnone \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+1. Install\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f4\fs32 \cf5 \cb6 \expnd0\expndtw0\kerning0
+conda install -c conda-forge postgis\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 if, after installing postgis, psql doesn\'92t load anymore (\
+		
+\f1\fs22 \cf2 \CocoaLigature0 dyld: Library not loaded: @rpath/libncurses.6.dylib\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+  			Referenced from: /Users/Anaavu/miniconda3/envs/mapre/lib/			libreadline.8.dylib\
+  			Reason: image not found\
+			Abort trap: 6)\
+	conda install -y conda-forge::ncurses     \'97\'97> fix\
+2. 
+\f0\fs24 \cf0 \CocoaLigature1 enable for every individual database you want to use it in (if you already have but you update, still do ALTER EXTENSION)\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f4\fs32 \cf7 \cb8 \expnd0\expndtw0\kerning0
+psql -d yourdatabase -c "CREATE EXTENSION postgis;"\
+psql -d yourdatabase -c "CREATE EXTENSION postgis_topology;"\
+(Other options address_standardizer, postgis_tiger_geocoder, address_standardizer_data_us, postgis_raster)\
+POSTGIS_GDAL_ENABLED_DRIVERS=ENABLE_ALL does something?
+\f5 \cf5 \cb4 \
+\
+to import flat file:\
+create headers for a table and then: \
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trcbpat11 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clcbpat4 \clwWidth616\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrs\brdrw40\brdrcf10 \clpadl240 \clpadr0 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth13940\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadl0 \clpadr0 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl360\qr\partightenfactor0
+
+\f6\fs26 \cf9 \cb1 2\cell 
+\pard\intbl\itap1\pardeftab720\sl360\partightenfactor0
+\cf12 COPY\cf13  \cf14 persons(first_name,last_name,dob,email)\cf13  \cf14 \
+\cf12 FROM\cf13  \cf15 'C:\\tmp\\persons.csv'\cf13  \cf12 DELIMITER\cf13  \cf15 ','\cf13  \cf12 CSV\cf13  \cf12 HEADER\cf14 ;\cell \lastrow\row
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f5\fs32 \cf5 \cb4 \
+to import shapefile:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf2 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 shp2pgsql -I -s 4269 -W Latin1 zones_pv_sapp.shp angola_pv_shp | psql -d mapre -U Anaavu
+\f7\fs20 \cf16 \cb4 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f5\fs32 \cf5 -I is to build an index\
+make -s 4326 if want to see OSM basemap (spatial ref was 84)\
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f4\fs24 \cf7 \cb8 CREATE INDEX idx_my_table_geom ON my_table USING gist(geom);\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f5\fs32 \cf5 \cb4 \
+\
+\pard\pardeftab720\sl360\sa320\partightenfactor0
+
+\f8\fs24 \cf7 By default, PostGIS does not apply geometry validity check on geometry input, because testing for validity needs lots of CPU time for complex geometries, especially polygons. If you do not trust your data sources, you can manually enforce such a check to your tables by adding a check constraint:\
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f4\fs32 \cf7 \cb8 ALTER TABLE mytable\
+  ADD CONSTRAINT geometry_valid_check\
+	CHECK (ST_IsValid(the_geom));\
+\
+delete all rows in a table: TRUNCATE [table]}
