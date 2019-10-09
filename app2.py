@@ -55,11 +55,29 @@ except (Exception, psycopg2.Error) as error :
     print ("Error while connecting to PostgreSQL", error)
 
 
+cur.execute(' SELECT ST_AsGeoJSON(geom) FROM public."angola_pv_shp" limit 1; ')
+geometry = cur.fetchone()
+print(geometry)
 
 
 app.layout = html.Div([
     html.H2("Analysis",
             style={'textAlign': 'center', 'color': '#7FDBFF'}),
+    html.Div(
+    	className="div-for-dropdown",
+    	children=[
+    		# Dropdown for country to explore
+    		dcc.Dropdown(
+    			id="location-dropdown",
+    			options=[
+    				{"label": i, "value": i}
+    				for i in list_of_countries
+    			],
+                placeholder="Select a location",
+                style={'width': '50%'},
+            )
+        ],
+    ),
 
     html.Iframe(id='anal', srcDoc=open("angola_analysis.html", "r").read(),
     	style={'display': 'inline-block', 'width': '100%', 'height': '800px'}),
