@@ -2,7 +2,7 @@ import dash
 import dash_html_components as html
 import dash_core_components as dcc
 import plotly.graph_objs as go
-
+import json
 
 import psycopg2 #postgres connection lib
 
@@ -67,6 +67,7 @@ except (Exception, psycopg2.Error) as error :
 cur.execute(' SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)), lt_tra FROM public."angola_pv_shp"; ')
 geometry = cur.fetchall()
 print(geometry[0])
+json1 = json.loads(geometry[0][0])
 
 
 app.layout = html.Div([
@@ -90,26 +91,67 @@ app.layout = html.Div([
     dcc.Graph(
     	id='map',
     	figure=go.Figure(
-    		data=[{
-            type='scattergeo',
-            lat=geometry[0]["coordinates"],
-            lon=geometry[0]["coordinates"],
-            marker = dict(size = 8, opacity = 0.5),
-        }],
-        layout=go.Layout(
-        	{
-        	#clickmode='event+select',
-            title='US Export of Plastic Scrap',
-            showlegend=True,
-            legend=go.layout.Legend(
-                x=0,
-                y=1.0
-            ),
-            margin=go.layout.Margin(l=40, r=0, t=40, b=30)
-        } ),
-        style={}
-    		)
-    	),
+			data=[{
+			    'type' : 'choropleth',
+			    'locations' : json1["coordinates"][0],
+                #'z' : geometry[0][1],
+			    'marker' : dict(
+                    line=dict(
+                        width=10,
+                        color='rgba(102, 102, 102)')
+                    ),
+			}],
+			layout=go.Layout(
+			    {
+                'autosize' : True,
+			    'clickmode' : 'event+select',
+			    'title' : 'coordinates',
+			    'showlegend' : True,
+			    'legend' : go.layout.Legend(
+			            x=0,
+			            y=1.0
+			        ),
+                'geo' : go.layout.Geo(
+                    center=dict(
+                        lon=json1['coordinates'][0][0][0][0],
+                        lat=json1['coordinates'][0][0][0][0],
+                        ),
+                    projection=dict(
+                        scale=15),
+                    showcountries=True
+
+                    ),
+			        'margin' : go.layout.Margin(l=40, r=0, t=40, b=30),
+                'mapbox' : dict(
+                    #zoom=12
+                    )
+			    } ),
+			    ##style={}
+		)
+    ),
+    # dcc.Graph(
+    # 	id='map',
+    # 	figure=go.Figure(
+    # 		data=[{
+    #         type='scattergeo',
+    #         lat=geometry[0][0]["coordinates"],
+    #         lon=geometry[0][0]["coordinates"],
+    #         marker = dict(size = 8, opacity = 0.5),
+    #     }],
+    #     layout=go.Layout(
+    #     	{
+    #     	#clickmode='event+select',
+    #         title='US Export of Plastic Scrap',
+    #         showlegend=True,
+    #         legend=go.layout.Legend(
+    #             x=0,
+    #             y=1.0
+    #         ),
+    #         margin=go.layout.Margin(l=40, r=0, t=40, b=30)
+    #     } ),
+    #     style={}
+    # 		)
+    # 	),
 
     html.Iframe(id='anal', srcDoc=open("angola_analysis.html", "r").read(),
     	style={'display': 'inline-block', 'width': '100%', 'height': '800px'}),
@@ -118,4 +160,5 @@ app.layout = html.Div([
 
 if __name__ == '__main__':
     app.run_server(port=8080, debug=True)
+#
 #you'll just intro dcc.graphs in layout and callback map+graph based on dropdown and callback chart based on map clickdata
