@@ -225,16 +225,16 @@ arcpy.DeleteField_management(mergedProjects, "zoneid_1")
 zoneFieldList = [] 
 for field in input_dict:
     if field != "": ## If there is a new feature class
-        print field
+        print(field)
         zoneFieldList.append("z" + field)
 
 ## add each zone average field to projects and then calculate the zone average value per project using SUM_Area (the area of each zone calculated in the above section)
 
 for each in zoneFieldList:
-  print "Adding " + each + " as new field"
+  print("Adding " + each + " as new field")
   arcpy.AddField_management(mergedProjects, each, "DOUBLE")  ## create fields in fieldList if not already in original project shapefile
   # multiply each field by the area and divide by the total area of the zone (SUM_Area) to get spatially averaged criteria values
-  print "Calculate from field: " + each[1:]
+  print("Calculate from field: " + each[1:])
   # calculate area weighted averages
   arcpy.CalculateField_management(mergedProjects, each, "(!" + each[1:] + "! * !area!) / !sum_area!", "PYTHON_9.3")
 
@@ -304,7 +304,7 @@ fieldList = ["egen_0h","egen_6h","incap_0h", \
 ## IF any of these fields are not in the original Zones feature class then add it
 for each in fieldList:
         if each not in originalFields:
-                print "Adding " + each + " as new field"
+                print("Adding " + each + " as new field")
                 arcpy.AddField_management(zones, each, "DOUBLE")  ## create fields in fieldList if not already in original project shapefile
 
 # arcpy.CopyFeatures_management(zones, r"A:\IRENA\OUTPUTS\ScriptToolTesting\ScriptToolTesting.gdb\ke_wind_globalMapV2_windExclusionsAg_threshold250_zonesforMap_capVal_forACEC_corr_test_intermed")
@@ -327,7 +327,7 @@ for row in cursor:
 
     CF_0h = effLoss_CSP*CSPcfCalc_0h(RQ_row)
     CF_6h = effLoss_CSP*CSPcfCalc_6h(RQ_row)
-    print str(CF_0h) + " and " + str(CF_6h)
+    print(str(CF_0h) + " and " + str(CF_6h))
 
     # ElectGen = CF * PD_CSP(MW/km2) * Area(km2) * 8760 hours
     capacity_0h = powerDensity_0h*area*landUseDiscount ## in MW

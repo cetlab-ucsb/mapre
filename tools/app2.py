@@ -45,6 +45,10 @@ list_of_countries = {
     "Zimbabwe": "angola_analysis.html",
 }
 
+list_of_centers = {
+    "Angola": [15.79336054,-13.33736768]
+}
+
 list_of_energies = {
 	"CSP", "PV", "Wind",
 }
@@ -67,7 +71,17 @@ except (Exception, psycopg2.Error) as error :
 cur.execute(' SELECT ST_AsGeoJSON(ST_Transform(geom, 4326)), lt_tra FROM public."angola_pv_shp"; ')
 geometry = cur.fetchall()
 print(geometry[0])
-json1 = json.loads(geometry[0][0])
+lat = [[]]; lon = [[]]
+
+for n in range(len(geometry)):
+    json1 = json.loads(geometry[n][0])
+    for i in range(len(json1['coordinates'])):
+        for j in range(len(json1['coordinates'][i])):
+            for k in range(len(json1['coordinates'][i][j])):
+                print(json1['coordinates'][i][j][k])
+                lon.append(json1['coordinates'][i][j][k][0])
+                lat.append(json1['coordinates'][i][j][k][1])
+print(json1['coordinates'][0][0][0][1])
 
 
 app.layout = html.Div([
@@ -87,19 +101,21 @@ app.layout = html.Div([
                 style={'width': '50%'},
             )
         ],
-    ),
+    ), 
     dcc.Graph(
     	id='map',
     	figure=go.Figure(
 			data=[{
-			    'type' : 'choropleth',
-			    'locations' : json1["coordinates"][0],
+			    'type' : 'scattergeo',
+			    'lon' : lon,
+                'lat' : lat,
+                'mode' : 'lines',
                 #'z' : geometry[0][1],
-			    'marker' : dict(
-                    line=dict(
-                        width=10,
-                        color='rgba(102, 102, 102)')
-                    ),
+			    # 'marker' : dict(
+       #              line=dict(
+       #                  width=100,
+       #                  color='rgba(0,0,0)')
+       #              ),
 			}],
 			layout=go.Layout(
 			    {
@@ -113,18 +129,15 @@ app.layout = html.Div([
 			        ),
                 'geo' : go.layout.Geo(
                     center=dict(
-                        lon=json1['coordinates'][0][0][0][0],
-                        lat=json1['coordinates'][0][0][0][0],
+                        lon=list_of_centers["Angola"][0],
+                        lat=list_of_centers["Angola"][1],
                         ),
                     projection=dict(
-                        scale=15),
+                        scale=19),
                     showcountries=True
 
                     ),
 			        'margin' : go.layout.Margin(l=40, r=0, t=40, b=30),
-                'mapbox' : dict(
-                    #zoom=12
-                    )
 			    } ),
 			    ##style={}
 		)

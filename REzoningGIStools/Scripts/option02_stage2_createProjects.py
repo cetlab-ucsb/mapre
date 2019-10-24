@@ -7,7 +7,7 @@
 ##--------------------------------Preamble ----------------------------------
 import arcpy, time
 start_time = time.time()
-print start_time
+print(start_time)
 # Check out any necessary licenses
 arcpy.CheckOutExtension("spatial")
 from arcpy import env
