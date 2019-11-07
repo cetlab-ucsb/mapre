@@ -1178,7 +1178,7 @@
         <calculation class='tableau' formula='[Parameters].[Parameter 12]' />
       </column>
       <column caption='Zone Score' datatype='real' name='[Calculation_896216371195502613]' role='measure' type='quantitative'>
-        <calculation class='tableau' formula='([Calculation_896216371317043224]*(([LCOE total transmission (USD per MWh) [norm]] (copy)]-{ FIXED : MIN([LCOE total transmission (USD per MWh) [norm]] (copy)])})/( { FIXED : MAX([LCOE total transmission (USD per MWh) [norm]] (copy)])}- { FIXED : MIN([LCOE total transmission (USD per MWh) [norm]] (copy)])}))*.01)+&#10;([Parameters].[Parameter 4]*(([d_load]-{ FIXED : MIN([d_load])})/( { FIXED : MAX([d_load])}- { FIXED : MIN([d_load])}))*.01)+&#10;([Parameters].[Parameter 12]*(([m_slope]-{ FIXED : MIN([m_slope])})/( { FIXED : MAX([m_slope])}- { FIXED : MIN([m_slope])}))*.01)+&#10;([Parameters].[Parameter 5]*(([m_humfoot]-{ FIXED : MIN([m_humfoot])})/( { FIXED : MAX([m_humfoot])}- { FIXED : MIN([m_humfoot])}))*.01)+&#10;([Parameters].[Parameter 6]*(([m_lulc]-{ FIXED : MIN([m_lulc])})/( { FIXED : MAX([m_lulc])}- { FIXED : MIN([m_lulc])}))*.01)+&#10;([Parameters].[Parameter 11]*(([m_popden]-{ FIXED : MIN([m_popden])})/( { FIXED : MAX([m_popden])}- { FIXED : MIN([m_popden])}))*.01)+&#10;([Parameters].[Parameter 32]*(([m_coloc]-{ FIXED : MIN([m_coloc])})/( { FIXED : MAX([m_coloc])}- { FIXED : MIN([m_coloc])}))*.01)+&#10;(IF [EnergySour] = &quot;Wind&quot; THEN ([Parameters].[Parameter 1]*(([cvr_ch3h]-{ FIXED : MIN([cvr_ch3h])})/( { FIXED : MAX([cvr_ch3h])}- { FIXED : MIN([cvr_ch3h])}))*.01) ELSE 0 END)' />
+        <calculation class='tableau' formula='([Calculation_896216371317043224]*ABS((([LCOE total transmission (USD per MWh) [norm]] (copy)]-{ FIXED : MIN([LCOE total transmission (USD per MWh) [norm]] (copy)])})/( { FIXED : MAX([LCOE total transmission (USD per MWh) [norm]] (copy)])}- { FIXED : MIN([LCOE total transmission (USD per MWh) [norm]] (copy)])}))-1)*.01)+&#10;([Parameters].[Parameter 4]*ABS((([d_load]-{ FIXED : MIN([d_load])})/( { FIXED : MAX([d_load])}- { FIXED : MIN([d_load])}))-1)*.01)+&#10;([Parameters].[Parameter 12]*ABS((([m_slope]-{ FIXED : MIN([m_slope])})/( { FIXED : MAX([m_slope])}- { FIXED : MIN([m_slope])}))-1)*.01)+&#10;([Parameters].[Parameter 5]*(([m_humfoot]-{ FIXED : MIN([m_humfoot])})/( { FIXED : MAX([m_humfoot])}- { FIXED : MIN([m_humfoot])}))*.01)+&#10;([Parameters].[Parameter 6]*ABS((([m_lulc]-{ FIXED : MIN([m_lulc])})/( { FIXED : MAX([m_lulc])}- { FIXED : MIN([m_lulc])}))-1)*.01)+&#10;([Parameters].[Parameter 11]*ABS((([m_popden]-{ FIXED : MIN([m_popden])})/( { FIXED : MAX([m_popden])}- { FIXED : MIN([m_popden])}))-1)*.01)+&#10;([Parameters].[Parameter 32]*(([m_coloc]-{ FIXED : MIN([m_coloc])})/( { FIXED : MAX([m_coloc])}- { FIXED : MIN([m_coloc])}))*.01)+&#10;(IF [EnergySour] = &quot;Wind&quot; THEN ([Parameters].[Parameter 1]*(([cvr_ch3h]-{ FIXED : MIN([cvr_ch3h])})/( { FIXED : MAX([cvr_ch3h])}- { FIXED : MIN([cvr_ch3h])}))*.01) ELSE 0 END)' />
       </column>
       <column caption='Zone Score (normalized)' datatype='real' name='[Calculation_896216371200983062]' role='measure' type='quantitative'>
         <calculation class='tableau' formula='([Calculation_896216371195502613]-{ FIXED : MIN([Calculation_896216371195502613])})/( { FIXED : MAX([Calculation_896216371195502613])}- { FIXED : MIN([Calculation_896216371195502613])})' />
@@ -2310,7 +2310,7 @@
           </metadata-records>
         </connection>
       </extract>
-      <layout dim-ordering='alphabetic' dim-percentage='0.135983' measure-ordering='alphabetic' measure-percentage='0.420502' parameter-percentage='0.443515' show-structure='true' user-set-layout='true' />
+      <layout dim-ordering='alphabetic' dim-percentage='0.133891' measure-ordering='alphabetic' measure-percentage='0.420502' parameter-percentage='0.445607' show-structure='true' user-set-layout='true' />
       <style>
         <style-rule element='mark'>
           <encoding attr='shape' field='[sum:Calculation_896216371202420759:ok]' type='shape'>
@@ -3030,7 +3030,7 @@
               <calculation class='tableau' formula='CASE [Parameters].[Parameter 13]&#10;    WHEN &quot;Levelized Cost&quot; THEN (&#10;        IF [Parameters].[Parameter 29] = &quot;Default&quot; THEN (SUM([LCOE total transmission (USD per MWh) [norm]] (copy)])*-1)&#10;        ELSE (SUM([Calculation_1599622338594013191])*-1)&#10;        END&#10;    )&#10;    WHEN &quot;Zone Score&quot; THEN SUM([Calculation_896216371195502613])&#10;END' />
             </column>
             <column caption='Zone Score' datatype='real' name='[Calculation_896216371195502613]' role='measure' type='quantitative'>
-              <calculation class='tableau' formula='([Calculation_896216371317043224]*(([LCOE total transmission (USD per MWh) [norm]] (copy)]-{ FIXED : MIN([LCOE total transmission (USD per MWh) [norm]] (copy)])})/( { FIXED : MAX([LCOE total transmission (USD per MWh) [norm]] (copy)])}- { FIXED : MIN([LCOE total transmission (USD per MWh) [norm]] (copy)])}))*.01)+&#10;([Parameters].[Parameter 4]*(([d_load]-{ FIXED : MIN([d_load])})/( { FIXED : MAX([d_load])}- { FIXED : MIN([d_load])}))*.01)+&#10;([Parameters].[Parameter 12]*(([m_slope]-{ FIXED : MIN([m_slope])})/( { FIXED : MAX([m_slope])}- { FIXED : MIN([m_slope])}))*.01)+&#10;([Parameters].[Parameter 5]*(([m_humfoot]-{ FIXED : MIN([m_humfoot])})/( { FIXED : MAX([m_humfoot])}- { FIXED : MIN([m_humfoot])}))*.01)+&#10;([Parameters].[Parameter 6]*(([m_lulc]-{ FIXED : MIN([m_lulc])})/( { FIXED : MAX([m_lulc])}- { FIXED : MIN([m_lulc])}))*.01)+&#10;([Parameters].[Parameter 11]*(([m_popden]-{ FIXED : MIN([m_popden])})/( { FIXED : MAX([m_popden])}- { FIXED : MIN([m_popden])}))*.01)+&#10;([Parameters].[Parameter 32]*(([m_coloc]-{ FIXED : MIN([m_coloc])})/( { FIXED : MAX([m_coloc])}- { FIXED : MIN([m_coloc])}))*.01)+&#10;(IF [EnergySour] = &quot;Wind&quot; THEN ([Parameters].[Parameter 1]*(([cvr_ch3h]-{ FIXED : MIN([cvr_ch3h])})/( { FIXED : MAX([cvr_ch3h])}- { FIXED : MIN([cvr_ch3h])}))*.01) ELSE 0 END)' />
+              <calculation class='tableau' formula='([Calculation_896216371317043224]*ABS((([LCOE total transmission (USD per MWh) [norm]] (copy)]-{ FIXED : MIN([LCOE total transmission (USD per MWh) [norm]] (copy)])})/( { FIXED : MAX([LCOE total transmission (USD per MWh) [norm]] (copy)])}- { FIXED : MIN([LCOE total transmission (USD per MWh) [norm]] (copy)])}))-1)*.01)+&#10;([Parameters].[Parameter 4]*ABS((([d_load]-{ FIXED : MIN([d_load])})/( { FIXED : MAX([d_load])}- { FIXED : MIN([d_load])}))-1)*.01)+&#10;([Parameters].[Parameter 12]*ABS((([m_slope]-{ FIXED : MIN([m_slope])})/( { FIXED : MAX([m_slope])}- { FIXED : MIN([m_slope])}))-1)*.01)+&#10;([Parameters].[Parameter 5]*(([m_humfoot]-{ FIXED : MIN([m_humfoot])})/( { FIXED : MAX([m_humfoot])}- { FIXED : MIN([m_humfoot])}))*.01)+&#10;([Parameters].[Parameter 6]*ABS((([m_lulc]-{ FIXED : MIN([m_lulc])})/( { FIXED : MAX([m_lulc])}- { FIXED : MIN([m_lulc])}))-1)*.01)+&#10;([Parameters].[Parameter 11]*ABS((([m_popden]-{ FIXED : MIN([m_popden])})/( { FIXED : MAX([m_popden])}- { FIXED : MIN([m_popden])}))-1)*.01)+&#10;([Parameters].[Parameter 32]*(([m_coloc]-{ FIXED : MIN([m_coloc])})/( { FIXED : MAX([m_coloc])}- { FIXED : MIN([m_coloc])}))*.01)+&#10;(IF [EnergySour] = &quot;Wind&quot; THEN ([Parameters].[Parameter 1]*(([cvr_ch3h]-{ FIXED : MIN([cvr_ch3h])})/( { FIXED : MAX([cvr_ch3h])}- { FIXED : MIN([cvr_ch3h])}))*.01) ELSE 0 END)' />
             </column>
             <column caption='LCOE Total_Param' datatype='integer' name='[Calculation_896216371317043224]' role='measure' type='quantitative'>
               <calculation class='tableau' formula='[Parameters].[Parameter 7]+[Parameters].[Parameter 8]+[Parameters].[Parameter 10]' />
@@ -3091,7 +3091,7 @@
             <groupfilter function='member' level='[none:EnergySour:nk]' member='&quot;CSP&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[none:country:nk]' context='true' filter-group='4'>
-            <groupfilter function='level-members' level='[none:country:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+            <groupfilter function='member' level='[none:country:nk]' member='&quot;Angola&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
           </filter>
           <computed-sort column='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[none:zoneid:nk]' direction='DESC' using='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[usr:Calculation_896216371177074696:qk]' />
           <filter class='quantitative' column='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371175768066:qk]' filter-group='10' included-values='in-range' />
@@ -3243,7 +3243,7 @@
               <calculation class='tableau' formula='([egen]+[egen_6h]+[egen_ch])/1000' />
             </column>
             <column caption='Zone Score' datatype='real' name='[Calculation_896216371195502613]' role='measure' type='quantitative'>
-              <calculation class='tableau' formula='([Calculation_896216371317043224]*(([LCOE total transmission (USD per MWh) [norm]] (copy)]-{ FIXED : MIN([LCOE total transmission (USD per MWh) [norm]] (copy)])})/( { FIXED : MAX([LCOE total transmission (USD per MWh) [norm]] (copy)])}- { FIXED : MIN([LCOE total transmission (USD per MWh) [norm]] (copy)])}))*.01)+&#10;([Parameters].[Parameter 4]*(([d_load]-{ FIXED : MIN([d_load])})/( { FIXED : MAX([d_load])}- { FIXED : MIN([d_load])}))*.01)+&#10;([Parameters].[Parameter 12]*(([m_slope]-{ FIXED : MIN([m_slope])})/( { FIXED : MAX([m_slope])}- { FIXED : MIN([m_slope])}))*.01)+&#10;([Parameters].[Parameter 5]*(([m_humfoot]-{ FIXED : MIN([m_humfoot])})/( { FIXED : MAX([m_humfoot])}- { FIXED : MIN([m_humfoot])}))*.01)+&#10;([Parameters].[Parameter 6]*(([m_lulc]-{ FIXED : MIN([m_lulc])})/( { FIXED : MAX([m_lulc])}- { FIXED : MIN([m_lulc])}))*.01)+&#10;([Parameters].[Parameter 11]*(([m_popden]-{ FIXED : MIN([m_popden])})/( { FIXED : MAX([m_popden])}- { FIXED : MIN([m_popden])}))*.01)+&#10;([Parameters].[Parameter 32]*(([m_coloc]-{ FIXED : MIN([m_coloc])})/( { FIXED : MAX([m_coloc])}- { FIXED : MIN([m_coloc])}))*.01)+&#10;(IF [EnergySour] = &quot;Wind&quot; THEN ([Parameters].[Parameter 1]*(([cvr_ch3h]-{ FIXED : MIN([cvr_ch3h])})/( { FIXED : MAX([cvr_ch3h])}- { FIXED : MIN([cvr_ch3h])}))*.01) ELSE 0 END)' />
+              <calculation class='tableau' formula='([Calculation_896216371317043224]*ABS((([LCOE total transmission (USD per MWh) [norm]] (copy)]-{ FIXED : MIN([LCOE total transmission (USD per MWh) [norm]] (copy)])})/( { FIXED : MAX([LCOE total transmission (USD per MWh) [norm]] (copy)])}- { FIXED : MIN([LCOE total transmission (USD per MWh) [norm]] (copy)])}))-1)*.01)+&#10;([Parameters].[Parameter 4]*ABS((([d_load]-{ FIXED : MIN([d_load])})/( { FIXED : MAX([d_load])}- { FIXED : MIN([d_load])}))-1)*.01)+&#10;([Parameters].[Parameter 12]*ABS((([m_slope]-{ FIXED : MIN([m_slope])})/( { FIXED : MAX([m_slope])}- { FIXED : MIN([m_slope])}))-1)*.01)+&#10;([Parameters].[Parameter 5]*(([m_humfoot]-{ FIXED : MIN([m_humfoot])})/( { FIXED : MAX([m_humfoot])}- { FIXED : MIN([m_humfoot])}))*.01)+&#10;([Parameters].[Parameter 6]*ABS((([m_lulc]-{ FIXED : MIN([m_lulc])})/( { FIXED : MAX([m_lulc])}- { FIXED : MIN([m_lulc])}))-1)*.01)+&#10;([Parameters].[Parameter 11]*ABS((([m_popden]-{ FIXED : MIN([m_popden])})/( { FIXED : MAX([m_popden])}- { FIXED : MIN([m_popden])}))-1)*.01)+&#10;([Parameters].[Parameter 32]*(([m_coloc]-{ FIXED : MIN([m_coloc])})/( { FIXED : MAX([m_coloc])}- { FIXED : MIN([m_coloc])}))*.01)+&#10;(IF [EnergySour] = &quot;Wind&quot; THEN ([Parameters].[Parameter 1]*(([cvr_ch3h]-{ FIXED : MIN([cvr_ch3h])})/( { FIXED : MAX([cvr_ch3h])}- { FIXED : MIN([cvr_ch3h])}))*.01) ELSE 0 END)' />
             </column>
             <column caption='Zone Score (normalized)' datatype='real' name='[Calculation_896216371200983062]' role='measure' type='quantitative'>
               <calculation class='tableau' formula='([Calculation_896216371195502613]-{ FIXED : MIN([Calculation_896216371195502613])})/( { FIXED : MAX([Calculation_896216371195502613])}- { FIXED : MIN([Calculation_896216371195502613])})' />
@@ -3300,7 +3300,7 @@
             <groupfilter function='member' level='[none:EnergySour:nk]' member='&quot;CSP&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[none:country:nk]' context='true' filter-group='4'>
-            <groupfilter function='level-members' level='[none:country:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+            <groupfilter function='member' level='[none:country:nk]' member='&quot;Angola&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
           </filter>
           <filter class='quantitative' column='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371175768066:qk]' filter-group='10' included-values='in-range' />
           <filter class='quantitative' column='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:cf_cvr_ch3:qk]' filter-group='5' included-values='in-range'>
@@ -3453,7 +3453,7 @@
             <groupfilter function='member' level='[none:EnergySour:nk]' member='&quot;CSP&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[none:country:nk]' context='true' filter-group='4'>
-            <groupfilter function='level-members' level='[none:country:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+            <groupfilter function='member' level='[none:country:nk]' member='&quot;Angola&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
           </filter>
           <slices>
             <column>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[none:country:nk]</column>
@@ -3613,7 +3613,7 @@
             <groupfilter function='level-members' level='[zoneid]' user:ui-action-filter='[Action1]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[none:country:nk]' context='true' filter-group='4'>
-            <groupfilter function='level-members' level='[none:country:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+            <groupfilter function='member' level='[none:country:nk]' member='&quot;Angola&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
           </filter>
           <slices>
             <column>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[none:country:nk]</column>
@@ -3808,7 +3808,7 @@
             <groupfilter function='level-members' level='[zoneid]' user:ui-action-filter='[Action1]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[none:country:nk]' context='true' filter-group='4'>
-            <groupfilter function='level-members' level='[none:country:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+            <groupfilter function='member' level='[none:country:nk]' member='&quot;Angola&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
           </filter>
           <slices>
             <column>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[none:country:nk]</column>
@@ -4495,8 +4495,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1750' minheight='1750' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='402' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='403' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='408' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='84000' id='409' param='vert' type='layout-flow' w='84000' x='8000' y='8000'>
                 <zone fixed-size='280' h='54949' id='87' is-fixed='true' is-scaled='1' param='/Users/Anaavu/Documents/My Tableau Repository/Shapes/Custom/Screen Shot 2019-10-18 at 11.42.37 PM.png' type='bitmap' w='70102' x='29098' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -5000,7 +5000,7 @@
             </zone-style>
           </zone>
           <zone h='98000' id='59' param='vert' type='layout-flow' w='16900' x='82300' y='1000'>
-            <zone h='8909' id='51' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371176824838:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='1000'>
+            <zone h='4250' id='51' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371176824838:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='1000'>
               <zone-style>
                 <format attr='border-color' value='#000000' />
                 <format attr='border-style' value='none' />
@@ -5008,7 +5008,7 @@
                 <format attr='margin' value='4' />
               </zone-style>
             </zone>
-            <zone h='8909' id='53' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371175768066:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='9909'>
+            <zone h='9625' id='53' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371175768066:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='5250'>
               <zone-style>
                 <format attr='border-color' value='#000000' />
                 <format attr='border-style' value='none' />
@@ -5016,7 +5016,7 @@
                 <format attr='margin' value='4' />
               </zone-style>
             </zone>
-            <zone h='8909' id='57' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:cf_cvr_ch3:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='18818'>
+            <zone h='9625' id='57' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:cf_cvr_ch3:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='14875'>
               <zone-style>
                 <format attr='border-color' value='#000000' />
                 <format attr='border-style' value='none' />
@@ -5024,7 +5024,7 @@
                 <format attr='margin' value='4' />
               </zone-style>
             </zone>
-            <zone h='8909' id='54' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371176271876:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='27727'>
+            <zone h='4250' id='54' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371176271876:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='24500'>
               <zone-style>
                 <format attr='border-color' value='#000000' />
                 <format attr='border-style' value='none' />
@@ -5032,7 +5032,7 @@
                 <format attr='margin' value='4' />
               </zone-style>
             </zone>
-            <zone h='8909' id='58' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_geo:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='36636'>
+            <zone h='9625' id='58' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_geo:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='28750'>
               <zone-style>
                 <format attr='border-color' value='#000000' />
                 <format attr='border-style' value='none' />
@@ -5040,7 +5040,7 @@
                 <format attr='margin' value='4' />
               </zone-style>
             </zone>
-            <zone h='8909' id='55' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_road:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='45545'>
+            <zone h='9625' id='55' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_road:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='38375'>
               <zone-style>
                 <format attr='border-color' value='#000000' />
                 <format attr='border-style' value='none' />
@@ -5048,7 +5048,7 @@
                 <format attr='margin' value='4' />
               </zone-style>
             </zone>
-            <zone h='8909' id='56' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_load:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='54454'>
+            <zone h='9625' id='56' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_load:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='48000'>
               <zone-style>
                 <format attr='border-color' value='#000000' />
                 <format attr='border-style' value='none' />
@@ -5056,7 +5056,7 @@
                 <format attr='margin' value='4' />
               </zone-style>
             </zone>
-            <zone h='8909' id='48' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_water:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='63363'>
+            <zone h='9625' id='48' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_water:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='57625'>
               <zone-style>
                 <format attr='border-color' value='#000000' />
                 <format attr='border-style' value='none' />
@@ -5064,7 +5064,7 @@
                 <format attr='margin' value='4' />
               </zone-style>
             </zone>
-            <zone h='8909' id='47' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:m_humfoot:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='72272'>
+            <zone h='9625' id='47' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:m_humfoot:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='67250'>
               <zone-style>
                 <format attr='border-color' value='#000000' />
                 <format attr='border-style' value='none' />
@@ -5072,7 +5072,7 @@
                 <format attr='margin' value='4' />
               </zone-style>
             </zone>
-            <zone h='8909' id='49' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:m_popden:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='81181'>
+            <zone h='9625' id='49' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:m_popden:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='76875'>
               <zone-style>
                 <format attr='border-color' value='#000000' />
                 <format attr='border-style' value='none' />
@@ -5080,7 +5080,7 @@
                 <format attr='margin' value='4' />
               </zone-style>
             </zone>
-            <zone h='8910' id='50' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:m_slope:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='90090'>
+            <zone h='9625' id='50' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:m_slope:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='86500'>
               <zone-style>
                 <format attr='border-color' value='#000000' />
                 <format attr='border-style' value='none' />
@@ -5134,8 +5134,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='2900' minheight='2900' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='422' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='423' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='428' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='429' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
                 <zone h='8375' id='125' mode='list' param='[Parameters].[Parameter 29]' type='paramctrl' w='12500' x='36200' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -5163,7 +5163,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='8909' id='51' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371176824838:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='1000'>
+                <zone h='4250' id='51' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371176824838:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -5172,7 +5172,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='8909' id='53' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371175768066:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='9909'>
+                <zone h='9625' id='53' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371175768066:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='5250'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -5181,7 +5181,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='8909' id='57' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:cf_cvr_ch3:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='18818'>
+                <zone h='9625' id='57' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:cf_cvr_ch3:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='14875'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -5190,7 +5190,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='8909' id='54' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371176271876:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='27727'>
+                <zone h='4250' id='54' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371176271876:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='24500'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -5199,7 +5199,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='8909' id='58' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_geo:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='36636'>
+                <zone h='9625' id='58' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_geo:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='28750'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -5208,7 +5208,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='8909' id='55' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_road:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='45545'>
+                <zone h='9625' id='55' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_road:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='38375'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -5217,7 +5217,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='8909' id='56' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_load:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='54454'>
+                <zone h='9625' id='56' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_load:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='48000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -5226,7 +5226,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='8909' id='48' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_water:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='63363'>
+                <zone h='9625' id='48' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:d_water:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='57625'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -5235,7 +5235,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='8909' id='47' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:m_humfoot:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='72272'>
+                <zone h='9625' id='47' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:m_humfoot:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='67250'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -5244,7 +5244,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='8909' id='49' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:m_popden:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='81181'>
+                <zone h='9625' id='49' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:m_popden:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='76875'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -5253,7 +5253,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='8910' id='50' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:m_slope:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='90090'>
+                <zone h='9625' id='50' name='Map' param='[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:m_slope:qk]' show-domain='false' show-null-ctrls='false' type='filter' values='relevant' w='16900' x='82300' y='86500'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -5473,8 +5473,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='700' minheight='700' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='335' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='336' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='341' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='84000' id='342' param='vert' type='layout-flow' w='84000' x='8000' y='8000'>
                 <zone h='6500' id='3' type='dashboard-object' w='16400' x='44000' y='27375'>
                   <button action='tabdoc:goto-sheet window-id=&quot;{6E07246A-D152-4EE8-B7D2-52BAA445F85C}&quot;'>
                     <button-visual-state />
@@ -5596,7 +5596,7 @@
       </viewpoint>
       <simple-id uuid='{AAF95DBF-9709-4C7D-B4A0-25A2A7879B1D}' />
     </window>
-    <window class='worksheet' name='Graph'>
+    <window class='worksheet' maximized='true' name='Graph'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -5648,50 +5648,10 @@
       </viewpoint>
       <simple-id uuid='{DE144D15-3C33-4771-AAE9-3AA2C2BF6C1D}' />
     </window>
-    <window class='dashboard' maximized='true' name='Dashboard'>
+    <window class='dashboard' name='Dashboard'>
       <viewpoints>
         <viewpoint name='Graph'>
           <zoom type='entire-view' />
-          <selection-collection>
-            <tuple-selection>
-              <tuple-reference>
-                <tuple-descriptor>
-                  <pane-descriptor>
-                    <x-fields>
-                      <field>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[cum:sum:Calculation_896216371175768066:qk:2]</field>
-                    </x-fields>
-                    <y-fields>
-                      <field>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[usr:Calculation_1599622338614575112:qk]</field>
-                    </y-fields>
-                  </pane-descriptor>
-                  <columns>
-                    <field>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[none:zoneid:nk]</field>
-                    <field>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371175768066:qk]</field>
-                    <field>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371176824838:qk]</field>
-                    <field>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371195502613:qk]</field>
-                    <field>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371200983062:qk]</field>
-                    <field>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[attr:EnergySour:nk]</field>
-                    <field>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[attr:zoneid:nk]</field>
-                    <field>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[usr:Calculation_1599622338614575112:qk]</field>
-                    <field>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[usr:Calculation_896216371177074696:qk]</field>
-                    <field>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[cum:sum:Calculation_896216371175768066:qk:2]</field>
-                  </columns>
-                </tuple-descriptor>
-                <tuple>
-                  <value>&quot;AE&quot;</value>
-                  <value>10795.0</value>
-                  <value>2.6004918306102036</value>
-                  <value>96.141355460896847</value>
-                  <value>0.78149901998700655</value>
-                  <value>&quot;CSP&quot;</value>
-                  <value>&quot;AE&quot;</value>
-                  <value>2.6004918306102036</value>
-                  <value>0.78149901998700655</value>
-                  <value>2521223.2000000002</value>
-                </tuple>
-              </tuple-reference>
-            </tuple-selection>
-          </selection-collection>
           <highlight>
             <color-one-way>
               <field>[federated.0igw1ek1o9o5lc16hvgry0xbxq7h].[sum:Calculation_896216371195502613:qk]</field>
@@ -5939,7 +5899,7 @@
           <floating-toolbar-visibility value='1' />
         </viewpoint>
       </viewpoints>
-      <active id='40' />
+      <active id='-1' />
       <simple-id uuid='{6E07246A-D152-4EE8-B7D2-52BAA445F85C}' />
     </window>
     <window class='worksheet' name='Submit (2)'>
@@ -6890,148 +6850,144 @@
     </thumbnail>
     <thumbnail height='192' name='Graph' width='192'>
       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
-      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
+      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
     </thumbnail>
     <thumbnail height='192' name='Map' width='192'>
       iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAACXBIWXMAAA7DAAAOwwHHb6hk
