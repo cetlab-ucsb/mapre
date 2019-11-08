@@ -15,7 +15,7 @@
     <WindowsPersistSimpleIdentifiers />
     <ZoneBackgroundTransparency />
   </document-format-change-manifest>
-  <repository-location id='Countries_Energies' path='/workbooks' revision='6.3' />
+  <repository-location id='Countries_Energies' path='/workbooks' revision='6.4' />
   <preferences>
     <preference name='ui.encoding.shelf.height' value='24' />
     <preference name='ui.shelf.height' value='26' />
@@ -2976,7 +2976,7 @@
       <layout-options>
         <caption>
           <formatted-text>
-            <run fontsize='8'>In the map or graph, you can download all data for a zone or set of zones. Select the zones and in the window that appears, click the button at the top right to &quot;View Data&quot;. Click the &quot;Full Data&quot; tab at the top and check &quot;Show all columns&quot;. Now you can download your subsetted data as a text file.</run>
+            <run fontsize='8'>In the map or graph, you can download all data for a zone or set of zones. Select the zones and in the window that appears, click the button at the top right to &quot;View Data&quot;. Click the &quot;Full Data&quot; tab at the top and check &quot;Show all columns&quot;. Now you can download your subsetted data as a csv file.</run>
           </formatted-text>
         </caption>
       </layout-options>
@@ -4830,8 +4830,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1800' minheight='1800' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='531' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='530' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='535' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='534' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
                 <zone fixed-size='42' h='6250' id='527' is-fixed='true' name='LCOETooltip' show-title='false' w='70102' x='29098' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -5496,8 +5496,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='3250' minheight='3250' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='574' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='573' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='578' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='577' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
                 <zone h='8375' id='125' mode='list' param='[Parameters].[Parameter 29]' type='paramctrl' w='13300' x='25000' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -5782,7 +5782,7 @@
                   </zone-style>
                 </zone>
                 <zone fixed-size='280' h='3500' id='23' is-fixed='true' name='Weights_Total' show-title='false' w='18813' x='64419' y='65000'>
-                  <layout-cache cell-count-w='1' fixed-size-h='20' type-h='fixed' type-w='cell' />
+                  <layout-cache cell-count-w='1' type-h='fixed' type-w='cell' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -5792,7 +5792,7 @@
                   </zone-style>
                 </zone>
                 <zone fixed-size='37' h='5625' id='24' is-fixed='true' name='Submit' show-title='false' w='18813' x='64419' y='68500'>
-                  <layout-cache cell-count-w='1' fixed-size-h='37' type-h='fixed' type-w='cell' />
+                  <layout-cache cell-count-w='1' type-h='fixed' type-w='cell' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -5802,7 +5802,7 @@
                   </zone-style>
                 </zone>
                 <zone fixed-size='126' h='16750' id='555' is-fixed='true' name='Weights_Pie' w='18813' x='64419' y='74125'>
-                  <layout-cache cell-count-h='1' non-cell-size-h='31' type-h='cell' type-w='fixed' />
+                  <layout-cache type-h='cell' type-w='fixed' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -5894,8 +5894,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='850' minheight='850' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='479' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='478' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='483' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='482' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
                 <zone forceUpdate='true' h='21375' id='424' type='text' w='34200' x='8800' y='3750'>
                   <formatted-text>
                     <run bold='true' fontalignment='1' fontsize='15'>What is MapRE</run>
@@ -6159,7 +6159,7 @@
           <zoom type='fit-width' />
         </viewpoint>
       </viewpoints>
-      <active id='494' />
+      <active id='237' />
       <simple-id uuid='{08BDE733-138F-49D1-BFDC-53EBC1E9FA65}' />
     </window>
     <window class='worksheet' name='Weights_Total'>
