@@ -4850,8 +4850,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1750' minheight='1750' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='582' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='581' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='584' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='583' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
                 <zone forceUpdate='true' h='6250' id='558' type='text' w='62302' x='29098' y='1000'>
                   <formatted-text>
                     <run bold='true' fontsize='14'>LCOE Default Values</run>
@@ -5544,8 +5544,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='2900' minheight='2900' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='631' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='630' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='633' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='632' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
                 <zone h='8375' id='125' mode='list' param='[Parameters].[Parameter 29]' type='paramctrl' w='13300' x='25000' y='1000'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -5976,8 +5976,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='850' minheight='850' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='529' type='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='528' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='531' type='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='530' param='vert' type='layout-flow' w='98400' x='800' y='1000'>
                 <zone forceUpdate='true' h='21375' id='424' type='text' w='34200' x='8800' y='3750'>
                   <formatted-text>
                     <run bold='true' fontalignment='1' fontsize='15'>What is MapRE</run>
