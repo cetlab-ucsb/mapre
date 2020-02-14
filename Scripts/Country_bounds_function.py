@@ -31,7 +31,7 @@ arcpy.MakeFeatureLayer_management(args["input_file"][0],"countries_lyr")
 ##myList = [row[0] for row in arcpy.da.SearchCursor("countries_lyr", "NAME")]
 ##print(myList)
 
-list_of_countries = args["country_list"][0]
+list_of_countries = args["country_list"]
 print(list_of_countries)
 
 ##list_of_countries = ["Angola", "Botswana", "DRC", "Lesotho", "Malawi",
@@ -41,7 +41,7 @@ print(list_of_countries)
 
 for item in list_of_countries:
     print(item)
-    query = """"NAME" LIKE '%s'"""%item
+    query = """"NAME_0" LIKE '%s'"""%item
     print(query)
     country = arcpy.SelectLayerByAttribute_management("countries_lyr", 'NEW_SELECTION', query)
     outfc = os.path.join(out_workspace, item)
