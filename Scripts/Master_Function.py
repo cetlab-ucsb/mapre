@@ -6,23 +6,32 @@ import arcpy
 import os
 import argparse
 import pandas as pd
-
+from arcpy.sa import *
+arcpy.CheckOutExtension("Spatial")
 
 #argument parser
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--input", required=True, nargs='+', help="input directory", type=str)
-ap.add_argument("-pf", "--project_file", required=True, nargs='+', help="csv_file of 5 columns: \n"
+ap.add_argument("-pf", "--project_file", required=True, nargs='+', help="csv_file of 6 columns: \n"
                 "1 : in_features(feature class or raster), \n"
-                "2 : feature_class if feature class and raster if raster \n"
-                "3 : input coordinate system for arcpy.SpatialReference \n"
-                "4 : output coordinate system for arcpy.SpatialReference \n"
-                "5 : If raster, resampling method (Nearest/Bilinear/Cubic/Majority", type=str)
+                "2 : name of output file or raster, \n"
+                "3 : feature_class if feature class and raster if raster \n"
+                "4 : input coordinate system for arcpy.SpatialReference \n"
+                "5 : output coordinate system for arcpy.SpatialReference \n"
+                "6 : If raster, resampling method (Nearest/Bilinear/Cubic/Majority", type=str)
+ap.add_argument("-cs", "--cell_size", required=False, nargs='+',
+                help="cell size in the form 'X Y' such as 500 500 in quotes ",
+                type=str)
+ap.add_argument("-tr", "--template_raster", required=False, nargs='+',
+                help="if you want to choose a template raster to snap all rasters, provide file path here \n"
+                "If you do not have one in mind, the first raster processed will be used as the template for all others",
+                type=str)
 ap.add_argument("-ed", "--ed_files", required=False, nargs='*',
                 help="list of file names (shp or raster) (without extension) requiring euclidean distance rasters separated by spaces", type=str)
 ap.add_argument("-md", "--max_dist", required=False, nargs='+', help="max distance for eucl distance (optional)", type=str)
 ap.add_argument("-lf", "--lulc_file", required=False, nargs='+', help="name of land use land cover file to extract", type=str)
 ap.add_argument("-s", "--solar", required=False, nargs='+',
-                help="which land use categories to extract for solar (numbers separated by commas) \n"
+                help="which land use categories to extract (include) for solar (numbers separated by commas) \n"
                 "Reference for LULC Categories to Process LULC Data \n"
                 "# Code   Class Name \n"
                 "# 1  Broadleaf Evergreen Forest \n"
@@ -46,12 +55,13 @@ ap.add_argument("-s", "--solar", required=False, nargs='+',
                 "# 19  Snow / Ice \n"
                 "# 20  Water bodies", type=str)
 ap.add_argument("-wn", "--wind_nonag", required=False, nargs='+',
-                help="which land use categories to extract for non-ag wind (numbers separated by commas)", type=str)
+                help="which land use categories to extract (include) for non-ag wind (numbers separated by commas)", type=str)
 ap.add_argument("-wa", "--wind_ag", required=False, nargs='+',
-                help="which land use categories to extract for ag wind (numbers separated by commas)", type=str)
+                help="which land use categories to extract (include) for ag wind (numbers separated by commas)", type=str)
 ap.add_argument("-cf", "--country_file", required=True, nargs='+',
-                help="name of world country boundaries file to extract", type=str)
-ap.add_argument("-c", "--country_list", required=True, nargs='*', help="list of countries separated by spaces", type=str)
+                help="name of projected world country boundaries file to extract (projected.gdb\country_file_Projected)", type=str)
+ap.add_argument("-c", "--country_list", required=True, nargs='*', help="list of countries separated by spaces \n"
+                "(If country name contains a space, place an underscore between words)", type=str)
 
 args = vars(ap.parse_args())
 print(args)
@@ -74,6 +84,15 @@ template = ""
 # Geographic transformation - 
 transformation = ""
 
+if args["template_raster"] is not None:
+    arcpy.env.snapRaster = args["template_raster"][0]
+    print("Now snapping to provided template raster")
+
+if args["cell_size"] is None:
+    cellSize = "500 500"
+else:
+    cellSize = args["cell_size"][0]
+
 
 #####parsing the csv_file
 arcpy.env.workspace = workspace_in = args["input"][0]
@@ -81,30 +100,49 @@ print(workspace_in)
 
 parentDirectory = os.path.abspath(os.path.join(arcpy.env.workspace, os.pardir))
 print(parentDirectory)
-arcpy.CreateFileGDB_management(parentDirectory, "projected.gdb")
-projGDB = workspace_out = os.path.join(parentDirectory, "projected.gdb")
+if arcpy.Exists(os.path.join(parentDirectory, "projected.gdb")):
+    projGDB = workspace_out = os.path.join(parentDirectory, "projected.gdb")  # Make a check for this
+else:
+    arcpy.CreateFileGDB_management(parentDirectory, "projected.gdb")
+    projGDB = workspace_out = os.path.join(parentDirectory, "projected.gdb") #Make a check for this
 print(os.path.abspath(workspace_out))
 
 print(arcpy.ListFeatureClasses())
 for i in range(len(csv_file)):
     infile = csv_file[0][i]
-    if(csv_file[1][i] == 'Feature Class'):
-        outfc = os.path.join(workspace_out, infile + "_Projected")
+    print(infile)
+    outfile = csv_file[1][i]
+    print(outfile)
+    outfc = os.path.join(workspace_out, outfile + "_Projected")
+
+    if arcpy.Exists(outfc):
+        print("An output file with this name already exists; skipping this row")
+        if (i == 0):
+            if args["template_raster"] is None:
+                arcpy.env.snapRaster = outfc
+                print("Now snapping to first raster")
+        continue
+    # if (infile == "gm_lc_v3_2_2"):
+    #     continue
+
+    if(csv_file[2][i] == 'Feature Class'):
+
         print("Feature Class")
-        print(infile, outfc, arcpy.SpatialReference(csv_file[3][i]), arcpy.SpatialReference(csv_file[2][i]))
-        arcpy.Project_management(infile, outfc, arcpy.SpatialReference(csv_file[3][i]), in_coor_system = arcpy.SpatialReference(csv_file[2][i]))
+        print(infile, outfc, arcpy.SpatialReference(csv_file[4][i]), arcpy.SpatialReference(csv_file[3][i]))
+        arcpy.Project_management(infile, outfc, arcpy.SpatialReference(csv_file[4][i]),
+                                 in_coor_system = arcpy.SpatialReference(csv_file[3][i]))
         print(arcpy.GetMessages())
 
-    elif(csv_file[1][i] == 'Raster'):
+    elif(csv_file[2][i] == 'Raster'):
         print("Raster")
-        initraster = os.path.join(workspace_in, infile)
-        print(initraster)
-        arcpy.BuildRasterAttributeTable_management(initraster)
-        outfc = os.path.join(workspace_out, infile + "_Projected")
-        arcpy.ProjectRaster_management(infile, outfc, arcpy.SpatialReference(csv_file[3][i]),
-                                       in_coor_system = arcpy.SpatialReference(csv_file[2][i]), resampling_type = csv_file[4][i])
+        arcpy.ProjectRaster_management(infile, outfc, arcpy.SpatialReference(csv_file[4][i]),
+                                       in_coor_system = arcpy.SpatialReference(csv_file[3][i]),
+                                       resampling_type = csv_file[5][i], cell_size=cellSize)
         print(arcpy.GetMessages())
-
+        if (i == 0):
+            if args["template_raster"] is None:
+                arcpy.env.snapRaster = outfc
+                print("Now snapping to first raster")
 
 
 ###########################################################################
@@ -123,6 +161,7 @@ if args["ed_files"] is not None:
     else:
         maxDistance = args["max_dist"][0]
 
+    cellSize = int(str.split(cellSize, " ")[0])
 
     list_of_inputs = args["ed_files"]
 
@@ -130,9 +169,12 @@ if args["ed_files"] is not None:
         print(item)
         # Set local variables
         outfc = os.path.join(workspace_out, item + "_EucDist")
+        if arcpy.Exists(outfc):
+            print("An output file with this name already exists; skipping this row")
+            continue
 
         # Execute EucDistance
-        outEucDistance = EucDistance(in_source_data = item, maximum_distance = maxDistance, cell_size = 5000)
+        outEucDistance = EucDistance(in_source_data = item, maximum_distance = maxDistance, cell_size = cellSize)
 
 
         # Save the output 
@@ -149,34 +191,47 @@ if args["ed_files"] is not None:
 
 if args["lulc_file"] is not None:
 
-    # Set workspace
+    # Set infile
+    inRaster = args["lulc_file"][0]
     
     print(arcpy.ListRasters())
 
     if args["solar"] is not None:
-        solar_exclusion = """ "Value" In ({}) """.format(args["solar"][0])
-        print(solar_exclusion)
-    #solar_exclusion = """ "Value" In (1,2,3,4,5,6,11,12,13,14,15,18,19,20) """
-    #wind_nonag_exclusion = """ "VALUE" In (1,2,3,4,5,11,12,13,14,15,18,19,20) """
-    #wind_ag_exclusion = """ "VALUE" In (1,2,3,4,5,12,14,15,18,19,20) """
+        if arcpy.Exists("lulc_for_solar"):
+            print("A lulc for solar file with this name already exists; skipping this row")
+        else:
+            solar_exclusion = """ "VALUE" IN ({}) """.format(args["solar"][0])
+            print(solar_exclusion)
 
+            #solar_exclusion = """ "Value" In (1,2,3,4,5,6,11,12,13,14,15,18,19,20) """
+            # #wind_nonag_exclusion = """ "VALUE" In (1,2,3,4,5,11,12,13,14,15,18,19,20) """
+            # #wind_ag_exclusion = """ "VALUE" In (1,2,3,4,5,12,14,15,18,19,20) """
 
-        arcpy.MakeRasterLayer_management(in_raster=args["lulc_file"][0], out_rasterlayer="lulc_for_solar_lyr", where_clause=solar_exclusion)
-    #arcpy.MakeRasterLayer_management(in_raster='gm_lc_v3_2_2', out_rasterlayer="lulc_for_windnonag_lyr", where_clause=wind_nonag_exclusion)
-    #arcpy.MakeRasterLayer_management(in_raster='gm_lc_v3_2_2', out_rasterlayer="lulc_for_windag_lyr", where_clause=wind_ag_exclusion)
+            # Execute ExtractByAttributes
+            solar_extract = ExtractByAttributes(inRaster, solar_exclusion)
 
-        selc = arcpy.SelectLayerByAttribute_management("lulc_for_solar_lyr", 'NEW_SELECTION', solar_exclusion)
-        outsol = os.path.join(workspace_out, "lulc_for_solar")
-    #outwindnag = os.path.join(workspace, "lulc_for_windnonag_lyr")
-    #outwindag = os.path.join(workspace, "lulc_for_windag_lyr")
+            # Save the output
+            solar_extract.save(os.path.join(workspace_out, "lulc_for_solar"))
 
-        arcpy.CopyRaster_management(selc, outsol)
-    #arcpy.CopyRaster_management("lulc_for_windnonag_lyr", outwindnag)
-    #arcpy.CopyRaster_management("lulc_for_windag_lyr", outwindag)
+            print(arcpy.GetMessages())
 
-    print(arcpy.GetMessages())
+    if args["wind_nonag"] is not None:
+        if arcpy.Exists("lulc_for_wind_nonag"):
+            print("A lulc for wind nonag file with this name already exists; skipping this row")
+        else:
+            wind_nonag_exclusion = """ "VALUE" IN ({}) """.format(args["wind_nonag"][0])
+            print(wind_nonag_exclusion)
+            wind_nonag_extract = ExtractByAttributes(inRaster, wind_nonag_exclusion) # Execute ExtractByAttributes
+            wind_nonag_extract.save(os.path.join(workspace_out, "lulc_for_wind_nonag")) # Save the output
 
-
+    if args["wind_ag"] is not None:
+        if arcpy.Exists("lulc_for_wind_ag"):
+            print("A lulc for wind ag file with this name already exists; skipping this row")
+        else:
+            wind_ag_exclusion = """ "VALUE" IN ({}) """.format(args["wind_ag"][0])
+            print(wind_ag_exclusion)
+            wind_ag_extract = ExtractByAttributes(inRaster, wind_ag_exclusion) # Execute ExtractByAttributes
+            wind_ag_extract.save(os.path.join(workspace_out, "lulc_for_wind_ag")) # Save the output
 
 ###########################################################################
 
@@ -192,8 +247,12 @@ dir = os.path.dirname(parentDirectory)
 if arcpy.Exists(os.path.join(dir, basename + ".gdb")):
     parentDirectory = os.path.abspath(os.path.join(parentDirectory, os.pardir))
     print(parentDirectory)
-arcpy.CreateFileGDB_management(parentDirectory, "country_bounds.gdb")
-arcpy.env.workspace = workspace_out = os.path.join(parentDirectory, "country_bounds.gdb")
+if arcpy.Exists(os.path.join(parentDirectory, "country_bounds.gdb")):
+    arcpy.env.workspace = workspace_out = os.path.join(parentDirectory, "country_bounds.gdb")
+else:
+    arcpy.CreateFileGDB_management(parentDirectory, "country_bounds.gdb")
+    arcpy.env.workspace = workspace_out = os.path.join(parentDirectory, "country_bounds.gdb")
+
 print(os.path.abspath(workspace_out))
 print(arcpy.ListFeatureClasses())
 
@@ -213,6 +272,8 @@ print(list_of_countries[0])
 
 for item in list_of_countries:
     print(item)
+    # if "_" in item:
+    #     item.replace("_", " ")
     query = """"NAME" LIKE '%s'"""%item
     print(query)
     country = arcpy.SelectLayerByAttribute_management("countries_lyr", 'NEW_SELECTION', query)
@@ -278,6 +339,8 @@ print(parentDirectory)
 
 for j in range(len(fc_countries)):
     print(country_names[j])
+    if " " in country_names[j]:
+        country_names[j].replace(" ", "_")
     arcpy.CreateFileGDB_management(parentDirectory, country_names[j]+".gdb")
     arcpy.env.workspace = workspace_out = os.path.join(parentDirectory, country_names[j] + ".gdb")
     print(workspace_out)

@@ -6,10 +6,10 @@ import arcpy
 from arcpy import env
 
 # Set environment settings
-env.workspace = r"R:\users\anagha.uppal\MapRE\outputs2020.gdb"
+env.workspace = r"R:\users\anagha.uppal\MapRE\inputs2020.gdb"
 
 # Input feature classes
-input_features = ["cities", "counties", "blocks", "crime"]
+input_features = ["africagrid_Transmission_Distribution", "ALL_AICD_Countries_Power_Plants", "blocks", "crime"]
 
 # Output workspace
 out_workspace = r"R:\users\anagha.uppal\MapRE\outputs2020.gdb"

@@ -6,18 +6,28 @@ import arcpy
 import os
 import argparse
 import pandas as pd
+from arcpy.sa import *
+arcpy.CheckOutExtension("Spatial")
 
 
 #argument parser
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--input", required=True, nargs='+', help="input directory", type=str)
 ap.add_argument("-o", "--output", required=True, nargs='+', help="output directory", type=str)
-ap.add_argument("-fp", "--file_path", required=True, nargs='+', help="csv_file of 5 columns: \n"
+ap.add_argument("-fp", "--file_path", required=True, nargs='+', help="csv_file of 6 columns: \n"
                 "1 : in_features(feature class or raster), \n"
-                "2 : feature_class if feature class and raster if raster \n"
-                "3 : input coordinate system for arcpy.SpatialReference \n"
-                "4 : output coordinate system for arcpy.SpatialReference \n"
-                "5 : If raster, resampling method (Nearest/Bilinear/Cubic/Majority", type=str)
+                "2 : name of output file or raster, \n"
+                "3 : feature_class if feature class and raster if raster \n"
+                "4 : input coordinate system for arcpy.SpatialReference \n"
+                "5 : output coordinate system for arcpy.SpatialReference \n"
+                "6 : If raster, resampling method (Nearest/Bilinear/Cubic/Majority", type=str)
+ap.add_argument("-cs", "--cell_size", required=False, nargs='+',
+                help="cell size in the form 'X Y' such as 500 500 ",
+                type=str)
+ap.add_argument("-tr", "--template_raster", required=False, nargs='+',
+                help="if you want to choose a template raster to snap all rasters, provide file path here \n"
+                "If you do not have one in mind, the first raster processed will be used as the template for all others",
+                type=str)
 
 args = vars(ap.parse_args())
 
@@ -51,25 +61,68 @@ template = ""
 # Geographic transformation - 
 transformation = ""
 
+if args["template_raster"] is not None:
+    arcpy.env.snapRaster = args["template_raster"][0]
+    print("Now snapping to provided template raster")
+
+if args["cell_size"] is None:
+    cellSize = "500 500"
+else:
+    cellSize = args["cell_size"][0]
+
 
 #####parsing the csv_file
 arcpy.env.workspace = workspace_in
 print(arcpy.ListFeatureClasses())
 for i in range(len(csv_file)):
     infile = csv_file[0][i]
-    if(csv_file[1][i] == 'Feature Class'):
-        outfc = os.path.join(args["output"][0], infile + "_Projected")
+    print(infile)
+    outfile = csv_file[1][i]
+    print(outfile)
+    outfc = os.path.join(args["output"][0], outfile + "_Projected")
+
+    if arcpy.Exists(outfc):
+        print("An output file with this name already exists; skipping this row")
+        if (i == 0):
+            if args["template_raster"] is None:
+                arcpy.env.snapRaster = outfc
+                print("Now snapping to first raster")
+        continue
+    # if (infile == "gm_lc_v3_2_2"):
+    #     continue
+
+    if(csv_file[2][i] == 'Feature Class'):
+
         print("Feature Class")
-        print(infile, outfc, arcpy.SpatialReference(csv_file[3][i]), arcpy.SpatialReference(csv_file[2][i]))
-        arcpy.Project_management(infile, outfc, arcpy.SpatialReference(csv_file[3][i]), in_coor_system = arcpy.SpatialReference(csv_file[2][i]))
+        print(infile, outfc, arcpy.SpatialReference(csv_file[4][i]), arcpy.SpatialReference(csv_file[3][i]))
+        arcpy.Project_management(infile, outfc, arcpy.SpatialReference(csv_file[4][i]),
+                                 in_coor_system = arcpy.SpatialReference(csv_file[3][i]))
         print(arcpy.GetMessages())
 
-    elif(csv_file[1][i] == 'Raster'):
+    elif(csv_file[2][i] == 'Raster'):
         print("Raster")
-        outfc = os.path.join(args["output"][0], infile + "_Projected.tif")
-        arcpy.ProjectRaster_management(infile, outfc, arcpy.SpatialReference(csv_file[3][i]),
-                                       in_coor_system = arcpy.SpatialReference(csv_file[2][i]), resampling_type = csv_file[4][i])
+
+        # # Floating point rasters cannot be projected
+        # if (arcpy.GetRasterProperties_management(infile, "VALUETYPE").getOutput(0) == "9"):
+        #     print("This is a floating point raster, which cannot be projected as is")
+        #     outInt = Int(infile)
+        #     arcpy.env.overwriteOutput = True
+        #     outInt.save(infile)
+        #     arcpy.env.overwriteOutput = False
+        #     print("Had to change floating point raster to int pixel type")
+
+        # Rasters must have a value attribute table. If one exists, function will not make a new one
+        #arcpy.BuildRasterAttributeTable_management(infile,overwrite=None)
+
+        arcpy.ProjectRaster_management(infile, outfc, arcpy.SpatialReference(csv_file[4][i]),
+                                       in_coor_system = arcpy.SpatialReference(csv_file[3][i]),
+                                       resampling_type = csv_file[5][i], cell_size=cellSize)
         print(arcpy.GetMessages())
+        if (i == 0):
+            if args["template_raster"] is None:
+                arcpy.env.snapRaster = outfc
+                print("Now snapping to first raster")
+
 
 
 
