@@ -3,6 +3,9 @@
 # so we filter that raster
 # Each alt energy is different, so we need a file for solar/wind/etc
 
+###### IGNORE THIS SCRIPT DOESN"T WORK ####
+
+
 import arcpy
 import os
 
@@ -10,7 +13,7 @@ import os
 arcpy.env.workspace = r"R:\users\anagha.uppal\MapRE\outputs2020.gdb"
 
 
-solar_exclusion = """ "Value" In (1,2,3,4,5,6,11,12,13,14,15,18,19,20) """
+solar_exclusion = """ "Value" IN (1,2,3,4,5,6,11,12,13,14,15,18,19,20) """
 #wind_nonag_exclusion = """ "VALUE" In (1,2,3,4,5,11,12,13,14,15,18,19,20) """
 #wind_ag_exclusion = """ "VALUE" In (1,2,3,4,5,12,14,15,18,19,20) """
 
