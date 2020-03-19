@@ -64,12 +64,13 @@ import earthpy.plot as ep
 
 # Get sample data from EarthPy and setting your home working directory
 
-data_path = et.data.get_data("vignette-landsat")
-os.chdir(os.path.join(et.io.HOME, "earth-analytics"))
+workspace = "R:\\users\\anagha.uppal\\MapRE"
+
+os.chdir(workspace)
 
 # Prepare the landsat bands to be stacked using glob and sort
 
-landsat_bands_data_path = "data/vignette-landsat/LC08_L1TP_034032_20160621_20170221_01_T1_sr_band*[2-4]*_crop.tif"
+bands_data_path = "*.tif"
 stack_band_paths = glob(landsat_bands_data_path)
 stack_band_paths.sort()
 
@@ -92,7 +93,7 @@ raster_out_path = os.path.join(output_dir, "raster.tiff")
 
 # Stack Landsat bands
 
-os.chdir(os.path.join(et.io.HOME, "earth-analytics"))
+os.chdir(workspace)
 array, raster_prof = es.stack(stack_band_paths, out_path=raster_out_path)
 
 ####################################################################################
@@ -142,7 +143,7 @@ plt.show()
 # parameter, specify ``nodata=``. This will mask every pixel that contains
 # the specified ``nodata`` value. The output will be a numpy masked array.
 
-os.chdir(os.path.join(et.io.HOME, "earth-analytics"))
+os.chdir(workspace)
 array_nodata, raster_prof_nodata = es.stack(stack_band_paths, nodata=-9999)
 
 # View hist of data with nodata values removed
@@ -191,12 +192,12 @@ plt.show()
 # write it out to a file. Take the rasters created and stack them like
 # you stacked bands in the previous examples.
 
-os.chdir(os.path.join(et.io.HOME, "earth-analytics"))
+os.chdir(workspace)
 
 # Open the crop boundary using GeoPandas.
 
 crop_bound = gpd.read_file(
-    "data/vignette-landsat/vector_layers/fire-boundary-geomac/co_cold_springs_20160711_2200_dd83.shp"
+    "R:\\users\\anagha.uppal\\MapRE\\MapRE_Data\\Countries\\southAfrica\\za.gdb\\za_GADM_countryBounds"
 )
 
 #############################################################################
@@ -211,7 +212,7 @@ crop_bound = gpd.read_file(
 # To reproject your data, first get the CRS of the raster from the rasterio profile
 # object. Then use that to reproject using geopandas ``.to_crs`` method.
 
-os.chdir(os.path.join(et.io.HOME, "earth-analytics"))
+os.chdir(workspace)
 
 with rio.open(stack_band_paths[0]) as raster_crs:
     crop_raster_profile = raster_crs.profile
@@ -227,7 +228,7 @@ with rio.open(stack_band_paths[0]) as raster_crs:
 # directory and return a list of file paths that can then be used with
 # ``es.stack()``.
 
-os.chdir(os.path.join(et.io.HOME, "earth-analytics"))
+os.chdir(workspace)
 
 band_paths_list = es.crop_all(
     stack_band_paths, output_dir, crop_bound_utm13N, overwrite=True
@@ -238,7 +239,7 @@ band_paths_list = es.crop_all(
 # ---------------
 # Once the data are cropped, you are ready to create a new stack.
 
-os.chdir(os.path.join(et.io.HOME, "earth-analytics"))
+os.chdir(workspace)
 
 cropped_array, array_raster_profile = es.stack(band_paths_list, nodata=-9999)
 crop_extent = plotting_extent(
@@ -267,7 +268,7 @@ plt.show()
 # spatial extent.
 
 # Open Landsat image as a Rasterio object in order to crop it
-os.chdir(os.path.join(et.io.HOME, "earth-analytics"))
+os.chdir(workspace)
 
 with rio.open(stack_band_paths[0]) as src:
     single_cropped_image, single_cropped_meta = es.crop_image(

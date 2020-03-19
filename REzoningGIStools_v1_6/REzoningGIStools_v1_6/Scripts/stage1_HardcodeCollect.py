@@ -11,7 +11,7 @@ yourSpace = "R:\\users\\anagha.uppal\\MapRE\\" ##^^ This is the directory path b
 templateRaster = yourSpace + "outputs2020.gdb\\elevation500_DEMGADM_Projected" ##^^ enter path to DEM data  ## required
 countryBounds = yourSpace + "MapRE_data\\INPUTS\\" + "Countries\\southAfrica\\za.gdb\\za_GADM_countryBounds"  ## optional
 csvInput = yourSpace + "inputs_siteSuitabilityRasters.csv"  ## required
-resourceInput = yourSpace + "outputs2020.gdb\\wind_powerdensity_100m_Africa"  ## required
+resourceInput = yourSpace + "outputs2020.gdb\\wind_capacityfactor_IEC2_Africa"  ## required
 ## SITE SUITABILITY  PARAMETERS
 ## Resource input thresholds
 thresholdList = [2]  ## required, this can be a multi-value list
