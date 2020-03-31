@@ -16,7 +16,9 @@ arcpy.CheckOutExtension("Spatial")
 # argument parser
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--input", required=True, nargs='+', help="input directory", type=str)
-ap.add_argument("-pf", "--process_file", required=True, nargs='+', help="csv_file of 6 columns: \n"
+ap.add_argument("-r", "--region_list", required=True, nargs='*',
+                help="the country or region (e.g. states) in quotes and separated by spaces", type=str)
+ap.add_argument("-pf", "--process_file", required=False, nargs='+', help="csv_file of 6 columns: \n"
                                                                 "1 : in_features(feature class or raster), \n"
                                                                 "2 : name of output file or raster, \n"
                                                                 "3 : feature_class if feature class and raster if raster \n"
@@ -24,8 +26,6 @@ ap.add_argument("-pf", "--process_file", required=True, nargs='+', help="csv_fil
                                                                 "5 : output coordinate system for arcpy.SpatialReference \n"
                                                                 "6 : If raster, resampling method (Nearest/Bilinear/Cubic/Majority",
                 type=str)
-ap.add_argument("-r", "--region_list", required=True, nargs='*',
-                help="the country or region (e.g. states) in quotes and separated by spaces", type=str)
 ap.add_argument("-cs", "--cell_size", required=False, nargs='+',
                 help="cell size in the form 'X Y' such as 500 500 in quotes ",
                 type=str)
@@ -79,7 +79,10 @@ def csv_loop(self, func, colname, once):
 ###########################################################################
 # SETUP
 
-csv_file = pd.read_csv(args["process_file"][0], header=0)
+if args["process_file"] is None:
+    csv_file = pd.read_csv("RequiredCSVs\csv_test_file.csv", header=0)
+else:
+    csv_file = pd.read_csv(args["process_file"][0], header=0)
 
 if args["cell_size"] is None:
     cellSize = "500 500"
