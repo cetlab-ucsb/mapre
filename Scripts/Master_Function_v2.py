@@ -31,31 +31,6 @@ ap.add_argument("-cs", "--cell_size", required=False, nargs='+',
                 type=str)
 ap.add_argument("-md", "--max_dist", required=False, nargs='+', help="max distance for eucl distance (optional)",
                 type=str)
-ap.add_argument("-t", "--threshold", required=False, nargs='*',
-                help="which land use categories to extract (include) for solar/wind/etc (numbers separated by commas) \n"
-                     "if you want multiple threshold files, separate each list of numbers by a space"
-                     "Reference for LULC Categories to Process LULC Data \n"
-                     "# Code   Class Name \n"
-                     "# 1  Broadleaf Evergreen Forest \n"
-                     "# 2  Broadleaf Deciduous Forest \n"
-                     "# 3  Needleleaf Evergreen Forest \n"
-                     "# 4  Needleleaf Deciduous Forest \n"
-                     "# 5  Mixed Forest \n"
-                     "# 6  Tree Open \n"
-                     "# 7  Shrub \n"
-                     "# 8  Herbaceous \n"
-                     "# 9  Herbaceous with Sparse Tree/Shrub \n"
-                     "# 10 Sparse vegetation \n"
-                     "# 11   Cropland \n"
-                     "# 12  Paddy field \n"
-                     "# 13  Cropland / Other Vegetation Mosaic \n"
-                     "# 14  Mangrove \n"
-                     "# 15  Wetland \n"
-                     "# 16  Bare area,consolidated(gravel,rock) \n"
-                     "# 17  Bare area,unconsolidated (sand) \n"
-                     "# 18  Urban \n"
-                     "# 19  Snow / Ice \n"
-                     "# 20  Water bodies", type=str)
 
 
 args = vars(ap.parse_args())
@@ -188,19 +163,19 @@ import_functions.Euclidean_Distance_function.euc_dist(ed, country_names, maxDist
 # so we filter that raster
 # Each alt energy is different, so we need a file for solar/wind/etc
 
-lulc = csv_file[csv_file['LULC File'] == "Yes"]
-lulc = lulc.reset_index()
-
-if len(lulc) > 0:
-
-    # Set infile
-    inRaster = "{}_{}_Projected_Clipped".format(country_names[0], lulc['Output File Name'][0])
-
-    print(arcpy.ListRasters())
-
-    if args["threshold"] is not None:
-
-        import import_functions.Extract_Attributes_function
-        thresholds = args["threshold"]
-
-        import_functions.Extract_Attributes_function.extract(thresholds, inRaster, workspace_out)
+# lulc = csv_file[csv_file['LULC File'] == "Yes"]
+# lulc = lulc.reset_index()
+#
+# if len(lulc) > 0:
+#
+#     # Set infile
+#     inRaster = "{}_{}_Projected_Clipped".format(country_names[0], lulc['Output File Name'][0])
+#
+#     print(arcpy.ListRasters())
+#
+#     if args["threshold"] is not None:
+#
+#         import import_functions.Extract_Attributes_function
+#         thresholds = args["threshold"]
+#
+#         import_functions.Extract_Attributes_function.extract(thresholds, inRaster, workspace_out)
