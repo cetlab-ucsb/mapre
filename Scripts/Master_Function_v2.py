@@ -55,7 +55,7 @@ def csv_loop(self, func, colname, once):
 # SETUP
 
 if args["process_file"] is None:
-    csv_file = pd.read_csv("RequiredCSVs\csv_test_file.csv", header=0)
+    csv_file = pd.read_csv("RequiredCSVs\csv_processing_file.csv", header=0)
 else:
     csv_file = pd.read_csv(args["process_file"][0], header=0)
 
