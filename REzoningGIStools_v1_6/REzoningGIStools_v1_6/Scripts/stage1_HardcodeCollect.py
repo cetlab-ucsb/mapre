@@ -14,13 +14,13 @@ csvInput = yourSpace + "inputs_siteSuitabilityRasters.csv"  ## required
 resourceInput = yourSpace + "outputs2020.gdb\\wind_capacityfactor_IEC2_Africa"  ## required
 ## SITE SUITABILITY  PARAMETERS
 ## Resource input thresholds
-thresholdList = [2]  ## required, this can be a multi-value list
+thresholdList = [0]  ## required, this can be a multi-value list
 arcpy.AddMessage(thresholdList)
 
 ## SPATIAL AND NON-SPATIAL OUTPUTS
 out_suitableSites_gdb = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\SA_Outputs.gdb"  ## required
 
-fileNameSuffix = "suitability"  ## SITE SUITABILITY FC
+fileNameSuffix = "suitability_butwaterline"  ## SITE SUITABILITY FC
 
 csvAreaOutput = "sitesuitability_solarPV_SA.csv"  ## required
 

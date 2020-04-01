@@ -5,7 +5,7 @@
 *.jpeg
 *.tif
 *.tiff
-*.csv
+!*.csv
 *.docx
 *.pdf
 *.pyc

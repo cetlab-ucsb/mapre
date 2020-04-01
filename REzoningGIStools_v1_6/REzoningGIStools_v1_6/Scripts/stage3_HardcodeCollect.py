@@ -19,9 +19,9 @@ yourSpace = "R:\\users\\anagha.uppal\\MapRE\\"
 
 ## SPATIAL INPUTS
 technology = "Wind"  ##
-projectsIn = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\SA_Outputs.gdb\wind_2_suitability_areas"  ##
+projectsIn = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\SA_Outputs.gdb\wind_0_suitability_butwaterline_areas"  ##
 projectsOut = projectsIn + "_attr"  ##
-resourceInput = yourSpace + "outputs2020.gdb\\wind_powerdensity_100m_Africa"  ## MUST BE A RASTER
+resourceInput = yourSpace + "outputs2020.gdb\\wind_capacityfactor_IEC2_Africa"  ## MUST BE A RASTER
 csvInput = r"R:\\users\\anagha.uppal\\MapRE\\inputs_projectAreaAttributes.csv"  ## required
 templateRaster = yourSpace + "outputs2020.gdb\\elevation500_DEMGADM_Projected"  ## required
 scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\Scratch.gdb"
@@ -30,7 +30,7 @@ scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\Scratch.g
 ## PARAMETERS ##
 ################
 
-RQtype = "W/m2"  ## capacityFactor" or "windPowerDensity"
+RQtype = "Capacity Factor"  ## capacityFactor" or "windPowerDensity"
 transmissionDistMultiplier = 1.3
 cellSize = int(500)  ## 500
 largestArea = 25  ## 500

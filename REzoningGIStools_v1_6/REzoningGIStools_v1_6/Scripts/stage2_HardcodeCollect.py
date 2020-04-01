@@ -17,9 +17,9 @@ defaultInputWorkspace = "R:\\users\\anagha.uppal\\MapRE\\outputs2020.gdb\\"
 
 ## SPATIAL INPUTS
 
-suitableSites = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\SA_Outputs.gdb\wind_2_suitability"  ## required
+suitableSites = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\SA_Outputs.gdb\wind_0_suitability_butwaterline"  ## required
 
-projectsOut = suitableSites + "_areas_f10"  ##
+projectsOut = suitableSites + "_areas"  ##
 
 scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\Scratch.gdb"  ## required scratch GDB
 
@@ -33,7 +33,7 @@ geoUnits = "" ## optional
 
 ## PARAMETERS
 
-fishnetSize = 10  ## in km
+fishnetSize = 5  ## in km
 
 fishnetDirectory = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\SA_Outputs.gdb"
 
