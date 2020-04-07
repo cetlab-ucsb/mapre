@@ -1,6 +1,7 @@
 #from Scripts import
 import stage2_function
 import arcpy
+import pandas as pd
 
 stage2_function.my_function()
 
@@ -13,36 +14,38 @@ stage2_function.my_function()
 ## USER SET INPUTS ##
 #####################
 
+csv_file = pd.read_csv(r"R:\users\anagha.uppal\MapRE\RequiredCSVs\stage2_input.csv", header=None)
+
 ## SPATIAL INPUTS
 
-suitableSites = arcpy.GetParameterAsText(0) ## required
+suitableSites = str(csv_file[1][0]) ## required
 
-projectsOut = arcpy.GetParameterAsText(1) ##
+projectsOut = str(csv_file[1][1]) ## required
 
-scratch = arcpy.GetParameterAsText(2) ## required scratch GDB
+scratch = str(csv_file[1][2]) ## required scratch GDB
 
-templateRaster = arcpy.GetParameterAsText(3) ## required
+templateRaster = str(csv_file[1][3]) ## required
 
-countryBounds = arcpy.GetParameterAsText(4) ## required
+countryBounds = str(csv_file[1][4]) ## required
 
-geoUnits = arcpy.GetParameterAsText(5) ## optional
+geoUnits = str(csv_file[1][5]) ## optional
 
 # csvInput = arcpy.GetParameterAsText(3) ## required
 
 ## PARAMETERS
 
-fishnetSize = float(arcpy.GetParameterAsText(6)) ## in km
+fishnetSize = float(csv_file[1][6]) ## in km
 
-fishnetDirectory = arcpy.GetParameterAsText(7)
+fishnetDirectory = str(csv_file[1][7])
 
 # Parameter: area above which to intersect (b)
-whereClauseMax = str(arcpy.GetParameter(8)) ## 25'
+whereClauseMax = str(csv_file[1][8]) ## 25'
 
 # Parameter: area below which to aggregate (d)
-whereClauseMin = str(arcpy.GetParameter(9)) ## 5'
+whereClauseMin = str(csv_file[1][9]) ## 5'
 
 # Parameter: threshold for minimum contiguous project area (a)
-whereClauseMinContArea = str(arcpy.GetParameter(10))  ## 2'
+whereClauseMinContArea = str(csv_file[1][10])  ## 2'
 
 
 
