@@ -55,7 +55,9 @@ def csv_loop(self, func, colname, once):
 # SETUP
 
 if args["process_file"] is None:
-    csv_file = pd.read_csv("RequiredCSVs\csv_processing_file.csv", header=0)
+    my_path = os.path.abspath(os.path.dirname(__file__))
+    path = os.path.join(my_path, r"RequiredCSVs\csv_processing_file.csv")
+    csv_file = pd.read_csv(path, header=0)
 else:
     csv_file = pd.read_csv(args["process_file"][0], header=0)
 
@@ -120,7 +122,6 @@ print(list_of_countries)
 
 workspace_in, workspace_out = import_functions.Country_bounds_function.create_bounds(bounds, workspace_in, workspace_out, list_of_countries)
 
-
 ###########################################################################
 
 # Name: All_clip.py
@@ -133,7 +134,8 @@ import import_functions.All_clip_function
 workspace_files = projGDB
 workspace_countries = workspace_out
 
-country_names, workspace_out = import_functions.All_clip_function.all_clip(workspace_files, workspace_countries)
+country_names, workspace_out = import_functions.All_clip_function.all_clip(workspace_files, workspace_countries,
+                                                                           list_of_countries)
 
 
 ###########################################################################

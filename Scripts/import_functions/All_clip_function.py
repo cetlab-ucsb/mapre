@@ -7,7 +7,7 @@ import os
 
 ## arcpy.env.workspace = r"R:\users\anagha.uppal\MapRE\outputs2020.gdb"
 
-def all_clip(workspace_files, workspace_countries):
+def all_clip(workspace_files, workspace_countries, list_of_countries):
 
     fc_vectors = []
     vector_names = []
@@ -15,7 +15,7 @@ def all_clip(workspace_files, workspace_countries):
     raster_names = []
     fc_countries = []
     global country_names
-    country_names = []
+    country_names = list_of_countries
     ##
     ##if arcpy.Exists('R:\\users\\anagha.uppal\\MapRE\\outputs2020.gdb\\ALL_AICD_Countries_Power_Plants_Projected'):
     ##    arcpy.Rename_management('R:\\users\\anagha.uppal\\MapRE\\outputs2020.gdb\\ALL_AICD_Countries_Power_Plants_Projected', 'R:\\users\\anagha.uppal\\MapRE\\outputs2020.gdb\\Power_Plants_Projected')
@@ -43,17 +43,17 @@ def all_clip(workspace_files, workspace_countries):
         for filename in filenames:
             if filename != "shp":
                 fc_countries.append(os.path.join(dirpath, filename))
-                country_names.append(filename)
+                # country_names.append(filename)
 
     print(vector_names, raster_names, country_names)
 
     parentDirectory = os.path.abspath(os.path.join(workspace_countries, os.pardir))
     print(parentDirectory)
 
-    for j in range(len(fc_countries)):
+    for j in range(len(country_names)):
         print(country_names[j])
         if " " in country_names[j]:
-            country_names[j].replace(" ", "_")
+            country_names[j] = country_names[j].replace(" ", "_")
 
         if arcpy.Exists(os.path.join(parentDirectory, country_names[j] + ".gdb")):
             arcpy.env.workspace = workspace_out = os.path.join(parentDirectory, country_names[j] + ".gdb")
@@ -71,7 +71,7 @@ def all_clip(workspace_files, workspace_countries):
             arcpy.Clip_analysis(fc_vectors[i], fc_countries[j], outfc)
             print(arcpy.GetMessages())
 
-    for j in range(len(fc_countries)):
+    for j in range(len(country_names)):
         print(country_names[j])
         if arcpy.Exists(os.path.join(parentDirectory, country_names[j] + ".gdb")):
             arcpy.env.workspace = workspace_out = os.path.join(parentDirectory, country_names[j] + ".gdb")

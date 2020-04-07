@@ -30,11 +30,12 @@ def create_bounds(bounds, workspace_in, workspace_out, list_of_countries):
 
     for item in list_of_countries:
         print(item)
-        # if "_" in item:
-        #     item.replace("_", " ")
+
         query = """"NAME" LIKE '%s'""" % item
         print(query)
         country = arcpy.SelectLayerByAttribute_management("countries_lyr", 'NEW_SELECTION', query)
+        if " " in item:
+            item = item.replace(" ", "_")
         outfc = os.path.join(workspace_out, item)
         if arcpy.Exists(outfc):
             print("A region bounds file with this name already exists; skipping creating this region file")
