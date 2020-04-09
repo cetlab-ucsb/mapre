@@ -13,3 +13,4 @@ protected_areas_polygons,protected_areas_polygons,Feature Class,4326,Africa Albe
 rails,rails,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,
 water_bodies,water_bodies,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,
 wind_powerdensity_100m,wind_powerdensity_100m,Raster,4326,Africa Albers Equal Area Conic,CUBIC,Yes,,,
+wind_capacityfactor_IEC2,wind_capacityfactor_IEC2,Raster,4326,Africa Albers Equal Area Conic,CUBIC,Yes,,,

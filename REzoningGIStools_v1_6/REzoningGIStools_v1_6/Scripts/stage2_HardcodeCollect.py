@@ -13,19 +13,19 @@ stage2_function.my_function()
 ## USER SET INPUTS ##
 #####################
 
-defaultInputWorkspace = "R:\\users\\anagha.uppal\\MapRE\\outputs2020.gdb\\"
+defaultInputWorkspace = "R:\\users\\anagha.uppal\\MapRE\\"
 
 ## SPATIAL INPUTS
 
-suitableSites = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\SA_Outputs.gdb\wind_0_suitability_butwaterline"  ## required
+suitableSites = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\SA_Outputs.gdb\wind_0_suitability"  ## required
 
 projectsOut = suitableSites + "_areas"  ##
 
 scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\Scratch.gdb"  ## required scratch GDB
 
-templateRaster = defaultInputWorkspace + "GHI_Projected_Africa"  ## required
+templateRaster = defaultInputWorkspace + "South_Africa.gdb\\South_Africa_elevation500_DEMGADM_Projected_Clipped"  ## required
 
-countryBounds = "R:\\users\\anagha.uppal\\MapRE\\MapRE_Data\\INPUTS\\Countries\\southAfrica\\za.gdb\\za_GADM_countryBounds"  ## optional
+countryBounds = defaultInputWorkspace + "country_bounds.gdb\\South_Africa"  ## optional
 
 geoUnits = "" ## optional
 

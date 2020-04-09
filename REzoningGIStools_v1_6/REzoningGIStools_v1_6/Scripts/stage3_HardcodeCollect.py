@@ -19,11 +19,11 @@ yourSpace = "R:\\users\\anagha.uppal\\MapRE\\"
 
 ## SPATIAL INPUTS
 technology = "Wind"  ##
-projectsIn = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\SA_Outputs.gdb\wind_0_suitability_butwaterline_areas"  ##
+projectsIn = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\SA_Outputs.gdb\wind_0_suitability_areas"  ##
 projectsOut = projectsIn + "_attr"  ##
-resourceInput = yourSpace + "outputs2020.gdb\\wind_capacityfactor_IEC2_Africa"  ## MUST BE A RASTER
-csvInput = r"R:\\users\\anagha.uppal\\MapRE\\inputs_projectAreaAttributes.csv"  ## required
-templateRaster = yourSpace + "outputs2020.gdb\\elevation500_DEMGADM_Projected"  ## required
+resourceInput = yourSpace + "South_Africa.gdb\\South_Africa_wind_capacityfactor_IEC2_Projected_Clipped"  ## MUST BE A RASTER
+csvInput = yourSpace + "RequiredCSVs\\inputs_projectAreaAttributes.csv"  ## required
+templateRaster = yourSpace + "South_Africa.gdb\\South_Africa_elevation500_DEMGADM_Projected_Clipped"  ## required
 scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\Scratch.gdb"
 
 ################

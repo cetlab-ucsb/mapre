@@ -8,6 +8,8 @@ import os
 import argparse
 import pandas as pd
 from arcpy.sa import *
+import collections
+
 
 arcpy.CheckOutExtension("Spatial")
 
@@ -28,8 +30,6 @@ ap.add_argument("-pf", "--process_file", required=False, nargs='+', help="csv_fi
                 type=str)
 ap.add_argument("-cs", "--cell_size", required=False, nargs='+',
                 help="cell size in the form 'X Y' such as 500 500 in quotes ",
-                type=str)
-ap.add_argument("-md", "--max_dist", required=False, nargs='+', help="max distance for eucl distance (optional)",
                 type=str)
 
 
@@ -94,19 +94,57 @@ import import_functions.BatchProject1
 
 template = csv_file[csv_file['Template Raster'] == "Yes"]
 template = template.reset_index()
-#print(template.loc[0, 'Input File Name'])
-#print(template['Input File Name'][0])
+# print(template.loc[0, 'Input File Name'])
+# print(template['Input File Name'][0])
 
-if (template['File Type'][0] == 'Raster'):
+if template['File Type'][0] == 'Raster':
     import_functions.BatchProject1.project(template, workspace_in, workspace_out, cellSize, template=True)
 else:
     print("This file is not a raster and cannot serve as your template raster")
 
 ###########################################################################
 
-### Project all files
-
+# projectedBool = False
+# print(len(set(csv_file['Input Projection'])) <= 2)
+# if len(set(csv_file['Input Projection'])) <= 2:
+#     if len(set(csv_file['Input Projection'])) == 2:
+#         inproj = collections.Counter(csv_file['Input Projection'])
+#         inproj = sorted(inproj.items(), key=lambda x: x[1], reverse=True)
+#         #print(inproj.keys()[0])
+#         print(inproj[0])
+#         print(inproj[0][0])
+#
+#         arcpy.env.overwriteOutput = True
+#         for i in range(len(csv_file)):
+#             infile = csv_file['Input File Name'][i]
+#             if csv_file['Input Projection'][i] != inproj[0][0]:
+#                 # project it to inproj[0][0]
+#                 if (csv_file['File Type'][i] == 'Feature Class'):
+#
+#                     print("Feature Class")
+#                     print(infile, csv_file['Input Projection'][i], csv_file['Output Projection'][i])
+#                     arcpy.Project_management(infile, infile, arcpy.SpatialReference(inproj[0][0]),
+#                                              in_coor_system=arcpy.SpatialReference(csv_file['Input Projection'][i]))
+#                     print(arcpy.GetMessages())
+#
+#                 elif (csv_file['File Type'][i] == 'Raster'):
+#                     print("Raster")
+#                     arcpy.ProjectRaster_management(infile, infile, arcpy.SpatialReference(inproj[0][0]),
+#                                                    in_coor_system=arcpy.SpatialReference(csv_file['Input Projection'][0]),
+#                                                    cell_size=cellSize)
+#                     print(arcpy.GetMessages())
+#             else:
+#                 print("This file: " + infile + " is already projected to the majority - " + inproj[0][0])
+#         projectedBool = False
+#         arcpy.env.overwriteOutput = False
+#     else:
+#         print("All files projected to one")
+#         projectedBool = True
+#
+# else:
+#     ### Project all files
 import_functions.BatchProject1.project(csv_file, workspace_in, workspace_out, cellSize, template=False)
+    #projectedBool = True
 
 ###########################################################################
 
@@ -121,6 +159,13 @@ print(list_of_countries)
 
 
 workspace_in, workspace_out = import_functions.Country_bounds_function.create_bounds(bounds, workspace_in, workspace_out, list_of_countries)
+
+###########################################################################
+
+# if projectedBool == False:
+#     ### Project all files
+#     import_functions.BatchProject1.project(csv_file, workspace_in, workspace_out, cellSize, template=False)
+#     projectedBool = True
 
 ###########################################################################
 
@@ -146,17 +191,24 @@ country_names, workspace_out = import_functions.All_clip_function.all_clip(works
 
 import import_functions.Euclidean_Distance_function
 
-if args["max_dist"] is None:
-    maxDistance = 4000
-else:
-    maxDistance = args["max_dist"][0]
+print(workspace_countries)
 
 cellSize = int(str.split(cellSize, " ")[0])
 
 ed = csv_file[csv_file['Euclidean Distance Raster'] == "Yes"]
 ed = ed.reset_index()
 
-import_functions.Euclidean_Distance_function.euc_dist(ed, country_names, maxDistance, cellSize, workspace_out)
+fc_countries = []
+walk = arcpy.da.Walk(workspace_countries, datatype="FeatureClass")
+
+for dirpath, dirnames, filenames in walk:
+    for filename in filenames:
+        if filename in country_names:
+            fc_countries.append(os.path.join(dirpath, filename))
+            # country_names.append(filename)
+fc_countries.sort()
+
+import_functions.Euclidean_Distance_function.euc_dist(ed, country_names, fc_countries[0], cellSize, workspace_out)
 
 ###########################################################################
 

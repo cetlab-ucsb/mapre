@@ -8,10 +8,10 @@ technology = "wind"  ## required
 yourSpace = "R:\\users\\anagha.uppal\\MapRE\\" ##^^ This is the directory path before the IRENA folder structure
 #defaultInputWorkspace = yourSpace + "INPUTS\\" ##^^ enter the path to your DEFAULT INPUT path
 ## SPATIAL INPUTS
-templateRaster = yourSpace + "outputs2020.gdb\\elevation500_DEMGADM_Projected" ##^^ enter path to DEM data  ## required
-countryBounds = yourSpace + "MapRE_data\\INPUTS\\" + "Countries\\southAfrica\\za.gdb\\za_GADM_countryBounds"  ## optional
-csvInput = yourSpace + "inputs_siteSuitabilityRasters.csv"  ## required
-resourceInput = yourSpace + "outputs2020.gdb\\wind_capacityfactor_IEC2_Africa"  ## required
+templateRaster = yourSpace + "South_Africa.gdb\\South_Africa_elevation500_DEMGADM_Projected_Clipped" ##^^ enter path to DEM data  ## required
+countryBounds = yourSpace + "country_bounds.gdb\\South_Africa"  ## optional
+csvInput = yourSpace + "RequiredCSVs\\inputs_siteSuitabilityRasters.csv"  ## required
+resourceInput = yourSpace + "South_Africa.gdb\\South_Africa_wind_capacityfactor_IEC2_Projected_Clipped"  ## required
 ## SITE SUITABILITY  PARAMETERS
 ## Resource input thresholds
 thresholdList = [0]  ## required, this can be a multi-value list
@@ -20,7 +20,7 @@ arcpy.AddMessage(thresholdList)
 ## SPATIAL AND NON-SPATIAL OUTPUTS
 out_suitableSites_gdb = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\SA_Outputs.gdb"  ## required
 
-fileNameSuffix = "suitability_butwaterline"  ## SITE SUITABILITY FC
+fileNameSuffix = "suitability"  ## SITE SUITABILITY FC
 
 csvAreaOutput = "sitesuitability_solarPV_SA.csv"  ## required
 
