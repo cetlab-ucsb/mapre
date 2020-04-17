@@ -5,7 +5,7 @@
 import arcpy
 import os
 
-def create_bounds(bounds, workspace_in, workspace_out, list_of_countries):
+def create_bounds(bounds, workspace_in, workspace_out, list_of_countries, condition):
     parentDirectory = os.path.abspath(os.path.join(workspace_in, os.pardir))
     print(parentDirectory)
     basename = os.path.basename(parentDirectory).split('.')[0]
@@ -20,27 +20,21 @@ def create_bounds(bounds, workspace_in, workspace_out, list_of_countries):
         arcpy.CreateFileGDB_management(parentDirectory, "country_bounds.gdb")
         arcpy.env.workspace = workspace_out = os.path.join(parentDirectory, "country_bounds.gdb")
 
-    print(os.path.abspath(workspace_out))
-    print(arcpy.ListFeatureClasses())
-    print(workspace_in)
 
     bounds_file = os.path.join(workspace_in, bounds['Output File Name'][0] + "_Projected")
     arcpy.MakeFeatureLayer_management(bounds_file, "countries_lyr")
 
-
-    for item in list_of_countries:
-        print(item)
-
-        query = """"NAME" LIKE '%s'""" % item
-        print(query)
-        country = arcpy.SelectLayerByAttribute_management("countries_lyr", 'NEW_SELECTION', query)
-        if " " in item:
-            item = item.replace(" ", "_")
-        outfc = os.path.join(workspace_out, item)
+    print(condition)
+    country = arcpy.SelectLayerByAttribute_management("countries_lyr", 'NEW_SELECTION', condition)
+    for cntry in list_of_countries:
+        if " " in cntry:
+            cntry = cntry.replace(" ", "_")
+        outfc = os.path.join(workspace_out, cntry)
+        print(outfc)
         if arcpy.Exists(outfc):
             print("A region bounds file with this name already exists; skipping creating this region file")
-            continue
-        arcpy.CopyFeatures_management(country, outfc)
-        arcpy.SelectLayerByAttribute_management("countries_lyr", "CLEAR_SELECTION")
-        print(arcpy.GetMessages())
+        else:
+            arcpy.CopyFeatures_management(country, outfc)
+            arcpy.SelectLayerByAttribute_management("countries_lyr", "CLEAR_SELECTION")
+            print(arcpy.GetMessages())
     return workspace_in, workspace_out

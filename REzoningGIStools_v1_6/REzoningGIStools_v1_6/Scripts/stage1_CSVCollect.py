@@ -18,7 +18,8 @@ csvInput = str(csv_file[1][3])  ## required
 resourceInput = str(csv_file[1][4])  ## required
 ## SITE SUITABILITY  PARAMETERS
 ## Resource input thresholds
-thresholdList = csv_file[1][5]  ## required, this can be a multi-value list
+thresholdList = csv_file[1][5].split(",") ## required, this can be a multi-value list
+thresholdList = [float(i) for i in thresholdList]
 arcpy.AddMessage(thresholdList)
 
 ## SPATIAL AND NON-SPATIAL OUTPUTS
@@ -33,10 +34,10 @@ scratch = str(csv_file[1][9])
 ## OPTIONS
 rasterOutput = str(csv_file[1][10])  ## Boolean: TRUE or FALSE
 
-landUseEfficiency = csv_file[1][11]  ## required
-landUseDiscount = csv_file[1][12]  ## required
-avgCF = csv_file[1][13]  ## required
-minArea = csv_file[1][14]  ## required
+landUseEfficiency = int(csv_file[1][11])  ## required
+landUseDiscount = float(csv_file[1][12])  ## required
+avgCF = float(csv_file[1][13])  ## required
+minArea = float(csv_file[1][14])  ## required
 
 
 analysis = stage1_function.Suitability(technology, templateRaster, countryBounds, csvInput, resourceInput,

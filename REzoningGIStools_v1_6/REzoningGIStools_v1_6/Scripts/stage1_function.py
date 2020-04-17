@@ -84,6 +84,8 @@ class Suitability:
         endType = "ROUND"
         dissolveType = "ALL"
 
+        selectIntermediate_geoUnits=""
+
 
         ###############
         ## FUNCTIONS ##
@@ -219,8 +221,17 @@ class Suitability:
             # Process: Calculate Field
             arcpy.CalculateField_management(selectIntermediate, "Area", "!Shape.Area@squarekilometers!", "PYTHON_9.3", "")
 
+            # Anagha adding geoUnits to stage1 analysis
+            ## INTERSECT Geographic Unit of Analysis, if provided
+            if arcpy.Exists(self.geoUnits):
+                arcpy.AddMessage("Intersecting by geographic units of analysis")
+                arcpy.Intersect_analysis([selectIntermediate, self.geoUnits], selectIntermediate_geoUnits, "NO_FID")
+            else:
+                selectIntermediate_geoUnits = selectIntermediate
+
+
             # Process: select areas above minimum contiguous area and SAVE to file
-            select = arcpy.Select_analysis(selectIntermediate, outputFileName, \
+            select = arcpy.Select_analysis(selectIntermediate_geoUnits, outputFileName, \
                                            '"Area" >= ' + str(self.minArea))
 
             if self.rasterOutput.lower() == 'true':  ##save the raster output
@@ -249,6 +260,9 @@ class Suitability:
         #######################################
         '''
         areaTable = [areaLabelList, areaSumList, generationSumList]
+
+        if arcpy.Exists(self.geoUnits):
+            pass
 
         # Write Area Sums table as CSV file
         with open(self.csvAreaOutput, 'w') as csvfile:

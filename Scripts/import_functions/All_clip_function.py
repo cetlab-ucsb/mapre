@@ -17,6 +17,8 @@ def all_clip(workspace_files, workspace_countries, list_of_countries):
     global country_names
     country_names = list_of_countries
     country_names.sort()
+    print(list_of_countries)
+    print(country_names)
 
     for j in range(len(country_names)):
         if " " in country_names[j]:
@@ -50,8 +52,6 @@ def all_clip(workspace_files, workspace_countries, list_of_countries):
                 fc_countries.append(os.path.join(dirpath, filename))
                 # country_names.append(filename)
     fc_countries.sort()
-    print(vector_names, raster_names, country_names, fc_countries)
-
     parentDirectory = os.path.abspath(os.path.join(workspace_countries, os.pardir))
     print(parentDirectory)
 
