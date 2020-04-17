@@ -34,8 +34,11 @@ landUseDiscount = 0.1  ## required
 avgCF = 0.2  ## required
 minArea = 2  ## required
 
+geoUnits = ""
+
 
 analysis = stage1_function.Suitability(technology, templateRaster, countryBounds, csvInput, resourceInput,
                                        thresholdList, out_suitableSites_gdb, fileNameSuffix, csvAreaOutput,
-                                       scratch, rasterOutput, landUseEfficiency, landUseDiscount, avgCF, minArea)
+                                       scratch, rasterOutput, landUseEfficiency, landUseDiscount, avgCF,
+                                       minArea, geoUnits)
 analysis.identifySuitable()

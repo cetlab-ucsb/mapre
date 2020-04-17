@@ -10,7 +10,7 @@ def my_function():
 class Suitability:
     def __init__(self, technology, templateRaster, countryBounds, csvInput, resourceInput,
                      thresholdList, out_suitableSites_gdb, fileNameSuffix, csvAreaOutput,
-                     scratch, rasterOutput, landUseEfficiency, landUseDiscount, avgCF, minArea):
+                     scratch, rasterOutput, landUseEfficiency, landUseDiscount, avgCF, minArea, geoUnits):
         ## SPATIAL INPUTS
         self.technology = str(technology)
 
@@ -42,6 +42,7 @@ class Suitability:
         self.landUseDiscount = landUseDiscount  ## required
         self.avgCF = avgCF  ## required
         self.minArea = minArea  ## required
+        self.geoUnits = geoUnits
 
     def identifySuitable(self):
 
