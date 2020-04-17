@@ -22,7 +22,7 @@ out_suitableSites_gdb = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAf
 
 fileNameSuffix = "suitability"  ## SITE SUITABILITY FC
 
-csvAreaOutput = "sitesuitability_solarPV_SA.csv"  ## required
+csvAreaOutput = "sitesuitability_wind_SA.csv"  ## required
 
 scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\Scratch.gdb"
 
@@ -34,7 +34,7 @@ landUseDiscount = 0.1  ## required
 avgCF = 0.2  ## required
 minArea = 2  ## required
 
-geoUnits = ""
+geoUnits = yourSpace + "country_bounds.gdb\\South_Africa"
 
 
 analysis = stage1_function.Suitability(technology, templateRaster, countryBounds, csvInput, resourceInput,

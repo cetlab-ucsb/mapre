@@ -85,7 +85,7 @@ class Suitability:
         endType = "ROUND"
         dissolveType = "ALL"
 
-        selectIntermediate_geoUnits=""
+        selectIntermediate_geoUnits = "in_memory/selectIntermediate_geoUnits"
 
 
         ###############
@@ -222,7 +222,11 @@ class Suitability:
             # Process: Calculate Field
             arcpy.CalculateField_management(selectIntermediate, "Area", "!Shape.Area@squarekilometers!", "PYTHON_9.3", "")
 
+            arcpy.env.workspace = "R:\\users\\anagha.uppal\\MapRE\\country_bounds.gdb"
             # Anagha adding geoUnits to stage1 analysis
+            arcpy.CopyFeatures_management(selectIntermediate, "selectIntermediate")
+            print(selectIntermediate)
+            print(self.geoUnits)
             ## INTERSECT Geographic Unit of Analysis, if provided
             if arcpy.Exists(self.geoUnits):
                 arcpy.AddMessage("Intersecting by geographic units of analysis")
