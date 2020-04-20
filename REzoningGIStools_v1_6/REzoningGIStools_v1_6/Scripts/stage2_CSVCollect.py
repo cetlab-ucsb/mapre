@@ -14,7 +14,7 @@ stage2_function.my_function()
 ## USER SET INPUTS ##
 #####################
 
-csv_file = pd.read_csv(r"R:\users\anagha.uppal\MapRE\RequiredCSVs\stage2_input.csv", header=None)
+csv_file = pd.read_csv(r"E:\Spatial_Research\eeg_sa\INPUTS\RequiredCSVs\stage2_input.csv", header=None)
 
 ## SPATIAL INPUTS
 

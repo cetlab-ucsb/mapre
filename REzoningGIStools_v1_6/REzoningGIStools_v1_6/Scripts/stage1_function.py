@@ -222,9 +222,9 @@ class Suitability:
             # Process: Calculate Field
             arcpy.CalculateField_management(selectIntermediate, "Area", "!Shape.Area@squarekilometers!", "PYTHON_9.3", "")
 
-            arcpy.env.workspace = "R:\\users\\anagha.uppal\\MapRE\\country_bounds.gdb"
+            # arcpy.env.workspace = "R:\\users\\anagha.uppal\\MapRE\\country_bounds.gdb"
             # Anagha adding geoUnits to stage1 analysis
-            arcpy.CopyFeatures_management(selectIntermediate, "selectIntermediate")
+            #arcpy.CopyFeatures_management(selectIntermediate, "selectIntermediate")
             print(selectIntermediate)
             print(self.geoUnits)
             ## INTERSECT Geographic Unit of Analysis, if provided
@@ -257,7 +257,8 @@ class Suitability:
                 areaList.append(area)
             areaSumList.append(sum(areaList))
             generationSumList.append(sum(generationList))
-            areaLabelList.append(outputFileName)
+            #areaLabelList.append(outputFileName)
+            areaLabelList.append(str(thresholdFileName) + "_" + self.fileNameSuffix)
 
         '''
         #######################################

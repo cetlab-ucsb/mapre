@@ -15,7 +15,7 @@ stage3_function.my_function()
 ## USER SET INPUTS ##
 #####################
 
-csv_file = pd.read_csv(r"R:\users\anagha.uppal\MapRE\RequiredCSVs\stage3_input.csv", header=None)
+csv_file = pd.read_csv(r"E:\Spatial_Research\eeg_sa\INPUTS\RequiredCSVs\stage3_input.csv", header=None)
 
 
 # technology = arcpy.GetParameterAsText(0) ## required
