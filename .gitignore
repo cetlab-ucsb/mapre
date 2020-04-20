@@ -19,3 +19,4 @@
 *.xml
 *.cst
 /**/__pycache__/*
+*.pyc
