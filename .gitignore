@@ -19,3 +19,5 @@
 *.sbx
 *.xml
 *.cst
+**/__pycache__
+*.py[cod]

@@ -5,8 +5,8 @@ import pandas as pd
 
 stage1_function.my_function()
 
-csv_file = pd.read_csv(r"R:\users\anagha.uppal\MapRE\RequiredCSVs\stage1_input.csv", header=None)
-
+#csv_file = pd.read_csv(r"R:\users\anagha.uppal\MapRE\RequiredCSVs\stage1_input.csv", header=None)
+csv_file = pd.read_csv(r"E:\Spatial_Research\eeg_sa\INPUTS\RequiredCSVs\stage1_input_wind.csv", header=None)
 
 technology = str(csv_file[1][0])  ## required
 #yourSpace = "R:\\users\\anagha.uppal\\MapRE\\" ##^^ This is the directory path before the IRENA folder structure

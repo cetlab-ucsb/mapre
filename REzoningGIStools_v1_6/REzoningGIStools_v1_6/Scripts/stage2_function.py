@@ -85,15 +85,16 @@ class ProjectCreation:
         ## Check for fishnet file and create if needed ##
         #################################################
         '''
+        fishnetSizeStr = str(self.fishnetSize).replace(".", "_")
 
-        fishnet = "in_memory/fishnet_" + str(
-            self.fishnetSize) + "km"  ## MUST add .shp if not putting file in gdb (for add field function)
-        clippedFishnet = self.fishnetDirectory + "\\" + "fishnet_" + str(self.fishnetSize) + "km"
+        fishnet = "in_memory/fishnet_" + fishnetSizeStr \
+                  + "km"  ## MUST add .shp if not putting file in gdb (for add field function)
+        clippedFishnet = self.fishnetDirectory + "\\" + "fishnet_" + fishnetSizeStr + "km"
 
         env.outputCoordinateSystem = self.templateRaster
         if not (arcpy.Exists(clippedFishnet)):
             # Create fishnet if one does not already exist:
-            arcpy.AddMessage("Creating fishnet " + str(self.fishnetSize) + " km in size to file: " + fishnet)
+            arcpy.AddMessage("Creating fishnet " + fishnetSizeStr + " km in size to file: " + fishnet)
 
             extent = Raster(self.templateRaster).extent
 
@@ -119,8 +120,8 @@ class ProjectCreation:
             # Process: Calculate Field to create new alphanumeric OID column
             arcpy.CalculateField_management(fishnet, "Text", "'A' + str(!OID!)", "PYTHON_9.3", "")
 
-            arcpy.AddMessage("Creating country-boundary-clipped fishnet " + str(
-                self.fishnetSize) + " km in size to file: " + clippedFishnet)
+            arcpy.AddMessage("Creating country-boundary-clipped fishnet " + fishnetSizeStr
+                             + " km in size to file: " + clippedFishnet)
             arcpy.Clip_analysis(fishnet, self.countryBounds, clippedFishnet)
 
         arcpy.AddMessage("Copying fishnet to memory :" + clippedFishnet)
