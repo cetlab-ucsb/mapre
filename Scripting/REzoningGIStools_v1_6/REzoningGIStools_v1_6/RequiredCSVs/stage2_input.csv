@@ -1,0 +1,11 @@
+Suitable sites,,file path (output from stage1)
+Projects output,,file path
+Scratch GDB,,file path
+Template raster,,file path
+Country Bounds,,file path
+Geographic unit of analysis,,file path (optional)
+Fishnet size,5,numeral
+Fishnet Storage,,directory path
+Max project area,25,numeral (usually fishnet^2)
+Min project area,5,numeral
+Min contiguous project area,2,numeral
