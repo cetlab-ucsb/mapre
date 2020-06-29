@@ -1,7 +1,6 @@
+# import math
 import arcpy
-import math
-import arcpy
-import os
+# import os
 ########INPUTS###########
 
 arcpy.env.workspace = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\SA_Outputs.gdb"
@@ -9,13 +8,15 @@ in_features = "wind_0_suitability_areas_attr"
 output_features = "wind_0_skater"
 country = "South Africa"
 resource = "Wind"
-min_constraint = 25.000000 #in km
-max_constraint = 500.000000 #in km
+min_constraint = 25.000000 #cluster to be no less than this area in km
+max_constraint = 500.000000 #cluster to be no larger than this area in km
 # distance_between_projects = 20 #in
-buff_width = "2550 meters"
-fields_to_sum_cluster = ["egen"]
+buff_width = "2550 meters" # acceptable distance between projects in a single zone
+fields_to_sum_cluster = ["egen", "incap"] #original field values summed for final clusters/zones
 fields_to_average_cluster = ["d_road", "d_water", "m_elev", "m_slope", "m_popden", "m_humfoot", "m_cf",
-                             "incap", "l_road", "l_gen"]
+                             "l_road", "l_gen"] #original fields averaged for final clusters/zones
+analysis_fields = ["m_cf"] # field on which to cluster projects: capacity factor or resource quality
+
 
 ################################################################################
 # RUN SKATER
@@ -24,14 +25,6 @@ fields_to_average_cluster = ["d_road", "d_water", "m_elev", "m_slope", "m_popden
 sideType = "FULL"
 endType = "ROUND"
 dissolveType = "ALL"
-projectFileName = "projects1"
-# outputFolder = "R:\\users\\anagha.uppal\\MapRE\\"
-# gdbName = "test1.gdb\\" ## ^^ Name of the fgdb to store outputs
-# gdbNameForCreatingFGDB = "test1.gdb" ## ^^ here re-write the name of the file geodatabase
-# if not(os.path.exists(outputFolder + gdbName)): # Create new fgdb if one does not already exist
-#     print(gdbName + " does not exist. Ensure you have selected the right date's resource potential feature class")
-
-# outputFGDB = outputFolder + gdbName # sets workspace as your fgdb
 
 # ## 1. Buffering projects
 # ## create buffers:
@@ -70,100 +63,6 @@ print("Begin clustering analysis")
 
 ##########################################################################
 
-# #test in_memory
-# #1: Buffer analysis: No dissolve, 20km radius
-# print("Buffering")
-# if not arcpy.Exists(in_features+"_buffer"):
-#     arcpy.Buffer_analysis(in_features, in_features+"_buffer", str(distance_between_projects)+" Kilometers",
-#        line_side="FULL", dissolve_option="NONE",)
-# # Spatial join target original, join original: this tells us how many polygons within a 20km radius of each polygon
-# print("Spatially joining features with buffers")
-#
-# arcpy.AddField_management(in_features, "ID_Comb", "TEXT", field_length=4000,)
-#
-# # Create a new fieldmappings and add the two input feature classes.
-# fieldmappings = arcpy.FieldMappings()
-# fieldmappings.addTable(in_features)
-# fieldmappings.addTable(in_features+"_buffer")
-# # we'll work to create ID_comb
-# IDFieldIndex = fieldmappings.findFieldMapIndex("ID_Comb")
-# fieldmap = fieldmappings.getFieldMap(IDFieldIndex)
-#
-# # Get the output field's properties as a field object
-# field = fieldmap.outputField
-#
-# # Set the merge rule to join and then replace the old fieldmap in the mappings object
-# # with the updated one
-# fieldmap.mergeRule = "join"
-# fieldmap.joinDelimiter = ","
-# # source add
-# fieldmap.addInputField(in_features, "OBJECTID")
-# fieldmap.addInputField(in_features+"_buffer", "OBJECTID")
-# fieldmappings.replaceFieldMap(IDFieldIndex, fieldmap)
-#
-# # Delete fields that are no longer applicable
-# # x = fieldmappings.findFieldMapIndex("CITY_NAME")
-# # fieldmappings.removeFieldMap(x)
-#
-# # Run the Spatial Join tool, using the defaults for the join operation and join type
-# # Spatial join target original, join buffer: this tells us how many polygons within a 20km radius of each polygon
-# arcpy.SpatialJoin_analysis(target_features=in_features, join_features=in_features+"_buffer",
-#                            out_feature_class=in_features+"_sj", join_operation="JOIN_ONE_TO_ONE",
-#                            join_type="KEEP_ALL", field_mapping=fieldmappings, match_option="INTERSECT",)
-# # arcpy.SpatialJoin_analysis(target_features=in_features, join_features=in_features,
-# #                            out_feature_class=in_features+"_sj", join_operation="JOIN_ONE_TO_ONE",
-# #                            join_type="KEEP_ALL", match_option="INTERSECT",
-# #                            search_radius=str(distance_between_projects)+" Kilometers")
-# print(arcpy.GetMessages())
-#
-# print("Bringing join_count back to features")
-# arcpy.JoinField_management(in_data=in_features, in_field="OBJECTID",
-#                            join_table=in_features+"_sj", join_field="OBJECTID",
-#                            fields=["Join_Count", "ID_Comb"])
-# print("Creating field sum_area")
-# arcpy.AddField_management(in_features, "Area_Sum", "DOUBLE", field_length=150,)
-# arcpy.CalculateField_management(in_table=in_features, field="Area_Sum", expression="!Shape_Area!")
-#
-# records = arcpy.GetCount_management(in_features)
-# rows = arcpy.UpdateCursor(in_features)
-# for row in rows:
-#     print(row.getValue("ID_Comb"))
-#     list = row[i]
-#     rVal = row.getValue(field.name)
-# # loop through all in in_features
-# for i in range(len(records)):
-#     list = in_features[i]["ID_Comb"]
-#     for x in list:
-#         if not x == i:
-#             in_features[i]["Sum_Area"] += in_features[x]["Shape_Area"]
-#
-#
-# print(arcpy.GetMessages())
-#
-# print("Separating isolated projects")
-# # What is faster, cursor with if or select_management?
-# arcpy.Select_analysis(in_features, "separated_projects",
-#                       where_clause='"Join_Count" = 1 And "Shape_Area" > ' + str(min_constraint))
-# print(arcpy.GetMessages())
-# print("Grabbing cluster-relevant projects")
-# skater_features = "skater_features"
-# arcpy.Select_analysis(in_features, skater_features, where_clause='"Join_Count" > 1')
-# # cursor = arcpy.UpdateCursor(in_features2, ["OBJECTID", "Join_Count", "Shape_Area"])
-# # for row in cursor:
-# #     # IF join_count = 1:
-# #         # Go back to object ID of original polygon
-# #         # If area < 25km2: delete_management
-# #         # else: select (add to selection) and separate. Later you'll add it back to the skater zones
-# #     nearPolygons = row[1] # value at Join_Count
-# #     if nearPolygons == 1:
-# #         # if row[2] < min_constraint:
-# #         cursor.deleteRow()
-#merge separated projects
-
-# numFeatures = arcpy.GetCount_management(in_features)
-# numClusters = math.ceil(float(numFeatures[0])/300)
-
-analysis_fields = ["m_cf"]
 
 size_constraints = "ATTRIBUTE_VALUE"
 constraint_field = "Shape_Area"
@@ -182,30 +81,6 @@ number_of_clusters = None
 spatial_constraints = "TRIMMED_DELAUNAY_TRIANGULATION"
 weights_matrix_file = None
 number_of_permutations = 0
-
-
-###################################################################
-
-# arcpy.SpatiallyConstrainedMultivariateClustering_stats("zones_forGrouping", output_features, analysis_fields,
-#                                                        size_constraints, constraint_field, min_constraint,
-#                                                        max_constraint, number_of_clusters, spatial_constraints,
-#                                                        weights_matrix_file, number_of_permutations)
-#
-# print(arcpy.GetMessages())
-#
-# # Dissolve cluster results
-#
-# in_features = output_features
-# out_feature_class = in_features + "_clustered"
-# dissolve_field = "CLUSTER_ID"
-#
-# arcpy.Dissolve_management(in_features, out_feature_class, dissolve_field,
-#                           statistics_fields=[["m_cf", "SUM"], ["m_cf", "MEAN"]])
-# print(arcpy.GetMessages())
-#Merge previously pulled out projects
-# arcpy.Merge_management([out_feature_class, "separated_projects"],
-#                        "all_zones", field_mappings="")
-###### Field_Mappings!?
 
 ##############################################################
 zoneList = [row.getValue("ZONE_ID") for row in arcpy.SearchCursor("zones_forGrouping","","","ZONE_ID")]
@@ -259,13 +134,3 @@ for i in range(len(frqDict)):
 print(clusterList)
 arcpy.Merge_management(clusterList, out_feature_class[:-1])
 print(arcpy.GetMessages())
-
-
-
-
-
-
-
-
-
-
