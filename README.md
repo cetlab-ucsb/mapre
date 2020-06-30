@@ -1,5 +1,5 @@
 # mapre
-The MapRE set of scripts is associated with the MapRE toolset here: https://mapre.lbl.gov/gis-tools/. A detailed user manual is provided at [this link](https://docs.google.com/document/d/1IdtfyILFuFycTf_9OBfM4HazkTTnDeDqKsjg3WF6-ss/edit#heading=h.kug874sjmayh): 
+The MapRE set of scripts is associated with the MapRE toolset here: https://mapre.lbl.gov/gis-tools/. A detailed user manual is provided at [this link](https://docs.google.com/document/d/1IdtfyILFuFycTf_9OBfM4HazkTTnDeDqKsjg3WF6-ss/edit#heading=h.kug874sjmayh)
 
 The scripts are located in the folder ReZoningGIStools and are divided into preprocessing and processing scripts. 
 To use these scripts, first clone this git repository to your machine (directions on how to do this [here](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)). 
