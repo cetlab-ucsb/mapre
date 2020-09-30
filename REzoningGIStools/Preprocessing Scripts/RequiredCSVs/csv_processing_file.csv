@@ -1,0 +1,70 @@
+Input File Name,Output File Name,File Type,Input Projection,Output Projection,Resampling Type (for Raster),Process?,Template Raster,Euclidean Distance Raster,Country Bound File,Extract Attributes,"Source (Optional, for your records)"
+ACEC_slope500_SRTM2,slope500SRTM,Raster,Africa Albers Equal Area Conic,Africa Albers Equal Area Conic,CUBIC,Yes,,,,,
+africagrid_Transmission_Merged,africagrid_Merged,Feature Class,4326,Africa Albers Equal Area Conic,,No,,,,,World Bank
+transmission_irena,transmission_irena,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,,,,IRENA
+load_centers,load_centers,Feature Class,Africa Albers Equal Area Conic,Africa Albers Equal Area Conic,,Yes,,,,,
+ALL_AICD_Countries_Power_Plants,Power_Plants,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,,,,AICD
+country_boundaries,country_boundaries,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,,Yes,,
+DNI,DNI,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,Global Solar Atlas
+GHI,GHI,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,Global Solar Atlas
+GTI,GTI,Raster,4326,Africa Albers Equal Area Conic,CUBIC,Yes,,,,,Global Wind Atlas
+glwd_3,lakeswetlands,Raster,4326,Africa Albers Equal Area Conic,NEAREST,Yes,,Yes,,"""VALUE"" IN (4,6,7,9,10,11,12)",
+ESA_LULC_SAPP_2018,lulc_new,Raster,Africa Albers Equal Area Conic,Africa Albers Equal Area Conic,NEAREST,Yes,,,,,ESA
+lspop2017,pop2017,Raster,4326,Africa Albers Equal Area Conic,BILINEAR,Yes,,,,,ORNL
+lspop2018,pop2018,Raster,4326,Africa Albers Equal Area Conic,BILINEAR,No,,,,,ORNL
+pop_FB_2018,popFB2018,Raster,4326,Africa Albers Equal Area Conic,BILINEAR,No,,,,,Facebook
+wfp_airports,wfp_airports,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,,
+mergedDEM_GADM_500,elevation500_DEMGADM,Raster,Africa Albers Equal Area Conic,Africa Albers Equal Area Conic,BILINEAR,Yes,Yes,,,,
+protected_areas_polygons,protected_areas_polygons_tier1,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,"(""IUCN_CAT"" = 'Ib' Or ""IUCN_CAT"" = 'II' Or ""IUCN_CAT"" = 'Ia') Or ""DESIG_ENG"" = 'National Park'",WDPA
+protected_areas_polygons,protected_areas_polygons_tier2,Feature Class,4326,Africa Albers Equal Area Conic,,No,,Yes,,"""IUCN_CAT"" In ('III', 'IV', 'V', 'VI') Or ""DESIG_ENG"" In ('Ramsar Site, Wetland of International Importance', 'UNESCO-MAB Biosphere Reserve' , 'Forest Nature Reserve', 'Forest Reserve', 'Forest Wilderness Area', 'Nature Reserve', 'Protected Environment', 'Special Nature Reserve', 'Bird Sanctuary', 'Conservation Area', 'Environmental Protection Area', 'Game controlled area', 'Game Management Area', 'Game Reserve', 'Hunting Reserve', 'National Reserve', 'Natural Reserve', 'Special Reserve', 'Wildlife management area', 'Wildlife Sanctuary', 'Marine Protected Area', 'Marine Reserve', 'Scientific Reserve', 'Biosphere Reserve', 'Hunting Area', 'Primate Nature Reserve', 'Forest Reserve and Game Controlled Area')",WDPA
+protected_areas_polygons,protected_areas_polygons_tier3,Feature Class,4326,Africa Albers Equal Area Conic,,No,,Yes,,"""DESIG_ENG"" In ('World Heritage Site (natural or mixed)' , 'Mountain Catchment Area' , 'Communal Conservancy' ,'Community Conservancy' ,'Community Forest' ,'Concession' ,'Forest Plantation' ,'Private Reserve' ,'Community Reserve')",WDPA
+protected_areas_DRC,protected_areas_DRC_tier1,Feature Class,4326,Africa Albers Equal Area Conic,,No,,Yes,,"""desc_type"" = 'Parc national'",Country
+protected_areas_DRC,protected_areas_DRC_tier2,Feature Class,4326,Africa Albers Equal Area Conic,,No,,Yes,,"""desc_type"" <> 'Parc national' Or ""cat_uicn"" IS NULL",Country
+protected_areas_Lesotho,protected_areas_Lesotho,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,"""PLAN_B_NAM"" = 'Bokong' Or ""PLAN_B_NAM"" = 'Tsehlanyane' Or ""PLAN_B_NAM"" = 'Sehlaba-thebe'",Country
+protected_areas_Angola,protected_areas_Angola,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,"""Descriptio"" In ('Reserva Especial', 'Parque Natural Regional', 'Coutada', 'Reserva Natural Integral')",NatGeo
+protected_areas_Zambia,protected_areas_Zambia_tier2,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,"""TYPE"" = 'National Forest'",Country
+protected_areas_Zambia,protected_areas_Zambia_tier3,Feature Class,4326,Africa Albers Equal Area Conic,,No,,Yes,,"""TYPE"" = 'Local Forest'",Country
+game_areas_Zambia,game_areas_Zambia,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,"""NAME"" = 'Mukungule GMA' Or ""NAME"" = 'Mufunta GMA'",Country
+ramsar_sites_Zambia,ramsar_sites_Zambia,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,,Country
+conservation_areas_SA,conservation_areas_SA,Feature Class,4326,Africa Albers Equal Area Conic,,No,,Yes,,"""SITE_TYPE"" = 'Ramsar Site' Or ""SITE_TYPE"" = 'Biosphere Reserve' Or ""SITE_TYPE"" ='Botanical Garden'",Country
+protected_areas_SA,protected_areas_SA,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,"""SITE_TYPE"" = 'Forest nature reserve' Or ""SITE_TYPE"" = 'Forest wilderness area' Or ""SITE_TYPE"" = 'Marine protected area' Or ""SITE_TYPE"" = 'Nature Reserve' Or ""SITE_TYPE"" = 'Protected Environment' Or ""SITE_TYPE"" = 'Special Nature Reserve'",Country
+protected_areas_SA,protected_areas_SA_tier3,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,"""SITE_TYPE"" = 'Mountain Catchment Area' Or ""SITE_TYPE"" = 'World Heritage Site'",Country
+protected_areas_Malawi,protected_areas_Malawi,Feature Class,4326,Africa Albers Equal Area Conic,,No,,Yes,,"""NAME"" Not In ('Kasungu National Park', 'Lengwe National Park', 'Liwonde National Park', 'Nyika National Park')",Country
+protected_forests_Malawi,protected_forests_Malawi,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,,Country
+protected_areas_Eswatini,protected_areas_Eswatini,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,,Country
+conservation_areas_Namibia,conservation_areas_Namibia,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,"""CATEGORY"" In ('Conservancy on freehold land', 'Registered conservancy on communal land', 'Forest conservancies')",Country
+community_forests_Namibia,community_forests_Namibia,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,,Country
+conservation_areas_Tanzania,conservation_areas_Tanzania,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,,Country
+district_forests_Tanzania,district_forests_Tanzania,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,,Country
+biodiversity,biodiversity,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,,
+rails,rails,Feature Class,Africa Albers Equal Area Conic,Africa Albers Equal Area Conic,,Yes,,Yes,,,World Bank
+water_bodies,water_bodies,Feature Class,4326,Africa Albers Equal Area Conic,,Yes,,Yes,,,
+gwa3_250_air_density_100m,wind_airdensity_100m,Raster,4326,Africa Albers Equal Area Conic,CUBIC,Yes,,,,,
+gwa3_250_air_density_150m,wind_airdensity_150m,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+gwa3_250_capacity_factor_IEC2,wind_capacityfactor_IEC2,Raster,4326,Africa Albers Equal Area Conic,CUBIC,Yes,,,,,
+gwa3_250_combined_Weibull_A_100m,wind_weibullA_100m,Raster,4326,Africa Albers Equal Area Conic,CUBIC,Yes,,,,,
+gwa3_250_combined_Weibull_A_150m,wind_weibullA_150m,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+gwa3_250_combined_Weibull_k_100m,wind_weibullk_100m,Raster,4326,Africa Albers Equal Area Conic,CUBIC,Yes,,,,,
+gwa3_250_combined_Weibull_k_150m,wind_weibullk_150m,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+gwa3_250_power_density_100m,wind_powerdensity_100m,Raster,4326,Africa Albers Equal Area Conic,CUBIC,Yes,,,,,
+gwa3_250_power_density_150m,wind_powerdensity_150m,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+gwa3_250_wind_speed_100m,wind_windspeed_100m,Raster,4326,Africa Albers Equal Area Conic,CUBIC,Yes,,,,,
+gwa3_250_wind_speed_150m,wind_windspeed_150m,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+wind_CF_calc,wind_CF_calc,Raster,4326,Africa Albers Equal Area Conic,CUBIC,Yes,,,,,
+wind_CF_calc_Eswatini,wind_CF_calc_Eswatini,Raster,4326,Africa Albers Equal Area Conic,CUBIC,Yes,,,,,
+humanFootprint,human_footprint,Raster,Africa Albers Equal Area Conic,Africa Albers Equal Area Conic,BILINEAR,Yes,,,,,
+humanInfluenceIndex,human_influence,Raster,Africa Albers Equal Area Conic,Africa Albers Equal Area Conic,BILINEAR,Yes,,,,,
+rangeland_v03,rangeland,Raster,4326,Africa Albers Equal Area Conic,BILINEAR,No,,Yes,,Value > 160,
+roads_GRIP,roads,Feature Class,Africa Albers Equal Area Conic,Africa Albers Equal Area Conic,,Yes,,,,,
+wc2_1_30s_tavg_01,average_temp_jan,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+wc2_1_30s_tavg_02,average_temp_feb,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+wc2_1_30s_tavg_03,average_temp_march,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+wc2_1_30s_tavg_04,average_temp_apr,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+wc2_1_30s_tavg_05,average_temp_may,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+wc2_1_30s_tavg_06_1,average_temp_june,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+wc2_1_30s_tavg_07,average_temp_july,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+wc2_1_30s_tavg_08,average_temp_aug,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+wc2_1_30s_tavg_09,average_temp_sept,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+wc2_1_30s_tavg_10,average_temp_oct,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+wc2_1_30s_tavg_11,average_temp_nov,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
+wc2_1_30s_tavg_12,average_temp_dec,Raster,4326,Africa Albers Equal Area Conic,CUBIC,No,,,,,
