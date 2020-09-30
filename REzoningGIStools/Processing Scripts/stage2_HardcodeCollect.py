@@ -17,15 +17,15 @@ defaultInputWorkspace = "R:\\users\\anagha.uppal\\MapRE\\"
 
 ## SPATIAL INPUTS
 
-suitableSites = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\AO_Outputs.gdb\wind_0_suitability"  ## required
+suitableSites = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\allTiers.gdb\Democratic_Republic_of_the_Congo"  ## required
 
 projectsOut = suitableSites + "_areas"  ##
 
-scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\Scratch.gdb"  ## required scratch GDB
+scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\DRC\Scratch.gdb"  ## required scratch GDB
 
-templateRaster = defaultInputWorkspace + "Angola.gdb\\Angola_elevation500_DEMGADM_Projected_Clipped"  ## required
+templateRaster = defaultInputWorkspace + "DRC.gdb\\DRC_elevation500_DEMGADM_Projected_Clipped"  ## required
 
-countryBounds = defaultInputWorkspace + "country_bounds.gdb\\Angola"  ## optional
+countryBounds = defaultInputWorkspace + "country_bounds.gdb\\DRC"  ## optional
 
 geoUnits = "" ## optional
 
@@ -35,7 +35,7 @@ geoUnits = "" ## optional
 
 fishnetSize = 5  ## in km
 
-fishnetDirectory = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\AO_Outputs.gdb"
+fishnetDirectory = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\DRC\DRC_Outputs.gdb"
 
 # Parameter: area above which to intersect (b)
 whereClauseMax = str(100)  ## 25'

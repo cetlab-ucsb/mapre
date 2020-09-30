@@ -12,7 +12,7 @@ class Suitability:
     def __init__(self, technology, templateRaster, countryBounds, csvInput, resourceInput,
                      thresholdList, out_suitableSites_gdb, fileNameSuffix, csvAreaOutput,
                      scratch, rasterOutput, landUseEfficiency, landUseDiscount, avgCF, minArea,
-                 geoUnits, geoUnits_attribute):
+                 geoUnits, geoUnits_attribute, save_subunits_workspace):
         ## SPATIAL INPUTS
         self.technology = str(technology)
 
@@ -46,6 +46,7 @@ class Suitability:
         self.minArea = minArea  ## required
         self.geoUnits = geoUnits
         self.geoUnits_attribute = geoUnits_attribute
+        self.save_subunits_workspace = save_subunits_workspace
 
     def identifySuitable(self):
 
@@ -74,6 +75,8 @@ class Suitability:
         ##########################
         ## SET FIXED PARAMETERS OR INPUTS ##
         ##########################
+
+        arcpy.env.workspace = self.out_suitableSites_gdb
 
         ## FIXED PARAMETERS
         days = 365
@@ -236,6 +239,10 @@ class Suitability:
             # Process: select areas above minimum contiguous area and SAVE to file
             select = arcpy.Select_analysis(selectIntermediate_geoUnits, outputFileName, \
                                            '"Area" >= ' + str(self.minArea))
+
+            if self.save_subunits_workspace != "":  ##save the raster output
+                arcpy.Split_analysis(select, self.geoUnits, self.geoUnits_attribute,
+                                     self.save_subunits_workspace)
 
             if self.rasterOutput.lower() == 'true':  ##save the raster output
                 out_resourceRaster = ExtractByMask(self.resourceInput, select)

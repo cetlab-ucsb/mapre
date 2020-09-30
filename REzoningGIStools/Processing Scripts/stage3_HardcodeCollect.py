@@ -19,30 +19,28 @@ yourSpace = "R:\\users\\anagha.uppal\\MapRE\\"
 
 ## SPATIAL INPUTS
 technology = "Wind"  ##
-projectsIn = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\AO_Outputs.gdb\wind_0_suitability_areas"  ##
+projectsIn = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\baseScenario_wind.gdb\Tanzania_areas"  ##
 projectsOut = projectsIn + "_attr"  ##
-resourceInput = yourSpace + "Angola.gdb\\Angola_wind_capacityfactor_IEC2_Projected_Clipped"  ## MUST BE A RASTER
-csvInput = yourSpace + "RequiredCSVs\\inputs_projectAreaAttributes.csv"  ## required
-templateRaster = yourSpace + "Angola.gdb\\Angola_elevation500_DEMGADM_Projected_Clipped"  ## required
-scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\Scratch.gdb"
+resourceInput = yourSpace + "Tanzania.gdb\\Tanzania_wind_CF_calc_Projected_Clipped"  ## MUST BE A RASTER
+csvInput = yourSpace + "RequiredCSVs\\inputs_projectAreaAttributesw.csv"  ## required
+templateRaster = yourSpace + "Tanzania.gdb\\Tanzania_elevation500_DEMGADM_Projected_Clipped"  ## required
+scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\Scratch.gdb"
 
 ################
 ## PARAMETERS ##
 ################
-
 RQtype = "Capacity Factor"  ## capacityFactor" or "windPowerDensity"
 transmissionDistMultiplier = 1.3
 cellSize = int(500)  ## 500
 largestArea = 25  ## 500
 
-## COSTS
-capCost = 1700000
-variableGenOMcost = 0
-fixedGenOMcost = 50000
+capCost = 1700000  ## changes between wind and solar
+variableGenOMcost = 0  ## changes between wind and solar
+fixedGenOMcost = 60000  ## changes between wind and solar
 omer = 0  # Fixed O&M costs escalation rate
 
-effLoss = 0.17  ## Assume wind losses (15%) without outage rate (2%). So default value should be 0.85;
-outageRate = 0.02  ## solar PV only # RD: for both wind and solar. Give option to user to set this to zero for the IRENA dataset.
+effLoss = 0.17  ## Assume wind losses (15%) without outage rate (2%).
+outageRate = 0.02  ## changes between wind and solar
 cfdr = 0  # Capacity factor degradation rate
 
 transCost = 990
@@ -52,8 +50,8 @@ discountRate = 0.1
 plantLifetime = 25
 
 ## OTHERS
-powerDensity = 9 #Land use efficiency (MW/km2)
-landUseDiscount = 0.1
+powerDensity = 9  # Land use efficiency (MW/km2) ## changes between wind and solar
+landUseDiscount = 0.25  ## changes between wind and solar
 
 
 

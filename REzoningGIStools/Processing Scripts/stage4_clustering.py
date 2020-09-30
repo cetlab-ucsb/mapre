@@ -3,10 +3,10 @@ import arcpy
 # import os
 ########INPUTS###########
 
-arcpy.env.workspace = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\southAfrica\SA_Outputs.gdb"
-in_features = "wind_0_suitability_areas_attr"
-output_features = "wind_0_skater"
-country = "South Africa"
+arcpy.env.workspace = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\baseScenario_wind.gdb"
+in_features = "Zambia_areas_attr"
+output_features = "Zambia_5_5_skater"
+country = "Zambia"
 resource = "Wind"
 min_constraint = 25.000000 #cluster to be no less than this area in km
 max_constraint = 500.000000 #cluster to be no larger than this area in km
@@ -14,7 +14,9 @@ max_constraint = 500.000000 #cluster to be no larger than this area in km
 buff_width = "2550 meters" # acceptable distance between projects in a single zone
 fields_to_sum_cluster = ["egen", "incap"] #original field values summed for final clusters/zones
 fields_to_average_cluster = ["d_road", "d_water", "m_elev", "m_slope", "m_popden", "m_humfoot", "m_cf",
-                             "l_road", "l_gen"] #original fields averaged for final clusters/zones
+                                 "l_road", "l_gen", "d_trans", "d_rail", "d_anyre", "d_airport",
+                                 "m_resource", "m_lulc", "m_rangeland", "l_tra",
+                                 "lt_tra"] #original fields averaged for final clusters/zones
 analysis_fields = ["m_cf"] # field on which to cluster projects: capacity factor or resource quality
 
 
@@ -131,6 +133,9 @@ for i in range(len(frqDict)):
 clusterList = []
 for i in range(len(frqDict)):
     clusterList.append(out_feature_class[:-1]+str(i))
+print(frqDict)
 print(clusterList)
-arcpy.Merge_management(clusterList, out_feature_class[:-1])
+print(out_feature_class)
+print(out_feature_class[:-1])
+arcpy.Merge_management(clusterList, output_features+"_clustered")
 print(arcpy.GetMessages())
