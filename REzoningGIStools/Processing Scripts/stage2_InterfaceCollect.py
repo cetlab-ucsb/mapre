@@ -39,14 +39,13 @@ fishnetDirectory = arcpy.GetParameterAsText(7)
 whereClauseMax = str(arcpy.GetParameter(8)) ## 25'
 
 # Parameter: area below which to aggregate (d)
-whereClauseMin = str(arcpy.GetParameter(9)) ## 5'
+# whereClauseMin = str(arcpy.GetParameter(9)) ## 5'
 
 # Parameter: threshold for minimum contiguous project area (a)
-whereClauseMinContArea = str(arcpy.GetParameter(10))  ## 2'
-
+whereClauseMinContArea = str(arcpy.GetParameter(9))  ## 2'
 
 
 analysis = stage2_function.ProjectCreation(suitableSites, projectsOut, scratch,
                                            templateRaster, countryBounds, geoUnits, fishnetSize,
-                                           fishnetDirectory, whereClauseMax, whereClauseMin, whereClauseMinContArea)
+                                           fishnetDirectory, whereClauseMax, whereClauseMinContArea)
 analysis.createProjectAreas()

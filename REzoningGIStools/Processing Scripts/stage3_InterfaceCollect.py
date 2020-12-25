@@ -16,7 +16,7 @@ stage3_function.my_function()
 # technology = arcpy.GetParameterAsText(0) ## required
 
 ## SPATIAL INPUTS
-technology = arcpy.GetParameterAsText(0) ##
+resource = arcpy.GetParameterAsText(0) ##
 projectsIn = arcpy.GetParameterAsText(1) ##
 projectsOut = arcpy.GetParameterAsText(2) ##
 resourceInput = arcpy.GetParameterAsText(3) ## MUST BE A RASTER
@@ -56,7 +56,7 @@ landUseDiscount = arcpy.GetParameter(24)
 
 
 
-analysis = stage3_function.Attributes(technology, projectsIn, projectsOut, resourceInput, csvInput, templateRaster,
+analysis = stage3_function.Attributes(resource, projectsIn, projectsOut, resourceInput, csvInput, templateRaster,
                  scratch, RQtype, transmissionDistMultiplier, cellSize, largestArea, capCost,
                  variableGenOMcost, fixedGenOMcost, omer, effLoss, outageRate, cfdr,
                  transCost, subCost, roadCost, discountRate, plantLifetime, powerDensity, landUseDiscount)

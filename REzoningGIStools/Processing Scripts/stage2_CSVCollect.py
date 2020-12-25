@@ -42,14 +42,13 @@ fishnetDirectory = str(csv_file[1][7])
 whereClauseMax = str(csv_file[1][8]) ## 25'
 
 # Parameter: area below which to aggregate (d)
-whereClauseMin = str(csv_file[1][9]) ## 5'
+# whereClauseMin = str(csv_file[1][9]) ## 5'
 
 # Parameter: threshold for minimum contiguous project area (a)
-whereClauseMinContArea = str(csv_file[1][10])  ## 2'
-
+whereClauseMinContArea = str(csv_file[1][9])  ## 2'
 
 
 analysis = stage2_function.ProjectCreation(suitableSites, projectsOut, scratch,
                                            templateRaster, countryBounds, geoUnits, fishnetSize,
-                                           fishnetDirectory, whereClauseMax, whereClauseMin, whereClauseMinContArea)
+                                           fishnetDirectory, whereClauseMax, whereClauseMinContArea)
 analysis.createProjectAreas()

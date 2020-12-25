@@ -5,7 +5,7 @@ import pandas as pd
 # import stage2_function
 import numpy
 
-arcpy.env.workspace = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\allTiers.gdb"
+arcpy.env.workspace = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\baseScenario.gdb"
 
 featureclasses = arcpy.ListFeatureClasses("*_areas_attr")
 print(featureclasses)
@@ -28,7 +28,7 @@ def run_it(countryName):
     fields_to_sum_cluster = ["egen", "incap"]  # original field values summed for final clusters/zones
     fields_to_average_cluster = ["d_road", "d_water", "m_elev", "m_slope", "m_popden", "m_humfoot", "m_cf",
                                  "l_road", "l_gen", "d_trans", "d_rail", "d_anyre", "d_airport",
-                                 "m_resource", "m_lulc", "m_rangeland", "l_tra",
+                                 "m_resource", "m_rangeland", "l_tra",
                                  "lt_tra"]  # original fields averaged for final clusters/zones
     analysis_fields = ["m_cf"]  # field on which to cluster projects: capacity factor or resource quality
 

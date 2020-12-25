@@ -13,41 +13,27 @@ stage2_function.my_function()
 ## USER SET INPUTS ##
 #####################
 
-defaultInputWorkspace = "R:\\users\\anagha.uppal\\MapRE\\"
-
-## SPATIAL INPUTS
-
-suitableSites = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\allTiers.gdb\Democratic_Republic_of_the_Congo"  ## required
-
+yourSpace = "R:\\users\\anagha.uppal\\MapRE\\" ## optional - can be used to shorten filepaths if all files are located together
+suitableSites = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\environment.gdb\Angola"  ## required - output of stage 1
 projectsOut = suitableSites + "_areas"  ##
+scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\angola\Scratch.gdb"  ## required - scratch GDB
+templateRaster = yourSpace + "SAPP.gdb\\" + "SAPP_elevation500_DEMGADM_Projected_Clipped"  ## required - retain same raster file (e.g. DEM data) across stages, runs and total region of analysis
+countryBounds = yourSpace + "country_bounds.gdb\\Angola"  ## required - boundary of region of interest
+geoUnits = "" ## optional - if you wish to split your siting results based on subregional boundaries
 
-scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\DRC\Scratch.gdb"  ## required scratch GDB
+## USER SET PARAMETERS
 
-templateRaster = defaultInputWorkspace + "DRC.gdb\\DRC_elevation500_DEMGADM_Projected_Clipped"  ## required
-
-countryBounds = defaultInputWorkspace + "country_bounds.gdb\\DRC"  ## optional
-
-geoUnits = "" ## optional
-
-# csvInput = arcpy.GetParameterAsText(3) ## required
-
-## PARAMETERS
-
-fishnetSize = 5  ## in km
-
-fishnetDirectory = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\DRC\DRC_Outputs.gdb"
-
+fishnetSize = 5  ## required - in km
+fishnetDirectory = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\Angola\AO_Outputs.gdb"
 # Parameter: area above which to intersect (b)
-whereClauseMax = str(100)  ## 25'
-
-# Parameter: area below which to aggregate (d)
-whereClauseMin = str(5)  ## 5'
-
+whereClauseMax = str(50)  ## required - replace value within str() eg 25
+# # Parameter: area below which to aggregate (d)
+# whereClauseMin = str(5)  ## 5'
 # Parameter: threshold for minimum contiguous project area (a)
-whereClauseMinContArea = str(2)  ## 2'
+whereClauseMinContArea = str(3)  ## 2'
 
-
+############################DO NOT EDIT BELOW THIS LINE#########################################
 analysis = stage2_function.ProjectCreation(suitableSites, projectsOut, scratch,
                                            templateRaster, countryBounds, geoUnits, fishnetSize,
-                                           fishnetDirectory, whereClauseMax, whereClauseMin, whereClauseMinContArea)
+                                           fishnetDirectory, whereClauseMax, whereClauseMinContArea)
 analysis.createProjectAreas()

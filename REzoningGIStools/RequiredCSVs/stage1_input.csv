@@ -1,17 +1,18 @@
-Technology,wind,"[options: wind, solarPV, CSP]",
-Template Raster,,file path,
-Country Bounds,,file path,
-CSV Input,,file path,
-Resource Input,,file path,
-Threshold List,[2],"[1, 2, 3, 4..]",
-Output GDB,,file path,
-Filename Suffix,,filename e.g. suitability,
-CSV Area Output,,filename.csv,
+Technology,wind,"[options: wind, solar, CSP]",
+Template Raster,,file path,enter path to DEM data
+Country Bounds,,file path,boundary of region of interest
+CSV Input,,file path,the path to spreadsheet with exclusion criteria information
+Resource Input,,file path,raster dataset of resource quality for the region
+Threshold List,[2],"[1, 2, 3, 4..]",minimum threshold for resource quality for siting
+Output GDB,,file path,a geodatabase for output files
+Filename Suffix,,filename e.g. suitability,results file name
+CSV Area Output,,filename.csv,results file name of total and subregional capacity information
 Scratch GDB,,file path,"If you don't have a gdb preference, you can choose the ""scratch.gdb"" folder in the ReZoningGISTools"
-Raster Output,TRUE,"[options: True, False]",
+Raster Output,TRUE,"[options: True, False]",if you would like an additional raster output
 Land Use Efficiency,30,,
 Land Use Discount,0.1,,
 Average Capacity Factor,0.2,,
 Min Area,2,,
-Geographic Units,,granular unit of analysis file path,
-GeoUnits Attribute Name,,name,
+Geographic Units,,granular unit of analysis file path,optional - if you wish to split your siting results based on subregional boundaries
+GeoUnits Attribute Name,,name,"optional - if splitting results, column name representing name of each subregion"
+Workspace to save subunits,,file path,optional - if geoUnits-split areas should be individually saved

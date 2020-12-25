@@ -21,7 +21,7 @@ csv_file = pd.read_csv(r"R:\users\anagha.uppal\MapRE\RequiredCSVs\stage3_input.c
 # technology = arcpy.GetParameterAsText(0) ## required
 
 ## SPATIAL INPUTS
-technology = str(csv_file[1][0]) ##
+resource = str(csv_file[1][0]) ##
 projectsIn = str(csv_file[1][1]) ##
 projectsOut = str(csv_file[1][2]) ##
 resourceInput = str(csv_file[1][3]) ## MUST BE A RASTER
@@ -61,7 +61,7 @@ landUseDiscount = float(csv_file[1][24])
 
 
 
-analysis = stage3_function.Attributes(technology, projectsIn, projectsOut, resourceInput, csvInput, templateRaster,
+analysis = stage3_function.Attributes(resource, projectsIn, projectsOut, resourceInput, csvInput, templateRaster,
                  scratch, RQtype, transmissionDistMultiplier, cellSize, largestArea, capCost,
                  variableGenOMcost, fixedGenOMcost, omer, effLoss, outageRate, cfdr,
                  transCost, subCost, roadCost, discountRate, plantLifetime, powerDensity, landUseDiscount)

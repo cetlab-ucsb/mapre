@@ -18,7 +18,7 @@ def my_function():
 # Defining a class
 class ProjectCreation:
     def __init__(self, suitableSites, projectsOut, scratch, templateRaster, countryBounds,
-                 geoUnits, fishnetSize, fishnetDirectory, whereClauseMax, whereClauseMin, whereClauseMinContArea):
+                 geoUnits, fishnetSize, fishnetDirectory, whereClauseMax, whereClauseMinContArea):
         ## SPATIAL INPUTS
 
         '''
@@ -40,7 +40,7 @@ class ProjectCreation:
 
         self.templateRaster = str(templateRaster)  ## required
 
-        self.countryBounds = str(countryBounds)  ## optional
+        self.countryBounds = str(countryBounds)  ## required
 
         self.geoUnits = str(geoUnits)  ## optional
 
@@ -56,7 +56,7 @@ class ProjectCreation:
         self.whereClauseMax = '"Area" > ' + str(whereClauseMax)  ## 25'
 
         # Parameter: area below which to aggregate (d)
-        self.whereClauseMin = '"Area" < ' + str(whereClauseMin)  ## 5'
+        # self.whereClauseMin = '"Area" < ' + str(whereClauseMin)  ## 5'
 
         # Parameter: threshold for minimum contiguous project area (a)
         self.whereClauseMinContArea = '"Area" > ' + str(whereClauseMinContArea)  ## 2'
@@ -66,7 +66,6 @@ class ProjectCreation:
         #####################################################################################
         #### --------------------------------GEOPROCESSES--------------------------------####
         #####################################################################################
-
         ############################################
         ## Set environments and scratch workspace ##
         ############################################
@@ -90,6 +89,7 @@ class ProjectCreation:
 
         fishnet = "in_memory/fishnet_" + fishnetSizeStr \
                   + "km"  ## MUST add .shp if not putting file in gdb (for add field function)
+        # fishnet = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\SAPP_Outputs.gdb" + "\\" + "fishnet_" + fishnetSizeStr + "km"
         clippedFishnet = self.fishnetDirectory + "\\" + "fishnet_" + fishnetSizeStr + "km"
 
         env.outputCoordinateSystem = self.templateRaster
@@ -129,7 +129,7 @@ class ProjectCreation:
         fishnetInMemory = arcpy.CopyFeatures_management(clippedFishnet, "in_memory/clipped_fishnet")
 
         # Temporary variables:
-        IntermediateIntersect_geoUnits = "in_memory/IntermediateIntersect_geoUnits"
+        IntermediateIntersect_geoUnits = "IntermediateIntersect_geoUnits"
         Intermediate = "in_memory/intermediate_2"
         IntermediateErased = "in_memory/intermediateErased_2"
         IntermediateIntersect = "in_memory/IntermediateIntersect_2"
@@ -197,47 +197,51 @@ class ProjectCreation:
         # Execute MakeFeatureLayer
         tempLayer = arcpy.MakeFeatureLayer_management(IntermediateIntersect_singlept, "tempLayer")
 
-        # Execute SelectLayerByAttribute to define features to be eliminated
-        arcpy.SelectLayerByAttribute_management(in_layer_or_view=tempLayer, selection_type="NEW_SELECTION",
-                                                where_clause=self.whereClauseMin)
-
-        # Execute Eliminate
-        arcpy.Eliminate_management("tempLayer", IntermediateEliminated, "LENGTH")
+        # # Execute SelectLayerByAttribute to define features to be eliminated
+        # arcpy.SelectLayerByAttribute_management(in_layer_or_view=tempLayer, selection_type="NEW_SELECTION",
+        #                                         where_clause=self.whereClauseMin)
+        #
+        # # Execute Eliminate
+        # arcpy.Eliminate_management("tempLayer", IntermediateEliminated, "LENGTH")
 
         ## iteration 2
 
-        # Execute MakeFeatureLayer
-        IntermediateEliminated_tempLayer = arcpy.MakeFeatureLayer_management(IntermediateEliminated,
-                                                                             "IntermediateEliminated")
-
-        # Execute SelectLayerByAttribute to define features to be eliminated
-        arcpy.SelectLayerByAttribute_management(in_layer_or_view=IntermediateEliminated_tempLayer,
-                                                selection_type="NEW_SELECTION", where_clause=self.whereClauseMin)
-
-        # Execute Eliminate
-        arcpy.Eliminate_management(IntermediateEliminated_tempLayer, IntermediateEliminated2, "LENGTH")
+        # # Execute MakeFeatureLayer
+        # IntermediateEliminated_tempLayer = arcpy.MakeFeatureLayer_management(IntermediateEliminated,
+        #                                                                      "IntermediateEliminated")
+        #
+        # # Execute SelectLayerByAttribute to define features to be eliminated
+        # arcpy.SelectLayerByAttribute_management(in_layer_or_view=IntermediateEliminated_tempLayer,
+        #                                         selection_type="NEW_SELECTION", where_clause=self.whereClauseMin)
+        #
+        # # Execute Eliminate
+        # arcpy.Eliminate_management(IntermediateEliminated_tempLayer, IntermediateEliminated2, "LENGTH")
 
         '''
         ################################################
         ## Merge aggregated with intersected features ##
         ################################################
         '''
-        # Merge aggregated polygons with larger, split polygons
-        merged = arcpy.Merge_management([IntermediateErased, IntermediateEliminated2], "in_memory/intermediateProjects")
+        # # Merge aggregated polygons with larger, split polygons
+        # merged = arcpy.Merge_management([IntermediateErased, IntermediateEliminated2], "in_memory/intermediateProjects")
 
         ## AGAIN, INTERSECT Geographic Unit of Analysis, if provided
         if arcpy.Exists(self.geoUnits):
             arcpy.AddMessage("Intersecting by geographic units of analysis")
-            arcpy.Intersect_analysis([merged, self.geoUnits], IntermediateIntersect_geoUnits, "NO_FID")
+            arcpy.Intersect_analysis([tempLayer, self.geoUnits], IntermediateIntersect_geoUnits, "NO_FID")
             arcpy.AddMessage("Finished intersecting by geographic units of analysis")
         else:
-            IntermediateIntersect_geoUnits = merged
+            IntermediateIntersect_geoUnits = tempLayer
 
         # recalculate area
         arcpy.CalculateField_management(IntermediateIntersect_geoUnits, "Area", "!Shape.Area@squarekilometers!",
                                         "PYTHON_9.3", "")
+        arcpy.CopyFeatures_management(IntermediateIntersect_geoUnits, "intermediate_1")
         # select areas above minimum and save ## CREATE PROJECT FEATURE CLASS
-        arcpy.Select_analysis(IntermediateIntersect_geoUnits, self.projectsOut, self.whereClauseMinContArea)
+        try:
+            arcpy.Select_analysis(IntermediateIntersect_geoUnits, self.projectsOut, self.whereClauseMinContArea)
+        except:
+            arcpy.CopyFeatures_management(IntermediateIntersect_geoUnits, self.projectsOut)
         ## Process: Summary Statistics
         ## arcpy.Statistics_analysis(selectOut, outputFGDB + filename + '_stats', "Area SUM", "") ## CREATE PROJECT STATS
         arcpy.AddMessage('Finished merging')

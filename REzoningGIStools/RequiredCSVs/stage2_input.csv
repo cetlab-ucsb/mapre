@@ -7,5 +7,4 @@ Geographic unit of analysis,,file path (optional)
 Fishnet size,5,numeral
 Fishnet Storage,,directory path
 Max project area,25,numeral (usually fishnet^2)
-Min project area,5,numeral
 Min contiguous project area,2,numeral

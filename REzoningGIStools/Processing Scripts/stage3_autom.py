@@ -1,11 +1,12 @@
 
 import arcpy
-# import stage2_HardcodeCollect
 import pandas as pd
 import stage3_function
 
-arcpy.env.workspace = workspace = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\baseScenario_wind.gdb"
+arcpy.env.overwriteOutput = True
 
+arcpy.env.workspace = workspace = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\human_wind.gdb"
+resource = "wind"
 countries = {
     'DRC': 'DRC',
     'Angola': 'AO',
@@ -45,7 +46,6 @@ def run_it(countryName, countryAbbr):
     yourSpace = "R:\\users\\anagha.uppal\\MapRE\\"
 
     ## SPATIAL INPUTS
-    technology = "Wind"  ##
     projectsIn = workspace + "\\" + countryName + "_areas"  ##
     if countryName == "DRC":
         projectsIn = workspace + "\\" "Democratic_Republic_of_the_Congo_areas"
@@ -53,21 +53,26 @@ def run_it(countryName, countryAbbr):
         projectsIn = workspace + "\\" "Swaziland_areas"  ## required
 
     projectsOut = projectsIn + "_attr"  ##
-    resourceInput = yourSpace + countryName + ".gdb\\" + countryName + "_wind_CF_calc_Projected_Clipped"  ## MUST BE A RASTER
+    resourceInput = yourSpace + countryName + ".gdb\\" + countryName + "_wind_CF_calc_Projected_Clipped"  ## MUST BE A RASTER e.g. wind_CF_calc
     csvInput = yourSpace + "RequiredCSVs\\inputs_projectAreaAttributesw.csv"  ## required
-    templateRaster = yourSpace + countryName + ".gdb\\" + countryName + \
-                     "_elevation500_DEMGADM_Projected_Clipped"  ## required
+    # templateRaster = yourSpace + countryName + ".gdb\\" + countryName + \
+    #                  "_elevation500_DEMGADM_Projected_Clipped"  ## required
+    templateRaster = yourSpace + "SAPP.gdb\\SAPP_elevation500_DEMGADM_Projected_Clipped"  ## required
     scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\Scratch.gdb"
 
     ################
     ## PARAMETERS ##
     ################
 
-    RQtype = "Capacity Factor"  ## capacityFactor" or "windPowerDensity"
+    RQtype = "Capacity Factor"  ## capacityFactor" or "kWh/m2-day" or "Wind speed (m/s)"
     transmissionDistMultiplier = 1.3
     cellSize = int(500)  ## 500
     largestArea = 25  ## 500
-    if technology == "Solar":
+    transCost = 990
+    subCost = 71000
+    roadCost = 407000
+    discountRate = 0.1
+    if resource == "solar":
         ## COSTS
         capCost = 2000000 ## changes between wind and solar
         variableGenOMcost = 4 ## changes between wind and solar
@@ -75,40 +80,32 @@ def run_it(countryName, countryAbbr):
         omer = 0  # Fixed O&M costs escalation rate
 
         effLoss = 0  ## Assume wind losses (15%) without outage rate (2%). So default value should be 0.85;
-        outageRate = 0.04  ## changes between wind and solar
+        outageRate = 0.0  ## changes between wind and solar
         cfdr = 0  # Capacity factor degradation rate
 
-        transCost = 990
-        subCost = 71000
-        roadCost = 407000
-        discountRate = 0.1
         plantLifetime = 25
 
         ## OTHERS
         powerDensity = 30  # Land use efficiency (MW/km2) ## changes between wind and solar
         landUseDiscount = 0.1 ## changes between wind and solar
-    if technology == "Wind":
+    if resource == "wind":
         ## COSTS
         capCost = 1700000  ## changes between wind and solar
         variableGenOMcost = 0  ## changes between wind and solar
         fixedGenOMcost = 60000  ## changes between wind and solar
         omer = 0  # Fixed O&M costs escalation rate
 
-        effLoss = 0.17  ## Assume wind losses (15%) without outage rate (2%).
+        effLoss = 0.15  ## Assume wind losses (15%) without outage rate (2%).
         outageRate = 0.02  ## changes between wind and solar
         cfdr = 0  # Capacity factor degradation rate
 
-        transCost = 990
-        subCost = 71000
-        roadCost = 407000
-        discountRate = 0.1
         plantLifetime = 25
 
         ## OTHERS
         powerDensity = 9  # Land use efficiency (MW/km2) ## changes between wind and solar
         landUseDiscount = 0.25  ## changes between wind and solar
 
-    analysis = stage3_function.Attributes(technology, projectsIn, projectsOut, resourceInput, csvInput, templateRaster,
+    analysis = stage3_function.Attributes(resource, projectsIn, projectsOut, resourceInput, csvInput, templateRaster,
                                           scratch, RQtype, transmissionDistMultiplier, cellSize, largestArea, capCost,
                                           variableGenOMcost, fixedGenOMcost, omer, effLoss, outageRate, cfdr,
                                           transCost, subCost, roadCost, discountRate, plantLifetime, powerDensity,

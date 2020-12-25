@@ -1,25 +1,25 @@
-Technology,Wind,"[options: Wind, Solar PV, CSP]"
-Input project,,file path
-Output Project,,file path
-Input resource raster,,file path
-Input attribute CSV,,file path
-Template raster,,file path
-Scratch GDB,,file path
-Renewable resource units,W/m2,"[options: Capacity Factor, W/m2, kWh/m2-day]"
-Transmission distance multiplier,1.3,Decimal
-Cell size,500,Numeral
-Area of largest project,25,Numeral
-Capital cost,1450000,Numeral [USD/MW]
-Variable O&M Cost generation,0,Numeral [USD/MWh]
-Fixed O&M cost of generation,60000,Numeral [USD/MW]
-Fixed O&M costs annual escalation rate,0,Numeral
-Efficiency losses,0.14,Numeral
-Outage rate,0.02,Numeral
-Annual output degradation rate,0,Numeral
-Transmission cost,990,Numeral [USD/MW/km]
-Substation cost,71000,Numeral [USD/pair substations]
-Road cost,407000,Numeral [USD/km]
-Economic discount rate,0.1,Decimal
-Power plant lifetime,25,Numeral [years]
-Land use efficiency,9,Numeral [MW/km2]
-Land use discount factor,0.25,Decimal
+Resource,Wind,"[options: wind, solar, CSP]",,,,,,
+Input project,,file path,,,,,,
+Output Project,,file path,,,,,,
+Input resource raster,,file path,,,,,,
+Input attribute CSV,,file path,,,,,,
+Template raster,,file path,,,,,,
+Scratch GDB,,file path,,,,,,
+Renewable resource units,W/m2,"[options: Capacity Factor, W/m2, kWh/m2-day, Wind speed (m/s)]",,,,,,
+Transmission distance multiplier,1.3,Decimal,,,,,,
+Cell size,500,Numeral,,,,,,
+Area of largest project,25,Numeral,,,,,,
+Capital cost,1450000,Numeral [USD/MW],,,,,,
+Variable O&M Cost generation,0,Numeral [USD/MWh],,,,,,
+Fixed O&M cost of generation,60000,Numeral [USD/MW],,,,,,
+Fixed O&M costs annual escalation rate,0,Numeral,,,,,,
+Efficiency losses,0.14,Numeral,,,,,,
+Outage rate,0.02,Numeral,,,,,,
+Annual output degradation rate,0,Numeral,,,,,,
+Transmission cost,990,Numeral [USD/MW/km],,,,,,
+Substation cost,71000,Numeral [USD/pair substations],,,,,,
+Road cost,407000,Numeral [USD/km],,,,,,
+Economic discount rate,0.1,Decimal,,,,,,
+Power plant lifetime,25,Numeral [years],,,,,,
+Land use efficiency,9,Numeral [MW/km2],,,,,,
+Land use discount factor,0.25,Decimal,,,,,,

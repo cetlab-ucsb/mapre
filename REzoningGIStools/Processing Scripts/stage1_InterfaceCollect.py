@@ -37,11 +37,12 @@ landUseDiscount = arcpy.GetParameter(12) ## required
 avgCF = arcpy.GetParameter(13) ## required
 minArea = arcpy.GetParameter(14) ## required
 
-geoUnits = "" #optional
-geoUnits_attribute = "" #optional
+geoUnits = arcpy.GetParameter(15) ## required
+geoUnits_attribute = arcpy.GetParameter(16) ## required
+save_subunits_workspace = arcpy.GetParameter(17) ## required
 
 analysis = stage1_function.Suitability(technology, templateRaster, countryBounds, csvInput, resourceInput,
                                        thresholdList, out_suitableSites_gdb, fileNameSuffix, csvAreaOutput,
                                        scratch, rasterOutput, landUseEfficiency, landUseDiscount, avgCF,
-                                       minArea, geoUnits, geoUnits_attribute)
+                                       minArea, geoUnits, geoUnits_attribute, save_subunits_workspace)
 analysis.identifySuitable()
