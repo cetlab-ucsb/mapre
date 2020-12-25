@@ -1,7 +1,7 @@
 
 import arcpy
 import pandas as pd
-import stage3_function
+import import_functions.stage3_function as stage3
 
 arcpy.env.overwriteOutput = True
 
@@ -30,7 +30,7 @@ def run_it(countryName, countryAbbr):
     # from Scripts import
     import arcpy
 
-    stage3_function.my_function()
+    stage3.my_function()
 
     '''
     ############################################################################################################
@@ -105,7 +105,7 @@ def run_it(countryName, countryAbbr):
         powerDensity = 9  # Land use efficiency (MW/km2) ## changes between wind and solar
         landUseDiscount = 0.25  ## changes between wind and solar
 
-    analysis = stage3_function.Attributes(resource, projectsIn, projectsOut, resourceInput, csvInput, templateRaster,
+    analysis = stage3.Attributes(resource, projectsIn, projectsOut, resourceInput, csvInput, templateRaster,
                                           scratch, RQtype, transmissionDistMultiplier, cellSize, largestArea, capCost,
                                           variableGenOMcost, fixedGenOMcost, omer, effLoss, outageRate, cfdr,
                                           transCost, subCost, roadCost, discountRate, plantLifetime, powerDensity,

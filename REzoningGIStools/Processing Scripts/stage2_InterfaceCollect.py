@@ -1,8 +1,8 @@
 #from Scripts import
-import stage2_function
+import import_functions.stage2_function as stage2
 import arcpy
 
-stage2_function.my_function()
+stage2.my_function()
 
 '''
 ############################################################################################################
@@ -45,7 +45,7 @@ whereClauseMax = str(arcpy.GetParameter(8)) ## 25'
 whereClauseMinContArea = str(arcpy.GetParameter(9))  ## 2'
 
 
-analysis = stage2_function.ProjectCreation(suitableSites, projectsOut, scratch,
+analysis = stage2.ProjectCreation(suitableSites, projectsOut, scratch,
                                            templateRaster, countryBounds, geoUnits, fishnetSize,
                                            fishnetDirectory, whereClauseMax, whereClauseMinContArea)
 analysis.createProjectAreas()

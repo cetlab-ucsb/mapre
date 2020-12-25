@@ -10,11 +10,11 @@ csv_file_path = r"R:\users\anagha.uppal\MapRE\RequiredCSVs\stage1_input.csv"
 ## ----------------------------------------- SCRIPT CODE ------------------------------------------------ ##
 ############################################################################################################
 '''
-import stage1_function
+import import_functions.stage1_function as stage1
 import arcpy
 import pandas as pd
 
-stage1_function.my_function()
+stage1.my_function()
 csv_file = pd.read_csv(csv_file_path, header=None)
 
 
@@ -53,7 +53,7 @@ geoUnits = csv_file[1][15] ## optional
 geoUnits_attribute = csv_file[1][16] ## optional
 save_subunits_workspace = csv_file[1][17] ##optional
 
-analysis = stage1_function.Suitability(technology, templateRaster, countryBounds, csvInput, resourceInput,
+analysis = stage1.Suitability(technology, templateRaster, countryBounds, csvInput, resourceInput,
                                        thresholdList, out_suitableSites_gdb, fileNameSuffix, csvAreaOutput,
                                        scratch, rasterOutput, landUseEfficiency, landUseDiscount, avgCF,
                                        minArea, geoUnits, geoUnits_attribute, save_subunits_workspace)

@@ -1,8 +1,8 @@
 #from Scripts import
-import stage3_function
+import import_functions.stage3_function as stage3
 import arcpy
 
-stage3_function.my_function()
+stage3.my_function()
 
 '''
 ############################################################################################################
@@ -54,7 +54,7 @@ landUseDiscount = 0.25  ## Land use discount factor - changes between wind and s
 
 ############################DO NOT EDIT BELOW THIS LINE#########################################
 
-analysis = stage3_function.Attributes(resource, projectsIn, projectsOut, resourceInput, csvInput, templateRaster,
+analysis = stage3.Attributes(resource, projectsIn, projectsOut, resourceInput, csvInput, templateRaster,
                  scratch, RQtype, transmissionDistMultiplier, cellSize, largestArea, capCost,
                  variableGenOMcost, fixedGenOMcost, omer, effLoss, outageRate, cfdr,
                  transCost, subCost, roadCost, discountRate, plantLifetime, powerDensity, landUseDiscount)

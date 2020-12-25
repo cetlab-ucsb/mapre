@@ -1,8 +1,8 @@
 #from Scripts import
-import stage1_function
+import  import_functions.stage1_function as stage1
 import arcpy
 
-stage1_function.my_function()
+stage1.my_function()
 
 technology = arcpy.GetParameterAsText(0) ## required
 
@@ -41,7 +41,7 @@ geoUnits = arcpy.GetParameter(15) ## required
 geoUnits_attribute = arcpy.GetParameter(16) ## required
 save_subunits_workspace = arcpy.GetParameter(17) ## required
 
-analysis = stage1_function.Suitability(technology, templateRaster, countryBounds, csvInput, resourceInput,
+analysis = stage1.Suitability(technology, templateRaster, countryBounds, csvInput, resourceInput,
                                        thresholdList, out_suitableSites_gdb, fileNameSuffix, csvAreaOutput,
                                        scratch, rasterOutput, landUseEfficiency, landUseDiscount, avgCF,
                                        minArea, geoUnits, geoUnits_attribute, save_subunits_workspace)

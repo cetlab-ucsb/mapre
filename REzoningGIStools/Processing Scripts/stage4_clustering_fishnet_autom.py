@@ -1,6 +1,6 @@
 
 import arcpy
-import stage4_clustering_fishnet
+import import_functions.stage4_clustering_fishnet_function as stage4_clustering_fishnet
 arcpy.env.overwriteOutput = True
 
 arcpy.env.workspace = workspace = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\baseScenario_solar.gdb"

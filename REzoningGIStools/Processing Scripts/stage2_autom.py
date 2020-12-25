@@ -2,7 +2,7 @@
 import arcpy
 # import stage2_HardcodeCollect
 import pandas as pd
-import stage2_function
+import import_functions.stage2_function as stage2
 
 arcpy.env.workspace = workspace = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\allTiers_wind.gdb"
 countries = {
@@ -29,7 +29,7 @@ print(featureclasses)
 def run_it(countryName, countryAbbr):
     # from Scripts import
 
-    stage2_function.my_function()
+    stage2.my_function()
 
     '''
     ############################################################################################################
@@ -78,7 +78,7 @@ def run_it(countryName, countryAbbr):
     # Parameter: threshold for minimum contiguous project area (a)
     whereClauseMinContArea = str(2)  ## 2'
 
-    analysis = stage2_function.ProjectCreation(suitableSites, projectsOut, scratch,
+    analysis = stage2.ProjectCreation(suitableSites, projectsOut, scratch,
                                                templateRaster, countryBounds, geoUnits, fishnetSize,
                                                fishnetDirectory, whereClauseMax, whereClauseMinContArea)
     analysis.createProjectAreas()

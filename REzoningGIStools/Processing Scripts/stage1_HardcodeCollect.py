@@ -1,8 +1,8 @@
 #from Scripts import
-import stage1_function
+import import_functions.stage1_function as stage1
 import arcpy
 
-stage1_function.my_function()
+stage1.my_function()
 
 '''
 ############################################################################################################
@@ -47,7 +47,7 @@ save_subunits_workspace = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\
 
 ############################DO NOT EDIT BELOW THIS LINE#########################################
 
-analysis = stage1_function.Suitability(technology, templateRaster, countryBounds, csvInput, resourceInput,
+analysis = stage1.Suitability(technology, templateRaster, countryBounds, csvInput, resourceInput,
                                        thresholdList, out_suitableSites_gdb, fileNameSuffix, csvAreaOutput,
                                        scratch, rasterOutput, landUseEfficiency, landUseDiscount, avgCF,
                                        minArea, geoUnits, geoUnits_attribute, save_subunits_workspace)
