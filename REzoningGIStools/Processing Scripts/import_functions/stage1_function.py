@@ -308,6 +308,6 @@ class Suitability:
             pass
 
         # Write Area Sums table as CSV file
-        with open(self.csvAreaOutput, 'w') as csvfile:
+        with open(self.csvAreaOutput+".csv", 'w') as csvfile:
             writer = csv.writer(csvfile)
             [writer.writerow(r) for r in areaTable]
