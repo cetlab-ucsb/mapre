@@ -187,12 +187,13 @@ class Suitability:
                 arcpy.AddMessage("Finished raster calculation for " + constraint)
 
         ## LISTS TO HOLD THE AREAS AND WRITE TO CSV
-        areaSumList = ["Area_km2"]
-        generationSumList = ["Generation_MWh"]
-        areaLabelList = ["Scenarios"]
+        areaSumList = ['Area_km2']
+        generationSumList = ['Generation_MWh']
+        areaLabelList = ['Scenarios']
+        subunitsList = ['Subregions']
 
         ## CREATE THRESHOLD SCENARIOS
-        for threshold in self.thresholdList:  ## .split(','): ## Multivalue is comma delimited. Split on that and loop through them.
+        for threshold in self.thresholdList:
             resourceArea = Con(self.resourceInput, ifTrue, ifFalse, "Value >= " + str(threshold))
             rasterSelection_final = rasterSelection_constraints * resourceArea
             arcpy.AddMessage("Finished raster calculation for resource threshold: " + str(threshold))
@@ -211,22 +212,14 @@ class Suitability:
 
             ## Raster to polygon conversion
             intermediate = arcpy.RasterToPolygon_conversion(outExtractByMask, "in_memory/intermediate", "NO_SIMPLIFY", "Value")
-
             ## Process: select gridcode = 1
             intermediateFields = getFields(intermediate)
-
             ## check the name of the "grid code" field in the polygon output.
             if "grid_code" in intermediateFields:
                 selectIntermediate = arcpy.Select_analysis(intermediate, "in_memory/selectIntermediate", '"grid_code" = 1')
 
             if "gridcode" in intermediateFields:
                 selectIntermediate = arcpy.Select_analysis(intermediate, "in_memory/selectIntermediate", '"gridcode" = 1')
-
-            # Process: Add Field
-            arcpy.AddField_management(selectIntermediate, "Area", "DOUBLE", "", "", "", "", "NULLABLE", "NON_REQUIRED", "")
-
-            # Process: Calculate Field
-            arcpy.CalculateField_management(selectIntermediate, "Area", "!Shape.Area@squarekilometers!", "PYTHON_9.3", "")
 
             ## INTERSECT Geographic Unit of Analysis, if provided
             if arcpy.Exists(self.geoUnits):
@@ -235,12 +228,19 @@ class Suitability:
             else:
                 selectIntermediate_geoUnits = selectIntermediate
 
+            # Process: Add Field
+            arcpy.AddField_management(selectIntermediate_geoUnits, "Area", "DOUBLE", "", "", "", "", "NULLABLE",
+                                      "NON_REQUIRED", "")
+
+            # Process: Calculate Field
+            arcpy.CalculateField_management(selectIntermediate_geoUnits, "Area", "!Shape.Area@squarekilometers!",
+                                            "PYTHON_9.3", "")
 
             # Process: select areas above minimum contiguous area and SAVE to file
             select = arcpy.Select_analysis(selectIntermediate_geoUnits, outputFileName, \
                                            '"Area" >= ' + str(self.minArea))
 
-            if self.save_subunits_workspace != "":  ##save the raster output
+            if self.save_subunits_workspace != "": ## save subunits
                 arcpy.Split_analysis(select, self.geoUnits, self.geoUnits_attribute,
                                      self.save_subunits_workspace)
 
@@ -270,30 +270,44 @@ class Suitability:
                 areaList = []
                 generationList = []
                 geoUnits_attributeList = []
+                areaNameDict = {}
                 for row in cursor:
-                    area = row.getValue("Area")
                     attribute = row.getValue(self.geoUnits_attribute)
+                    area = row.getValue("Area")
+                    if(attribute not in areaNameDict):
+                        areaNameDict[attribute] = area
+                    elif(attribute in areaNameDict):
+                        areaNameDict[attribute] = areaNameDict[attribute] + area
 
-                    generation = area * self.landUseEfficiency * self.avgCF * 8760 / 1000 * self.landUseDiscount
-
+                geoUnits_attributeList = list(areaNameDict.keys())
+                areaList = list(areaNameDict.values())
+                for key in areaNameDict:
+                    generation = areaNameDict[key] * self.landUseEfficiency * self.avgCF * 8760 / 1000 * self.landUseDiscount
                     generationList.append(generation)
-                    areaList.append(area)
-                    geoUnits_attributeList.append(attribute)
-                geoattrUnique = list(set(geoUnits_attributeList))
 
-                # initialise data of lists.
-                data = {'Geo Unit': geoUnits_attributeList,
-                        'Area': areaList,
-                        'Generation': generationList,
-                        }
-                # Create DataFrame
-                df = pd.DataFrame(data)
-                for value in geoattrUnique:
-                    areaSumList.append(df.loc[df['Geo Unit'] == value, 'Area'].sum())
-                    generationSumList.append(df.loc[df['Geo Unit'] == value, 'Generation'].sum())
-
+                #areaList.append(area)
+                #geoUnits_attributeList.append(attribute)
+                # geoattrUnique = list(set(geoUnits_attributeList))
+                #
+                # # initialise data of lists.
+                # data = {'Geo Unit': geoUnits_attributeList,
+                #         'Area': areaList,
+                #         'Generation': generationList,
+                #         }
+                # # Create DataFrame
+                # df = pd.DataFrame(data)
+                # for value in geoattrUnique:
+                #     areaSumList.append(df.loc[df['Geo Unit'] == value, 'Area'].sum())
+                #     generationSumList.append(df.loc[df['Geo Unit'] == value, 'Generation'].sum())
+                areaSumList       = areaSumList + areaList
+                generationSumList = generationSumList + generationList
+                subunitsList      = subunitsList + geoUnits_attributeList
                 areaLabelList.append(str(thresholdFileName) + "_" + self.fileNameSuffix)
-                areaTable = [areaLabelList, geoattrUnique, areaSumList, generationSumList]
+                # areaTable = [areaLabelList, subunitsList, areaSumList, generationSumList]
+                areaTable = [areaLabelList, subunitsList, areaSumList, generationSumList]
+
+                #areaLabelList.append(str(thresholdFileName) + "_" + self.fileNameSuffix)
+                #areaTable = [areaLabelList, geoattrUnique, areaSumList, generationSumList]
 
 
 
@@ -308,6 +322,6 @@ class Suitability:
             pass
 
         # Write Area Sums table as CSV file
-        with open(self.csvAreaOutput, 'w') as csvfile:
+        with open(self.csvAreaOutput+".csv", 'w') as csvfile:
             writer = csv.writer(csvfile)
             [writer.writerow(r) for r in areaTable]
