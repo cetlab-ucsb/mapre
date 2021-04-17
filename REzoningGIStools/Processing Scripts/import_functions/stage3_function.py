@@ -318,37 +318,48 @@ class Attributes:
                     roadDist = 0
 
                 ## If resource quality type is capacity factor then simply retrieve the CF from the attribute table
+                ## This script assumes input capacity factor includes no losses
+                ## reset m_cf as capacity factor after losses
                 if self.RQtype == "Capacity Factor":
-                    CF = row.getValue("m_cf") * (1-losses)
+                    CF_noloss = row.getValue("m_cf")
+                    CF = CF_noloss * (1 - losses)
 
                 else:
                     ## Calculate Capacity factors
                     if self.technology == "solar":
                         if self.RQtype == "W/m2":
                             RQ_row = row.getValue("m_rq_wm2")
-                            CF = (RQ_row / (maxInsol)) * (1-losses)  # derating factor*ResourceQuality/maxInsolation
+                            CF_noloss = (RQ_row / (maxInsol))  # ResourceQuality/maxInsolation
+                            CF = CF_noloss * (1 - losses)
                         if self.RQtype == "kWh/m2-day":
                             RQ_row = row.getValue("m_rq_kwh")
-                            CF = (RQ_row / (maxInsol_kWh)) * (1-losses)  # derating factor*ResourceQuality/maxInsolation
+                            CF_noloss = (RQ_row / (maxInsol_kWh))  # ResourceQuality/maxInsolation
+                            CF = CF_noloss * (1 - losses)
 
+                    ## Code for CSP is incomplete.
                     if self.technology == "CSP":
                         if self.RQtype == "W/m2":
                             RQ_row = row.getValue("m_rq_wm2")
-                            CF = CSPcfCalc_6h(RQ_row, self.RQtype) * (1-losses)
+                            CF_noloss = CSPcfCalc_6h(RQ_row, self.RQtype)
+                            CF = CF_noloss * (1 - losses)
                         if self.RQtype == "kWh/m2-day":
                             RQ_row = row.getValue("m_rq_kwh")
-                            CF = CSPcfCalc_6h(RQ_row, self.RQtype) * (1-losses)
+                            CF_noloss = CSPcfCalc_6h(RQ_row, self.RQtype)
+                            CF = CF_noloss * (1 - losses)
 
+                    ## Code for calculating CF from RQ for wind is incomplete
                     if self.technology == "wind":
                         if self.RQtype == "W/m2":
                             RQ_row = row.getValue("m_rq_wm2")
-                            CF = self.sdfaf * (1-losses)
+                            CF_noloss = self.sdfaf
+                            CF = CF_noloss * (1 - losses)
 
                         if self.RQtype == "Wind speed (m/s)":
                             RQ_row = row.getValue("m_rq_kwh")
 
-                    ## Set the calculate Capacity factor value
-                    row.setValue("m_cf", CF)
+                ## Set the Capacity factor values before and after losses
+                row.setValue("m_cf", CF)
+                row.setValue("m_cf_noloss", CF_noloss)
 
                 LCOEgen = (self.capCost * CRF + self.fixedGenOMcost) / (8760 * CF) + self.variableGenOMcost
 
@@ -370,6 +381,8 @@ class Attributes:
 
                 capacity = self.powerDensity * area * self.landUseDiscount
 
+                electGen = capacity * CF * hours # Not use. Modification below.
+
                 #### GW modification 06242019 ####
                 ## Calculate average annual electricity generation
                 electGen_yr1 = capacity * CF * hours
@@ -381,8 +394,6 @@ class Attributes:
 
                 electGen_new = numpy.mean(calcElecGen(range(0, int(self.plantLifetime), 1), electGen_yr1, self.cfdr))
                 #### GW modification end ####
-
-                electGen = capacity * CF * hours
 
                 roadLCOE = (self.roadCost * CRF) * roadDist / (CF * 50 * hours)
                 roadLCOEnew = (self.roadCost * roadDist) / 50 / electGenPkW_npv  # RD 05272019: Verify if roadLCOEnew is same as roadLCOE with 0 degradation. If same, change roadLCOEnew to roadLCOE.
