@@ -8,3 +8,4 @@ Multi-criteria Analysis for Planning Renewable Energy Initiative (MapRE)'s docum
     :name: mastertoc
 
     intro/index
+    requirements/index
