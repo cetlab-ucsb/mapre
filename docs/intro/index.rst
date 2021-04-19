@@ -1,0 +1,11 @@
+============
+Introduction
+============
+
+This zoning manual describes how to conduct many stages of the analysis used in the study that identified renewable energy zones for the African Clean Energy Corridor. In this study, the Lawrence Berkeley National Laboratory (LBNL) and the International Renewable Energy Agency (IRENA) applied the LBNL-developed **“Multi-criteria Analysis for Planning Renewable Energy”** approach to identify and comprehensively value high-quality wind, solar PV, and solar CSP resources in order to support prioritization development areas through a multi-criteria planning process. For the full description of the methods, please see the final report available on the IRENA or mapre.lbl.gov websites.
+
+The methodology overview in Figure 1 below shows all stages of the analysis and those covered in this manual. **The purpose of the  Renewable Energy (RE) zoning Geographic Information Systems (GIS) Script Tools is to enable the user to change the parameters and customize the analysis to meet the specific needs of each stakeholder or to best represent the country context.** Script Tool 0 preprocesses all input data to ready it for Script Tools 1-3. Script Tool Stage 1 allows the user to create a site suitability map, which is effectively a spatially-explicit way to estimate resource potential, using any exclusion and renewable resource inputs (stage 1 in Figure 1). These site suitability maps can be used to create project opportunity areas (stage 2 in Figure 1) and estimate their attributes using user specified inputs (stage 3 in Figure 1) with Script Tool Stages 2 and 3. The GIS Script Tool Stage 4 combines the resulting potential project areas from Script Tool 3 into larger potential zones. Finally, Script Tool Stage 5  enables the user to perform Calculation of zone attributes with updated inputs and parameters and update the zone ranking tool and the interactive PDF map. Through examples and tutorials, this manual describes the key geoprocesses involved in performing the zoning analysis using the RE zoning study’s assumptions. Finally, the user can update two main products of the zoning study, the interactive PDF map and the Excel zone ranking tool.
+
+.. image:: img/figure1.png
+    :width: 800
+    :alt: Figure 1
