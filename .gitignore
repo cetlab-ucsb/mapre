@@ -21,6 +21,7 @@
 *.cst
 **/__pycache__
 *.py[cod]
+.idea/
 
 # Sphinx documentation
 docs/_build/
