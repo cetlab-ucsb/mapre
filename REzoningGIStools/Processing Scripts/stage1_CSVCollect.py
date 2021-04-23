@@ -49,6 +49,8 @@ landUseDiscount = float(csv_file[1][12])  ## required
 avgCF = float(csv_file[1][13])  ## required
 minArea = float(csv_file[1][14])  ## required
 
+csv_file[1] = csv_file[1].fillna('') # replace NaNs with blank string
+
 geoUnits = csv_file[1][15] ## optional
 geoUnits_attribute = csv_file[1][16] ## optional
 save_subunits_workspace = csv_file[1][17] ##optional
