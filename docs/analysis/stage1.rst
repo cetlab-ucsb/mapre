@@ -36,7 +36,7 @@ The inputs for this tool are:
 Site Suitability Rasters Input CSV
 ==================================
 
-Use the template CSV, “inputs_siteSuitabilityRasters.csv,” provided in the
+Use the template CSV, “stage1_siteSuitabilityRasters.csv,” provided in the
 mapre/REzoningGIStools/Processing Scripts/RequiredCSVs folder accompanying the model to create this input CSV. Each column of the CSV indicates an individual input raster. You can create as many column inputs as you have rasters. That is, the tool will incorporate as many exclusions you provide in the CSV. As shown in Figure 2, the specifications for each row are as follows:
 
 1. The first row should contain the name of the raster layer (e.g., water bodies).
