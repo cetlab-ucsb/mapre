@@ -10,7 +10,11 @@ There are three approaches to provide inputs for these analysis scripts:
 2. Typing the inputs into the .py script directly
 3. Using the ArcGIS Toolbox
 
+Each approach are explained in further detail in the *Input approaches for analysis scripts* subsection.
+
 ..  toctree::
     :maxdepth: 1
-    :caption: Table of content
+    :caption: Table of contents
     :name: analysis_toc
+
+    inputs
