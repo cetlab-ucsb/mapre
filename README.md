@@ -15,6 +15,11 @@ The documentation is stored in the ``docs`` directory. To build the documentatio
 pip install sphinx
 ```
 
+You will also need to have the [Read the Docs Sphinx theme](https://github.com/readthedocs/sphinx_rtd_theme) installed, which you can do by running the following command:
+```bash
+pip install sphinx-rtd-theme
+```
+
 Afterwards, navigate into the ``docs`` folder in your terminal and run the following command:
 ```bash
 make html
