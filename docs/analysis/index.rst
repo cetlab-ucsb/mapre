@@ -19,3 +19,4 @@ Each approach are explained in further detail in the *Input approaches for analy
 
     inputs
     stage1
+    stage2
