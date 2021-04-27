@@ -36,7 +36,8 @@ The inputs for this tool are:
 Site Suitability Rasters Input CSV
 ==================================
 
-Use the template CSV, “inputs_siteSuitabilityRasters.csv,” provided in the RequiredCSVs folder accompanying the model to create an input CSV that contains the absolute filenames of the input rasters (Euclidean distance and threshold exclusion raster. Each column of the CSV indicates an individual input raster. You can create as many column inputs as you have rasters. That is, the tool will incorporate as many exclusions you provide in the CSV. As shown in Figure 2, the specifications for each row are as follows:
+Use the template CSV, “inputs_siteSuitabilityRasters.csv,” provided in the
+mapre/REzoningGIStools/Processing Scripts/RequiredCSVs folder accompanying the model to create this input CSV. Each column of the CSV indicates an individual input raster. You can create as many column inputs as you have rasters. That is, the tool will incorporate as many exclusions you provide in the CSV. As shown in Figure 2, the specifications for each row are as follows:
 
 1. The first row should contain the name of the raster layer (e.g., water bodies).
 2. The second row should contain either a "yes" or a "no" to indicate whether or not the raster should be used in the analysis.
