@@ -10,3 +10,4 @@ Multi-criteria Analysis for Planning Renewable Energy Initiative (MapRE)'s docum
     intro/index
     requirements/index
     preprocessing/index
+    analysis/index
