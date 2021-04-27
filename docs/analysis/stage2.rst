@@ -2,10 +2,14 @@
 Using the Project Opportunity Area Creation Tool (Script Tool Stage 2)
 ======================================================================
 
-Script Tool Stage 2 takes any resource area feature class output of the 'Script Tool B: Stage 1 Create site suitability’ model and divides the area into smaller geographic units called project opportunity areas, or simply, projects. The user can specify the range of the project sizes in km :sup:`2`.
+Script Tool Stage 2 takes any resource area feature class output of the 'Stage 1: Create site suitability’ model and divides the area into smaller geographic units called project opportunity areas, or simply, projects. The user can specify the range of the project sizes in km :sup:`2`.
 
 Inputs
 ======
+
+You have the option of hardcoding the inputs directly into the ``stage2_HardcodeCollect.py`` script or to type the inputs into the ``stage2_input.csv`` template file and placing that as an input into the ``stage2_CSVCollect.py`` script.
+
+The inputs for this tool are:
 
 * **Suitable sites**: Path to feature class output from Stage 1
 * **Projects output**: Path to what you want this Stage 2 output to be saved as
