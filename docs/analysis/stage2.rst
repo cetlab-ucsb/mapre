@@ -1,6 +1,6 @@
-=======================================================================
+======================================================================
 Using the Project Opportunity Area Creation Tool (Script Tool Stage 2)
-=======================================================================
+======================================================================
 
 Script Tool Stage 2 takes any resource area feature class output of the 'Script Tool B: Stage 1 Create site suitability’ model and divides the area into smaller geographic units called project opportunity areas, or simply, projects. The user can specify the range of the project sizes in km :sup:`2`.
 
