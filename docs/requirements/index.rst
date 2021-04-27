@@ -23,8 +23,16 @@ To install Sphinx:
 
     pip install sphinx
 
+You will also need to have the `Read the Docs Sphinx theme`_ installed, which you can do by running the following command:
+
+.. code-block:: bash
+
+    pip install sphinx-rtd-theme
+
 To build the documentation into HTML format, navigate to the ``docs`` folder in terminal and run the following command:
 
 .. code:: bash
 
     make html
+
+.. _`Read the Docs Sphinx theme`: https://github.com/readthedocs/sphinx_rtd_theme
