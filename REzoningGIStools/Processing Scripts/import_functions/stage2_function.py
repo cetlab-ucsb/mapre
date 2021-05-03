@@ -111,7 +111,7 @@ class ProjectCreation:
 
             arcpy.CreateFishnet_management(fishnet, origin, ycoord,
                                            self.fishnetSize * 1000, self.fishnetSize * 1000,
-                                           '0', '0', "", "NO_LABELS", "#", "POLYGON")
+                                           "", "", "", "NO_LABELS", self.countryBounds, "POLYGON")
 
             fields = arcpy.ListFields(fishnet)
             for field in fields:
