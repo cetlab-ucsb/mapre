@@ -277,8 +277,8 @@ class Attributes:
             # for field in fields:
             #        originalFields.append(str(field.name)) ## get the field names in the projects shapefile
 
-            fieldList = ["m_cf", "egen", "incap", "l_tra", "l_sub", "l_road", \
-                         "l_gen", "lt_tra", "lt_sub"]
+            fieldList = ["m_cf", "m_cf_noloss", "egen", "incap", "l_gen",
+                         "l_tra", "l_sub", "l_road", "lt_tra", "lt_sub"]
 
             ## create fields in fieldList if not already in original projects
             for each in fieldList:
