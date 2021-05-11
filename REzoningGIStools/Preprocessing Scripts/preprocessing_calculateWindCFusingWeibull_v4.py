@@ -83,7 +83,7 @@ if limitExtent == "yes":
     windSpeed = ExtractByMask(windSpeed, bounds)
     windSpeed.save(defaultWorkspace + windSpeed_filename)
     # weibull scale
-    weibullScale_filename = weibullScaleRaster.split("\\")[-1].split(".")[0].replace("-", "_") + boundsSuffix
+    weibullScale_filename = weibullScale.split("\\")[-1].split(".")[0].replace("-", "_") + boundsSuffix
     weibullScale = ExtractByMask(weibullScale, bounds)
     weibullScale.save(defaultWorkspace + weibullScale_filename)
     # weibull shape
