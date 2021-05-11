@@ -82,7 +82,7 @@ class ClusterTime:
             ycoord = str(XMin) + " " + str(YMax)
             arcpy.CreateFishnet_management(fishnet, origin, ycoord,
                                            self.fishnetSize * 1000, self.fishnetSize * 1000,
-                                           '0', '0', "", "NO_LABELS", "#", "POLYGON")
+                                           '0', '0', "", "NO_LABELS", self.templateRaster, "POLYGON")
             arcpy.AddMessage("Created fishnet")
             fields = arcpy.ListFields(fishnet)
             for field in fields:
