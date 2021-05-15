@@ -1,18 +1,19 @@
 
 import arcpy
 import pandas as pd
+import math
 
 import import_functions.stage4_clustering_fishnet_function as stage4_clustering_fishnet
 
 arcpy.env.overwriteOutput = True
 
-csv_file = pd.read_csv(r"D:\mmeng\mapre\RequiredCSVs\stage3_input_india_solar.csv", header=None)
+csv_file = pd.read_csv(r"D:\mmeng\mapre\RequiredCSVs\stage3_input_india_wind.csv", header=None)
 
 # arcpy.env.workspace = workspace = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\baseScenario_solar.gdb"
 arcpy.env.workspace = workspace = str(csv_file[1][1])
 resource = str(csv_file[1][0])
 # featureclasses = arcpy.ListFeatureClasses("*_areas_attr")
-featureclasses = [fc for fc in arcpy.ListFeatureClasses("*_areas_attr") if not ("fishnet_5_0km" in fc)]
+featureclasses = [fc for fc in arcpy.ListFeatureClasses("*_areas_attr") if not ("fishnet_" in fc)]
 print(workspace)
 print(featureclasses)
 
@@ -34,7 +35,7 @@ def run_it(countryName):
     # scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\Scratch.gdb"
     templateRaster = str(csv_file[1][5])  ## required
     scratch = str(csv_file[1][6])
-    fishnetSize = 100  ## in km
+    fishnetSize = math.sqrt(float(csv_file[1][10]))  ## in km
 
     fields_to_sum_cluster = ["egen", "incap"]  # original field values summed for final clusters/zones
 
