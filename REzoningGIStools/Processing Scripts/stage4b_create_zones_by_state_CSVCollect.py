@@ -15,6 +15,8 @@ zonesclasses = arcpy.ListFeatureClasses("*_areas_attr_zones")
 
 outputfile = str(csv_file[1][1]) + "\\india_zones_combined"
 
+out_xls = "D:\\mmeng\\mapre\\base_india_combined_zones.xlsx"
+
 print(workspace)
 print(zonesclasses)
 print(outputfile)
@@ -52,8 +54,6 @@ for i in range(len(zonesclasses)):
         cur.updateRow(row)
 
 arcpy.Merge_management(zonesclasses, outputfile)
-
-out_xls = "D:\mmeng\mapre\india_combined_zones.xlsx"
 
 # Execute TableToExcel
 arcpy.TableToExcel_conversion(outputfile, out_xls)
