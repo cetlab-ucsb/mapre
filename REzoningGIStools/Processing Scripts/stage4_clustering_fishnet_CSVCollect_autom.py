@@ -41,7 +41,7 @@ def run_it(countryName):
 
     fields_to_average_cluster = ["d_sub", "d_road", "d_water", "m_elev", "m_slope", "m_popden", "m_cf",
                                  "l_road", "l_gen", "l_tra", "j_lulc", "c_coloc", "lt_tra",
-                                 "lt_sub", "m_cf_noloss"]  # original fields averaged for final clusters/zones
+                                 "lt_sub", "m_cf_noloss", "m_resource"]  # original fields averaged for final clusters/zones
 
     # fields_to_average_cluster = ["d_road", "d_water", "m_elev", "m_slope", "m_popden", "m_humfoot", "m_cf",
     #                              "l_road", "l_gen", "d_trans", "d_rail", "d_anyre", "d_airport",
