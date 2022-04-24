@@ -1,0 +1,10 @@
+Workspace,D:\mmeng\mapre\base2022_solar.gdb,file path (output from stage1)
+Projects output,D:\mmeng\mapre\base2022_solar.gdb\solar_4_0_suitability_areas,file path
+Scratch GDB,D:\mmeng\mapre\scratch.gdb,file path
+Template raster,D:\mmeng\mapre\India.gdb\India_elevation500_Projected_Clipped,file path
+Country Bounds,D:\mmeng\mapre\India.gdb\India_country_boundaries_Projected_Clipped,file path
+Geographic unit of analysis,,file path (optional)
+Fishnet size,5,numeral - km
+Fishnet Storage,D:\mmeng\mapre\base2022_solar.gdb,directory path
+Max project area,25,numeral (usually fishnet^2) - km^2
+Min contiguous project area,2,numeral - km^2

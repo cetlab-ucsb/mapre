@@ -1,0 +1,25 @@
+Resource,wind,"[options: wind, solar, CSP]"
+Input project,D:\mmeng\mapre\base2022_wind.gdb,file path
+Output Project,D:\mmeng\mapre\base2022_wind.gdb,file path
+Input resource raster,D:\mmeng\mapre\India.gdb\gwa3_250_wind_capacity_factors_no_losses_100m_in_raster_projected,file path
+Input attribute CSV,D:\mmeng\mapre\RequiredCSVs\inputs_projectAreaAttributes_india_wind.csv,file path
+Template raster,D:\mmeng\mapre\India.gdb\India_elevation500_Projected_Clipped,file path
+Scratch GDB,D:\mmeng\mapre\scratch.gdb,file path
+Renewable resource units,Capacity Factor,"[options: Capacity Factor, W/m2, kWh/m2-day, Wind speed (m/s)]"
+Transmission distance multiplier,1.3,Decimal
+Cell size,500,Numeral
+Area of largest project,625,Numeral
+Capital cost,1250000,Numeral [USD/MW]
+Variable O&M Cost generation,0,Numeral [USD/MWh]
+Fixed O&M cost of generation,15000,Numeral [USD/MW]
+Fixed O&M costs annual escalation rate,0,Numeral
+Efficiency losses,0.15,Numeral
+Outage rate,0.02,Numeral
+Annual output degradation rate,0,Numeral
+Transmission cost,1740,Numeral [USD/MW/km]
+Substation cost,60300,Numeral [USD/pair substations]
+Road cost,407000,Numeral [USD/km]
+Economic discount rate,0.07,Decimal
+Power plant lifetime,25,Numeral [years]
+Land use efficiency,30,Numeral [MW/km2]
+Land use discount factor,0.1,Decimal

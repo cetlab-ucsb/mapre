@@ -1,0 +1,18 @@
+Technology,solar,"[options: wind, solar, CSP]",
+Template Raster,D:\mmeng\mapre\India.gdb\India_elevation500_Projected_Clipped,file path,enter path to DEM data
+Country Bounds,D:\mmeng\mapre\India.gdb\India_country_boundaries_Projected_Clipped,file path,boundary of region of interest
+CSV Input,D:\mmeng\mapre\RequiredCSVs\inputs_siteSuitabilityRasters_india_solar.csv,file path,the path to spreadsheet with exclusion criteria information
+Resource Input,D:\mmeng\mapre\India.gdb\India_solar_wti_Projected_Clipped,file path,raster dataset of resource quality for the region
+Threshold List,4,"[1, 2, 3, 4..]",minimum threshold for resource quality for siting
+Output GDB,D:\mmeng\mapre\base2022_solar.gdb,file path,a geodatabase for output files
+Filename Suffix,suitability,filename e.g. suitability,results file name
+CSV Area Output,D:\mmeng\mapre\processing-outputs\sitesuitability_solar_4,filename.csv,results file name of total and subregional capacity information
+Scratch GDB,D:\mmeng\mapre\scratch.gdb,file path,"If you don't have a gdb preference, you can choose the ""scratch.gdb"" folder in the ReZoningGISTools"
+Raster Output,TRUE,"[options: True, False]",if you would like an additional raster output
+Land Use Efficiency,30,,
+Land Use Discount,0.1,,
+Average Capacity Factor,0.2,,
+Min Area,2,,
+Geographic Units,D:\mmeng\mapre\India.gdb\India_country_boundaries_Projected_Clipped,granular unit of analysis file path,optional - if you wish to split your siting results based on subregional boundaries
+GeoUnits Attribute Name,stateAbv,name,"optional - if splitting results, column name representing name of each subregion"
+Workspace to save subunits,D:\mmeng\mapre\base2022_solar.gdb,file path,optional - if geoUnits-split areas should be individually saved
