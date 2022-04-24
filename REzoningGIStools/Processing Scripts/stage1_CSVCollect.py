@@ -3,7 +3,7 @@
 ## USER SET INPUTS ##
 #####################
 ## Edit the file path to your stage1_input.csv (or different file name) below and run this script
-csv_file_path = r"R:\users\anagha.uppal\MapRE\RequiredCSVs\stage1_input.csv"
+csv_file_path = r"D:\mmeng\mapre\RequiredCSVs\stage1_input_india_solar.csv"
 
 '''
 ############################################################################################################

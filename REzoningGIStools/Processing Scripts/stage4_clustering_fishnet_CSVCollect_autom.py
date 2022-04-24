@@ -7,7 +7,7 @@ import import_functions.stage4_clustering_fishnet_function as stage4_clustering_
 
 arcpy.env.overwriteOutput = True
 
-csv_file = pd.read_csv(r"D:\mmeng\mapre\RequiredCSVs\stage3_input_india_wind.csv", header=None)
+csv_file = pd.read_csv(r"D:\mmeng\mapre\RequiredCSVs\stage4_input_india_solar.csv", header=None)
 
 # arcpy.env.workspace = workspace = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\baseScenario_solar.gdb"
 arcpy.env.workspace = workspace = str(csv_file[1][1])
@@ -29,20 +29,24 @@ def run_it(countryName):
     #####################
 
     in_features = countryName
-    output_features = countryName + "_zones"
+    output_features = countryName + "_100km_zones"
 
     # templateRaster = r"R:\users\anagha.uppal\MapRE" + "\\SAPP.gdb\\SAPP_elevation500_DEMGADM_Projected_Clipped"  ## required
     # scratch = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\Scratch.gdb"
-    templateRaster = str(csv_file[1][5])  ## required
-    scratch = str(csv_file[1][6])
-    fishnetSize = math.sqrt(float(csv_file[1][10]))  ## in km
+    templateRaster = str(csv_file[1][3])  ## required
+    scratch = str(csv_file[1][4])
+    fishnetSize = float(csv_file[1][5])  ## in km
 
     fields_to_sum_cluster = ["egen", "incap"]  # original field values summed for final clusters/zones
 
-    fields_to_average_cluster = ["d_road", "d_water", "m_elev", "m_slope", "m_popden", "m_humfoot", "m_cf",
-                                 "l_road", "l_gen", "d_trans", "d_rail", "d_anyre", "d_airport",
-                                 "m_resource", "m_rangeland", "l_tra", "j_lulc", "c_coloc",
-                                 "lt_tra"]  # original fields averaged for final clusters/zones
+    fields_to_average_cluster = ["d_sub", "d_road", "d_water", "m_elev", "m_slope", "m_popden", "m_cf",
+                                 "l_road", "l_gen", "l_tra", "j_lulc", "c_coloc", "lt_tra",
+                                 "lt_sub", "m_cf_noloss", "m_resource"]  # original fields averaged for final clusters/zones
+
+    # fields_to_average_cluster = ["d_road", "d_water", "m_elev", "m_slope", "m_popden", "m_humfoot", "m_cf",
+    #                              "l_road", "l_gen", "d_trans", "d_rail", "d_anyre", "d_airport",
+    #                              "m_resource", "m_rangeland", "l_tra", "j_lulc", "c_coloc",
+    #                              "lt_tra"]  # original fields averaged for final clusters/zones
 
     analysis = stage4_clustering_fishnet.ClusterTime(workspace, scratch, in_features, output_features,
                                                      templateRaster, fishnetSize, fields_to_sum_cluster,

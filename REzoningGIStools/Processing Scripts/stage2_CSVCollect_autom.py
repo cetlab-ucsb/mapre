@@ -8,7 +8,7 @@ import import_functions.stage2_function as stage2
 ## USER SET INPUTS ##
 #####################
 
-csv_file = pd.read_csv(r"D:\mmeng\mapre\RequiredCSVs\stage2_input_india_wind.csv", header=None)
+csv_file = pd.read_csv(r"D:\mmeng\mapre\RequiredCSVs\stage2_input_india_solar.csv", header=None)
 
 # arcpy.env.workspace = workspace = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\allTiers_wind.gdb"
 arcpy.env.workspace = workspace = str(csv_file[1][0])

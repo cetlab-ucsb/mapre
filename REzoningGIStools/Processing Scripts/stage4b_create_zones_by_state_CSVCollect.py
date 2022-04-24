@@ -6,16 +6,15 @@ import import_functions.stage4_clustering_fishnet_function as stage4_clustering_
 
 arcpy.env.overwriteOutput = True
 
-csv_file = pd.read_csv(r"D:\mmeng\mapre\RequiredCSVs\stage3_input_india_solar.csv", header=None)
+csv_file = pd.read_csv(r"D:\mmeng\mapre\RequiredCSVs\stage4_input_india_solar.csv", header=None)
 
 # arcpy.env.workspace = workspace = r"R:\users\anagha.uppal\MapRE\MapRE_data\OUTPUTS\SAPP\baseScenario_solar.gdb"
 arcpy.env.workspace = workspace = str(csv_file[1][1])
 resource = str(csv_file[1][0])
-zonesclasses = arcpy.ListFeatureClasses("*_areas_attr_zones")
+zonesclasses = arcpy.ListFeatureClasses("*_areas_attr_100km_zones")
 
-outputfile = str(csv_file[1][1]) + "\\india_zones_combined"
-
-out_xls = "D:\\mmeng\\mapre\\base_india_combined_zones.xlsx"
+outputfile = str(csv_file[1][1]) + "\\india_zones_combined_100km"
+out_xls = "D:\mmeng\mapre\\india_combined_zones_solar_20220419_100km.xlsx"
 
 print(workspace)
 print(zonesclasses)

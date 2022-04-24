@@ -5,7 +5,7 @@ import import_functions.stage3_function as stage3
 
 arcpy.env.overwriteOutput = True
 
-csv_file = pd.read_csv(r"D:\mmeng\mapre\RequiredCSVs\stage3_input_india_wind.csv", header=None)
+csv_file = pd.read_csv(r"D:\mmeng\mapre\RequiredCSVs\stage3_input_india_solar.csv", header=None)
 resource = str(csv_file[1][0])
 arcpy.env.workspace = workspace = str(csv_file[1][1])
 
